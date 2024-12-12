@@ -1,0 +1,11 @@
+.SignUpPageWrapper {
+  position: relative;
+  width: 100vw;
+  min-height: 800px;
+  background-color: #ffffff;
+  background-image: url('/public/images_auth/Bottle_SignIn_desktop.svg'), url('/public/images_auth/Background_MainPage.svg');
+  background-repeat: no-repeat;
+  background-size: contain; 
+  background-position: left;
+
+}

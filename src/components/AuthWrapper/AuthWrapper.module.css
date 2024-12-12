@@ -1,0 +1,9 @@
+.AuthWrapper {
+    max-width: 1440px;
+    min-height: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+
+}
