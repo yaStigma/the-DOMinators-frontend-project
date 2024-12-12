@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/the-DOMinators-frontend-project/static/css/main.7acaea2f.css",
+    "main.css": "/the-DOMinators-frontend-project/static/css/main.5c0dddc6.css",
     "main.js": "/the-DOMinators-frontend-project/static/js/main.07d3183d.js",
     "index.html": "/the-DOMinators-frontend-project/index.html",
-    "main.7acaea2f.css.map": "/the-DOMinators-frontend-project/static/css/main.7acaea2f.css.map",
+    "main.5c0dddc6.css.map": "/the-DOMinators-frontend-project/static/css/main.5c0dddc6.css.map",
     "main.07d3183d.js.map": "/the-DOMinators-frontend-project/static/js/main.07d3183d.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
+    "static/css/main.5c0dddc6.css",
     "static/js/main.07d3183d.js"
   ]
 }
