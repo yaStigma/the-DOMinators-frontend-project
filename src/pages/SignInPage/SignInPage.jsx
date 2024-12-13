@@ -3,9 +3,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
-import css from "./SigninPage.module.css";
+import css from "./SignInPage.module.css";
 
-export const SigninPage = () => {
+const SigninPage = () => {
 //   const navigate = useNavigate();
 
   const fields = [
@@ -61,3 +61,4 @@ export const SigninPage = () => {
 </div>
   );
 };
+export default(SigninPage)   //додала експорт по дефолду для навігації (Таня)
