@@ -1,38 +1,15 @@
-@import-normalize; /* bring in normalize.css styles */
-@import './styles/variables.css';
+:root {
+  font-family: Roboto, system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #000;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   margin: 0;
-  font-family: var(--font-family);
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-section {
-  width: 100%;
-}
-
-.container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-@media screen and (min-width: 320px) {
-  .container {
-    max-width: 320px;
-  }
-}
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 768px;
-    padding: 0 32px;
-  }
-}
-@media screen and (min-width: 1440px) {
-  .container {
-    max-width: 1440px;
-    padding: 0 100px;
-  }
 }
