@@ -91,4 +91,29 @@ export const refreshUser = createAsyncThunk(
   }
 );
 
+export const sendResetPasswordEmail = (email) => {
+  return async (dispatch) => {
+    try {
+      // Замените на ваш API запрос для отправки email
+      const response = await fetch('/api/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send reset email");
+      }
+
+      dispatch({ type: 'RESET_PASSWORD_EMAIL_SENT' });
+      
+    } catch (error) {
+      console.error('Error sending reset password email:', error);
+      throw error;
+    }
+  };
+};
+
 
