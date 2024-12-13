@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { signIn } from "../../redux/auth/operations";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +8,7 @@ import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
 import css from "./SignInPage.module.css";
 
 const SigninPage = () => {
+const dispatch = useDispatch();
 const navigate = useNavigate();
 
   const fields = [
@@ -30,7 +33,7 @@ const navigate = useNavigate();
   const handleSignin = async (values) => {
     try {
       // Call backend API for signin
-      console.log("Signin values:", values);
+    await dispatch(signIn(values)); 
     //   navigate("/home");
     } catch (error) {
       console.error("Signin error:", error);

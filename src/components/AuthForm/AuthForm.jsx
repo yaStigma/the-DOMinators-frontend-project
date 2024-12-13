@@ -4,11 +4,10 @@ import css from "./AuthForm.module.css";
 import { useState } from "react";
 
 export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
- const [showPassword, setShowPassword] = useState(false);
- const [showRepeatPassword, setShowRepeatPassword] = useState(false); 
-
- const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
   const toggleRepeatPasswordVisibility = () => {
@@ -45,7 +44,13 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
                 {field.label}
                 <div className={css.passwordWrapper}>
                   <Field
-                    type={field.name === "password" && !showPassword ? "password" : "text"}
+                    type={
+                      field.name === "password" && !showPassword
+                        ? "password"
+                        : field.name === "repeatPassword" && !showRepeatPassword
+                        ? "password"
+                        : "text"
+                    }
                     name={field.name}
                     placeholder={field.placeholder}
                     className={
@@ -61,13 +66,13 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
                       className={css.showPasswordButton}
                     >
                       <img
-                  src={
-                    showPassword
-                      ? "/images_auth/eye.svg"
-                      : "/images_auth/eye-slash.svg"
-                  }
-                  alt={showPassword ? "Hide password" : "Show password"}
-                />
+                        src={
+                          showPassword
+                            ? "/images_auth/eye.svg"
+                            : "/images_auth/eye-slash.svg"
+                        }
+                        alt={showPassword ? "Hide password" : "Show password"}
+                      />
                     </button>
                   )}
                   {field.name === "repeatPassword" && (
@@ -82,7 +87,9 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
                             ? "/images_auth/eye.svg"
                             : "/images_auth/eye-slash.svg"
                         }
-                        alt={showRepeatPassword ? "Hide password" : "Show password"}
+                        alt={
+                          showRepeatPassword ? "Hide password" : "Show password"
+                        }
                       />
                     </button>
                   )}
@@ -99,17 +106,17 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
             {isSubmitting ? "Submitting..." : title}
           </button>
           <div className={css.navLinksContainer}>
-  {navigationLinks?.map((link) => (
-    <button
-      key={link.text}
-      type="button"
-      className={css.navButton}
-      onClick={link.onClick}
-    >
-      {link.text}
-    </button>
-  ))}
-</div>
+            {navigationLinks?.map((link) => (
+              <button
+                key={link.text}
+                type="button"
+                className={css.navButton}
+                onClick={link.onClick}
+              >
+                {link.text}
+              </button>
+            ))}
+          </div>
         </Form>
       )}
     </Formik>

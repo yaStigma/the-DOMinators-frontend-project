@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/auth/operations";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +8,7 @@ import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
 import css from "./SignUpPage.module.css";
 
 const SignupPage = () => {
+const dispatch = useDispatch();
 const navigate = useNavigate();
 
 const fields = [
@@ -41,8 +44,8 @@ const fields = [
   const handleSignup = async (values) => {
     try {
       // Call backend API for signup
-      console.log("Signup values:", values);
-    navigate("/signin"); 
+      await dispatch(signUp(values)); 
+      navigate("/signin"); 
     } catch (error) {
       console.error("Signup error:", error);
       alert("Signup failed. Please try again.");
