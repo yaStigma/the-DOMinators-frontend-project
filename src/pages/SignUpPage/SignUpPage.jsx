@@ -6,7 +6,7 @@ import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
 import css from "./SignUpPage.module.css";
 
 const SignupPage = () => {
-//   const navigate = useNavigate();
+const navigate = useNavigate();
 
 const fields = [
   {
@@ -24,7 +24,7 @@ const fields = [
     label: "Password",
     placeholder: "Password",
     validation: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 6 characters").max(64, "Password must be not more than 64 characters")
       .required("Password is required"),
   },
   {
@@ -42,7 +42,7 @@ const fields = [
     try {
       // Call backend API for signup
       console.log("Signup values:", values);
-    //   navigate("/signin"); 
+    navigate("/signin"); 
     } catch (error) {
       console.error("Signup error:", error);
       alert("Signup failed. Please try again.");
@@ -60,7 +60,7 @@ const fields = [
       navigationLinks={[
         {
           text: "Sign In",
-        //   onClick: () => navigate("/signin"),
+        onClick: () => navigate("/signin"),
         },
       ]}
     />

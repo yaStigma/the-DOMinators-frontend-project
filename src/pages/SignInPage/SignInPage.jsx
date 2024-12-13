@@ -6,7 +6,7 @@ import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
 import css from "./SignInPage.module.css";
 
 const SigninPage = () => {
-//   const navigate = useNavigate();
+const navigate = useNavigate();
 
   const fields = [
     {
@@ -23,7 +23,7 @@ const SigninPage = () => {
       type: "password",
       label: "Password",
       placeholder: "Password",
-      validation: Yup.string().required("Password is required"),
+      validation: Yup.string().min(8, "Password must be at least 6 characters").max(64, "Password must be not more than 64 characters").required("Password is required"),
     },
   ];
 
@@ -49,7 +49,7 @@ const SigninPage = () => {
       navigationLinks={[
         {
           text: "Sign Up",
-        //   onClick: () => navigate("/signup"),
+        onClick: () => navigate("/signup"),
         },
         {
           text: "Forgot your password?",
