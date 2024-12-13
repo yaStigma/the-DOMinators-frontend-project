@@ -1,6 +1,6 @@
 import { AuthForm } from "../../components/AuthForm/AuthForm";
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
 import css from "./ResetPasswordPage.module.css";
