@@ -1,13 +1,25 @@
 {
   "files": {
-    "main.css": "/the-DOMinators-frontend-project/static/css/main.5c0dddc6.css",
-    "main.js": "/the-DOMinators-frontend-project/static/js/main.152436c6.js",
+    "main.css": "/the-DOMinators-frontend-project/static/css/main.be7b7f80.css",
+    "main.js": "/the-DOMinators-frontend-project/static/js/main.de0332d4.js",
+    "static/css/991.478516ec.chunk.css": "/the-DOMinators-frontend-project/static/css/991.478516ec.chunk.css",
+    "static/js/991.d2257b7e.chunk.js": "/the-DOMinators-frontend-project/static/js/991.d2257b7e.chunk.js",
+    "static/css/516.111e8463.chunk.css": "/the-DOMinators-frontend-project/static/css/516.111e8463.chunk.css",
+    "static/js/516.c6ce0c2b.chunk.js": "/the-DOMinators-frontend-project/static/js/516.c6ce0c2b.chunk.js",
+    "static/js/306.17656025.chunk.js": "/the-DOMinators-frontend-project/static/js/306.17656025.chunk.js",
+    "static/media/Bottle_SignIn_desktop.svg": "/the-DOMinators-frontend-project/static/media/Bottle_SignIn_desktop.d33cdb48aba0327c5e36.svg",
+    "static/media/Background_MainPage.svg": "/the-DOMinators-frontend-project/static/media/Background_MainPage.68611ca8e47c8bcd12b2.svg",
     "index.html": "/the-DOMinators-frontend-project/index.html",
-    "main.5c0dddc6.css.map": "/the-DOMinators-frontend-project/static/css/main.5c0dddc6.css.map",
-    "main.152436c6.js.map": "/the-DOMinators-frontend-project/static/js/main.152436c6.js.map"
+    "main.be7b7f80.css.map": "/the-DOMinators-frontend-project/static/css/main.be7b7f80.css.map",
+    "main.de0332d4.js.map": "/the-DOMinators-frontend-project/static/js/main.de0332d4.js.map",
+    "991.478516ec.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.478516ec.chunk.css.map",
+    "991.d2257b7e.chunk.js.map": "/the-DOMinators-frontend-project/static/js/991.d2257b7e.chunk.js.map",
+    "516.111e8463.chunk.css.map": "/the-DOMinators-frontend-project/static/css/516.111e8463.chunk.css.map",
+    "516.c6ce0c2b.chunk.js.map": "/the-DOMinators-frontend-project/static/js/516.c6ce0c2b.chunk.js.map",
+    "306.17656025.chunk.js.map": "/the-DOMinators-frontend-project/static/js/306.17656025.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c0dddc6.css",
-    "static/js/main.152436c6.js"
+    "static/css/main.be7b7f80.css",
+    "static/js/main.de0332d4.js"
   ]
 }
