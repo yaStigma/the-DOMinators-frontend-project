@@ -1,0 +1,75 @@
+.whyDrinkWater {
+  background-color: #ECF2FE;
+  box-shadow: 0 4px 14px 0 #407bff4d;
+  border-radius: 10px;
+  padding: 24px 16px;
+  width: 280px;
+  height: 416px;
+  text-align: left;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  margin-bottom: 12px;
+}
+
+.whyDrinkWater ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.whyDrinkWater li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+
+.whyDrinkWater li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #407bff;
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 375px) {
+  .whyDrinkWater {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .whyDrinkWater {
+    width: 494px;
+    height: 332px;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .whyDrinkWater {
+    background-color: #ECF2FE;
+    box-shadow: 0 4px 14px 0 #407bff4d;
+    border-radius: 10px;
+    padding: 32px 24px;
+    width: 494px;
+    height: 332px;
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 81px;
+  }
+
+}
