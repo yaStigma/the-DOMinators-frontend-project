@@ -1,9 +1,20 @@
-.AuthWrapper {
-    max-width: 1440px;
-    min-height: 800px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
 
-}
+@media screen and (min-width: 320px) {
+    .AuthWrapper {
+        display: block;
+        position: relative;
+        max-width: 320px;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .AuthWrapper {
+        margin: 0;
+        max-width: 768px;
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    .AuthWrapper {
+        max-width: 1216px;
+        min-height: 582px;
+    }
+  }
