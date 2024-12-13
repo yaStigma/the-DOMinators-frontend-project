@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/the-DOMinators-frontend-project/static/css/main.be7b7f80.css",
-    "main.js": "/the-DOMinators-frontend-project/static/js/main.8a5fc7fd.js",
+    "main.js": "/the-DOMinators-frontend-project/static/js/main.c6ef2394.js",
     "static/css/917.d9ce855a.chunk.css": "/the-DOMinators-frontend-project/static/css/917.d9ce855a.chunk.css",
-    "static/js/917.b0b6828f.chunk.js": "/the-DOMinators-frontend-project/static/js/917.b0b6828f.chunk.js",
+    "static/js/917.80d704c7.chunk.js": "/the-DOMinators-frontend-project/static/js/917.80d704c7.chunk.js",
     "static/css/991.478516ec.chunk.css": "/the-DOMinators-frontend-project/static/css/991.478516ec.chunk.css",
     "static/js/991.d2257b7e.chunk.js": "/the-DOMinators-frontend-project/static/js/991.d2257b7e.chunk.js",
     "static/css/516.111e8463.chunk.css": "/the-DOMinators-frontend-project/static/css/516.111e8463.chunk.css",
@@ -21,9 +21,9 @@
     "static/media/Background_MainPage.svg": "/the-DOMinators-frontend-project/static/media/Background_MainPage.68611ca8e47c8bcd12b2.svg",
     "index.html": "/the-DOMinators-frontend-project/index.html",
     "main.be7b7f80.css.map": "/the-DOMinators-frontend-project/static/css/main.be7b7f80.css.map",
-    "main.8a5fc7fd.js.map": "/the-DOMinators-frontend-project/static/js/main.8a5fc7fd.js.map",
+    "main.c6ef2394.js.map": "/the-DOMinators-frontend-project/static/js/main.c6ef2394.js.map",
     "917.d9ce855a.chunk.css.map": "/the-DOMinators-frontend-project/static/css/917.d9ce855a.chunk.css.map",
-    "917.b0b6828f.chunk.js.map": "/the-DOMinators-frontend-project/static/js/917.b0b6828f.chunk.js.map",
+    "917.80d704c7.chunk.js.map": "/the-DOMinators-frontend-project/static/js/917.80d704c7.chunk.js.map",
     "991.478516ec.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.478516ec.chunk.css.map",
     "991.d2257b7e.chunk.js.map": "/the-DOMinators-frontend-project/static/js/991.d2257b7e.chunk.js.map",
     "516.111e8463.chunk.css.map": "/the-DOMinators-frontend-project/static/css/516.111e8463.chunk.css.map",
@@ -32,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.be7b7f80.css",
-    "static/js/main.8a5fc7fd.js"
+    "static/js/main.c6ef2394.js"
   ]
 }
