@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import { AuthForm } from '../AuthForm/AuthForm';
 import * as Yup from 'yup'; 
@@ -37,21 +37,39 @@ export const SendResetEmailModal = ({ onClose }) => {
 
   return (
     <Modal
-      isOpen={true}
-      onRequestClose={onClose} 
-      contentLabel="Reset Password Modal"
-      className={css.ModalContent}
-      overlayClassName={css.ModalOverlay}
-    >
-      <div className={css.ModalWrapper}>
- 
-        <AuthForm
-          title="Send Reset Email"
-          fields={fields}
-          onSubmit={handleSendResetEmail}
-        />
-        <button onClick={onClose} className={css.CloseButton}>Close</button>
-      </div>
-    </Modal>
+  isOpen={true}
+  onRequestClose={onClose} 
+  contentLabel="Reset Password Modal"
+  className={css.modalContent}  
+  overlayClassName={css.modalOverlay}
+  style={{
+    content: {
+      width: '500px', 
+      height: '300px', 
+      padding: '20px',
+      borderRadius: '10px',
+      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
+      position: 'absolute',
+      left: '50%',
+      transform: 'translate(-50%, 50%)',
+    },
+    overlay: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    }
+  }}
+>
+  <div className={css.modalWrapper}>
+    <AuthForm
+      title="Reset your Password"
+      fields={fields}
+      onSubmit={handleSendResetEmail}
+      className={css.formContainer}
+    />
+    <button onClick={onClose} className={css.CloseButton}>Close</button>
+  </div>
+</Modal>
   );
 };

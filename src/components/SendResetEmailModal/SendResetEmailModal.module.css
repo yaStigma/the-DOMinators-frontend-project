@@ -1,34 +1,51 @@
-.ReactModalPortal {
-    width: 400px;
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+ /* Обертка формы */
+ .formContainer {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px;
+    margin-left: 0;
   }
-  
-  .modal-content {
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    max-width: 400px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .modal-wrapper {
-    text-align: center;
-  }
-  
+
   .CloseButton {
     position: absolute;
     right: 0;
     margin-right: 24px;
   }
+
+  @media screen and (min-width: 320px) {
+    .formContainer {
+        width: 280px;
+        padding: 0;
+      }
+  }
+
+  @media screen and (min-width: 768px) {
+ 
+.formContainer {
+  width: 336px;
+  
+}
+
+
+.btn {
+  height: 44px;
+  padding: 10px 30px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+
+}
+@media screen and (min-width: 1440px) {
+  .formContainer {
+    width: 384px;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    }
+}
+
