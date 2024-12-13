@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import css from "./WaterConsumptionTracker.module.css";
 
 const WaterConsumptionTracker = () => {
+   const navigate = useNavigate();
+
   return (
     <div className={css.waterTracker}>
       <h1>Water consumption tracker</h1>
@@ -27,7 +30,7 @@ const WaterConsumptionTracker = () => {
           <span>Personal rate setting</span>
         </div>
       </div>
-      <button onClick={() => window.location.href = "/signup"}>
+      <button onClick={() => navigate('/signup')}>
         Try tracker
       </button>
     </div>
