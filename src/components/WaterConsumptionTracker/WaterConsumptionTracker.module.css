@@ -59,7 +59,7 @@ button {
   padding: 10px 30px;
   width: 280px;
   height: 36px;
-  /* cursor: url('/public/foto/mdi_cursor-pointer.png'), auto; */
+  cursor: url('/public/welcomePageFoto/mdi_cursor-pointer.png'), auto;
   box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
   background: #407bff;
   color: #fff;
