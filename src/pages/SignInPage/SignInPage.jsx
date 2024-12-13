@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { signIn } from "../../redux/auth/operations";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +8,8 @@ import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
 import css from "./SignInPage.module.css";
 
 const SigninPage = () => {
-//   const navigate = useNavigate();
+const dispatch = useDispatch();
+const navigate = useNavigate();
 
   const fields = [
     {
@@ -23,14 +26,14 @@ const SigninPage = () => {
       type: "password",
       label: "Password",
       placeholder: "Password",
-      validation: Yup.string().required("Password is required"),
+      validation: Yup.string().min(8, "Password must be at least 6 characters").max(64, "Password must be not more than 64 characters").required("Password is required"),
     },
   ];
 
   const handleSignin = async (values) => {
     try {
       // Call backend API for signin
-      console.log("Signin values:", values);
+    await dispatch(signIn(values)); 
     //   navigate("/home");
     } catch (error) {
       console.error("Signin error:", error);
@@ -49,7 +52,7 @@ const SigninPage = () => {
       navigationLinks={[
         {
           text: "Sign Up",
-        //   onClick: () => navigate("/signup"),
+        onClick: () => navigate("/signup"),
         },
         {
           text: "Forgot your password?",
