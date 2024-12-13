@@ -18,19 +18,42 @@ input[type="password"] {
   appearance: none;
 }
 
+@media screen and (min-width: 320px) {
+  /* Обертка формы */
+.formContainer {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--primery-color-black);
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  opacity: 0.6;
+  width: 100%;
+}
+
 /* Кнопки */
 .btn {
   width: 100%;
-  height: 44px;
-  padding: 10px 30px;
+  height: 36px;
+  padding: 8px 30px;
   border-radius: 10px;
   background: var(--primery-color-blue);
   color: var(--primery-color-white);
   border: none;
   box-shadow: 0px 4px 8px 0px #407BFF57;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 20px;
   text-align: center;
   transition: box-shadow 0.3s ease;
 }
@@ -44,8 +67,6 @@ input[type="password"] {
 }
 
 /* Поля ввода */
-
-
 .formField, .maskedPassword {
   width: 100%;
   height: 44px;
@@ -87,28 +108,6 @@ input[type="password"] {
 .error {
   color: var(--secondary-color-3);
   font-size: 14px;
-}
-
-/* Обертка формы */
-.formContainer {
-  width: 384px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 0 auto;
-  gap: 16px;
-}
-
-.formLabel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: var(--primery-color-black);
-  font-family: Roboto, sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 24px;
-  opacity: 0.6;
-  width: 100%;
 }
 
 /* Заголовок формы */
@@ -172,3 +171,43 @@ h2 {
 .navButton:hover {
   color: var(--secondary-color-5);
 }
+
+}
+
+@media screen and (min-width: 768px) {
+    /* Обертка формы */
+.formContainer {
+  width: 336px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Кнопки */
+.btn {
+  height: 44px;
+  padding: 10px 30px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+}
+@media screen and (min-width: 1440px) {
+  .formContainer {
+    width: 384px;
+    position: absolute;
+    padding-right: 216px;
+    right: 0;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+
+
+
+
+
+
+

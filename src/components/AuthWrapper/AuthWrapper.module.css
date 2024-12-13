@@ -3,18 +3,20 @@
     .AuthWrapper {
         display: block;
         position: relative;
-        max-width: 320px;
+        width: 320px;
+        margin: 0 auto;
     }
   }
   @media screen and (min-width: 768px) {
     .AuthWrapper {
-        margin: 0;
-        max-width: 768px;
+        width: 768px;
+        height: 100%;
     }
   }
   @media screen and (min-width: 1440px) {
     .AuthWrapper {
-        max-width: 1216px;
-        min-height: 582px;
+        width: 1216px;
+        height: 680px;
+        margin: 0 0 0 auto;
     }
   }
