@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import css from "./WaterConsumptionTracker.module.css";
 
 const WaterConsumptionTracker = () => {
+   const navigate = useNavigate();
+
   return (
     <div className={css.waterTracker}>
       <h1>Water consumption tracker</h1>
@@ -10,24 +13,24 @@ const WaterConsumptionTracker = () => {
         <div className={css.trackerBenefits}>
         <div>
           <svg className={css.icon}>
-            <use href="/assets/welcomeIcons.svg#icon-habit" />
+            <use href="./assets/welcomeIcons.svg#icon-habit" />
           </svg>
           <span>Habit drive</span>
         </div>
         <div>
           <svg className={css.icon}>
-            <use href="/assets/welcomeIcons.svg#icon-statistics" />
+            <use href="./assets/welcomeIcons.svg#icon-statistics" />
           </svg>
           <span>View statistics</span>
         </div>
         <div>
           <svg className={css.icon}>
-            <use href="/assets/welcomeIcons.svg#icon-settings" />
+            <use href="./assets/welcomeIcons.svg#icon-settings" />
           </svg>
           <span>Personal rate setting</span>
         </div>
       </div>
-      <button onClick={() => window.location.href = "/signup"}>
+      <button onClick={() => navigate('/signup')}>
         Try tracker
       </button>
     </div>
