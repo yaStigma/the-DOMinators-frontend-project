@@ -1,11 +1,9 @@
-.waterTracker {
+.waterConsumptionTracker {
   text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  margin-bottom: 40px;
 }
 
-h1 {
+.waterConsumptionTrackerTitle {
   font-family: Roboto, bold, sans-serif;
   font-size: 28px;
   font-weight: 700;
@@ -14,10 +12,8 @@ h1 {
   margin-bottom: 16px;
 }
 
-p {
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 125%;
+.waterConsumptionTrackerDescription {
+  width: 197px;
   font-size: 24px;
   font-weight: 400;
   line-height: 125%;
@@ -25,15 +21,7 @@ p {
   margin-bottom: 24px;
 }
 
-.trackerBenefits {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-h2 {
+.subtitle {
   margin: 0;
   font-weight: 500;
   font-size: 18px;
@@ -41,19 +29,31 @@ h2 {
   margin-bottom: 12px;
 }
 
-.trackerBenefits div {
+.waterTrackerConsumptionBenefits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.waterTrackerConsumptionBenefit {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.icon {
+.waterTrackerConsumptionBenefitText {
+  width: auto;
+}
+
+.waterTrackerConsumptionIcon {
   width: 32px;
   height: 32px;
   margin-right: 8px;
 }
 
-button {
+.waterTrackerConsumptionButton {
   border: none;
   border-radius: 10px;
   padding: 10px 30px;
@@ -66,55 +66,60 @@ button {
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-button:hover,
-button:focus {
+.waterTrackerConsumptionButton:hover,
+.waterTrackerConsumptionButton:focus {
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
 }
 
-button:active {
+.waterTrackerConsumptionButton:active {
   box-shadow: none;
 }
 
+/* Media Queries */
 @media screen and (min-width: 375px) {
-  button {
+  .waterTrackerConsumptionButton {
     margin: 0 auto;
   }
 
-  p {
+  .waterConsumptionTrackerDescription {
     width: 197px;
     height: 60px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  h1 {
+  .waterConsumptionTracker {
+    margin-bottom: 60px;
+  }
+
+  .waterConsumptionTrackerTitle {
     font-size: 36px;
     line-height: 117%;
   }
 
-  p {
+  .waterConsumptionTrackerDescription {
     width: 404px;
     height: 32px;
     font-size: 26px;
     line-height: 123%;
   }
 
-  .trackerBenefits {
+  .waterTrackerConsumptionBenefits {
     flex-direction: row;
     align-content: space-between;
   }
 
-  span {
+  .waterTrackerConsumptionBenefitText {
     width: 176px;
   }
 
-  .icon {
+  .waterTrackerConsumptionIcon {
     width: 40px;
     height: 40px;
     margin-right: 8px;
   }
 
-  button {
+  .waterTrackerConsumptionButton {
     width: 336px;
     height: 44px;
     margin: 0;
@@ -122,14 +127,13 @@ button:active {
 }
 
 @media screen and (min-width: 1440px) {
-
-  h1 {
+  .waterConsumptionTrackerTitle {
     width: 439px;
     height: 38px;
     font-size: 34px;
   }
 
-  p {
+  .waterConsumptionTrackerDescription {
     width: 404px;
     height: 32px;
     margin: 0;
@@ -139,27 +143,14 @@ button:active {
     margin-bottom: 24px;
   }
 
-  .trackerBenefits {
-    display: flex;
+  .waterTrackerConsumptionBenefits {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
     margin-bottom: 24px;
   }
 
-  .trackerBenefits div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 8px;
-  }
-
-  button {
+  .waterTrackerConsumptionButton {
     margin: 0;
     width: 384px;
     height: 44px;
