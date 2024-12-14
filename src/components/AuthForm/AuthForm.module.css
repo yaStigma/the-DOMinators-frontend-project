@@ -110,7 +110,7 @@ input[type="password"] {
   }
   
   /* Заголовок формы */
-  h2 {
+  .title {
     margin-bottom: 0;
     font-family: Roboto, sans-serif;
     font-size: 26px;
