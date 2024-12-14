@@ -6,31 +6,31 @@ const WaterConsumptionTracker = () => {
    const navigate = useNavigate();
 
   return (
-    <div className={css.waterTracker}>
-      <h1>Water consumption tracker</h1>
-      <p>Record daily water intake and track</p>
-         <h2>Tracker Benefits</h2>
-        <div className={css.trackerBenefits}>
-        <div>
-          <svg className={css.icon}>
+    <div className={css.waterConsumptionTracker}>
+      <h1 className={css.waterConsumptionTrackerTitle}>Water consumption tracker</h1>
+      <p className={css.waterConsumptionTrackerDescription}>Record daily water intake and track</p>
+         <h2 className={css.subtitle}>Tracker Benefits</h2>
+        <div className={css.waterTrackerConsumptionBenefits}>
+        <div className={css.waterTrackerConsumptionBenefit}>
+          <svg className={css.waterTrackerConsumptionIcon}>
             <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#icon-habit" />
           </svg>
-          <span>Habit drive</span>
+          <span className={css.waterTrackerConsumptionBenefitText}>Habit drive</span>
         </div>
-        <div>
-          <svg className={css.icon}>
+        <div className={css.waterTrackerConsumptionBenefit}>
+          <svg className={css.waterTrackerConsumptionIcon}>
             <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#icon-statistics" />
           </svg>
-          <span>View statistics</span>
+          <span className={css.waterTrackerConsumptionBenefitText}>View statistics</span>
         </div>
-        <div>
-          <svg className={css.icon}>
+        <div className={css.waterTrackerConsumptionBenefit}>
+          <svg className={css.waterTrackerConsumptionIcon}>
             <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#icon-settings" />
           </svg>
-          <span>Personal rate setting</span>
+          <span className={css.waterTrackerConsumptionBenefitText}>Personal rate setting</span>
         </div>
       </div>
-      <button onClick={() => navigate('/signup')}>
+      <button className={css.waterTrackerConsumptionButton} onClick={() => navigate('/signup')}>
         Try tracker
       </button>
     </div>

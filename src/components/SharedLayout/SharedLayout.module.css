@@ -1,9 +1,9 @@
 .wrapper {
   width: 100%;
-  display: flex;
+ /*display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap;*/
   align-content: center;
-  justify-content: center;
-  align-items: center;
+  /*justify-content: center;
+  align-items: center;*/
 }
