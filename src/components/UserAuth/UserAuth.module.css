@@ -19,6 +19,8 @@
         justify-content: center;
         display: flex;
         height: 48px;
+        width:90px;
+        gap: 8px;
     }
 }
 @media screen and (min-width:768px) {
