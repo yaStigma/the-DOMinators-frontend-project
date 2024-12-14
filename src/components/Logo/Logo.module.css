@@ -1,0 +1,15 @@
+.logo {
+    font-family: var(--font-family);
+font-weight: 700;
+font-size: 12px;
+text-transform: uppercase;
+color: var(--primery-color-blue);
+width: 58px;
+/* padding: 10px 0; */
+justify-content: center;
+}
+.main {
+    display: flex;
+    gap:4px;
+    width: 102px;
+}

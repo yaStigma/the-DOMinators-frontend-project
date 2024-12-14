@@ -1,0 +1,15 @@
+@media screen and (max-width: 768px) {
+    .HeaderDiv {
+     min-width: 280px;
+     display: flex;
+     gap: 58px;
+     justify-content: space-around;
+     padding-top:8px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .HeaderDiv {
+        width: 704px;
+        padding-right: auto;
+    }
+}
