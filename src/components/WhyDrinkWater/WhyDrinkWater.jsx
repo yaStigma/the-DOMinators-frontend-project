@@ -4,15 +4,15 @@ import css from  "./WhyDrinkWater.module.css";
 const WhyDrinkWater = () => {
   return (
     <div className={css.whyDrinkWater}>
-      <h2>Why drink water</h2>
-      <ul>
-        <li>Supply of nutrients to all organs</li>
-        <li>Providing oxygen to the lungs</li>
-        <li>Maintaining the work of the heart</li>
-        <li>Release of processed substances</li>
-        <li>Ensuring the stability of the internal environment</li>
-        <li>Maintaining within the normal temperature</li>
-        <li>Maintaining an immune system capable of resisting disease</li>
+      <h2 className={css.whyDrinkWaterTitle}>Why drink water</h2>
+      <ul className={css.whyDrinkWaterList}>
+        <li className={css.whyDrinkWaterItem}>Supply of nutrients to all organs</li>
+        <li className={css.whyDrinkWaterItem}>Providing oxygen to the lungs</li>
+        <li className={css.whyDrinkWaterItem}>Maintaining the work of the heart</li>
+        <li className={css.whyDrinkWaterItem}>Release of processed substances</li>
+        <li className={css.whyDrinkWaterItem}>Ensuring the stability of the internal environment</li>
+        <li className={css.whyDrinkWaterItem}>Maintaining within the normal temperature</li>
+        <li className={css.whyDrinkWaterItem}>Maintaining an immune system capable of resisting disease</li>
       </ul>
     </div>
   );
