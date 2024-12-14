@@ -38,7 +38,12 @@ const SigninPage = () => {
   const handleSignin = async (values) => {
     try {
       // Вызов API для авторизации
-      await dispatch(signIn(values));
+      const payload = {
+        email: values.email,
+        password: values.password,
+      };
+      await dispatch(signIn(payload));
+
       // navigate("/home");
     } catch (error) {
       console.error("Signin error:", error);

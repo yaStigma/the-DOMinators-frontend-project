@@ -23,12 +23,15 @@ export const SendResetEmailModal = ({ onClose }) => {
 
   const handleSendResetEmail = async (values, { setSubmitting }) => {
     try {
-      await dispatch(sendResetPasswordEmail(values.email)); 
-      alert("Password reset email sent!");
+      const payload = {
+        email: values.email,
+      };
+      await dispatch(sendResetPasswordEmail(payload)); 
+
       onClose();
     } catch (error) {
       console.error("Error sending reset email:", error);
-      alert("Something went wrong. Please try again.");
+
     } finally {
       setSubmitting(false);
     }
