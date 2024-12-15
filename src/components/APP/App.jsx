@@ -1,9 +1,9 @@
-
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import SharedLayout from "components/SharedLayout/SharedLayout";
 // import PrivateRoute from "./PrivateRoute";
 // import RestrictedRoute from "./RestrictedRoute";
+import Loader from "components/Loader/Loader";
 
 
 export default function App() {

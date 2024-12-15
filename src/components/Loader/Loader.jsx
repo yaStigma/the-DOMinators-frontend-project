@@ -1,11 +1,21 @@
 import React from 'react';
-import css from './Loader.module.css';
 
-export default function Loader({ children }) {
-  return (
-    <div className={css.loader}>
-      <div className={css.spinner}></div>
-      <p>{children}</p>
-    </div>
-  );
-}
+const Loader = () => (
+  <div style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 9999,
+  }}>
+    <div className="spinner" />
+  </div>
+);
+
+export default Loader;
+
