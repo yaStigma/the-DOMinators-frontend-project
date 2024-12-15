@@ -30,6 +30,8 @@
 @media screen and (min-width: 375px) {
   .welcomePage {
     background-size: cover;
+    background-position: center;
+    background-size: cover;
   }
 
   .welcomePageWrapper {
