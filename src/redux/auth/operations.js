@@ -16,7 +16,7 @@ export const signUp = createAsyncThunk(
   "user/signup",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/user/signup", credentials);
+      const res = await axios.post("/user/signup",credentials);
       toast.success("The new user was created successfully!", {
         duration: 4000,
         position: "top-right",
