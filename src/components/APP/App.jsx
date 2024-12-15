@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import SharedLayout from "components/SharedLayout/SharedLayout";
+import { ToastContainer} from "react-toastify"; //добавила для всплывающих окон (Надя)
+import 'react-toastify/dist/ReactToastify.css';
 // import PrivateRoute from "./PrivateRoute";
 // import RestrictedRoute from "./RestrictedRoute";
 import Loader from "components/Loader/Loader";
@@ -12,8 +14,25 @@ export default function App() {
   const SignupPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
   // const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));  //исправить путь на верный
+
   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   return(
+    <> 
+{/* добавила для всплывающих окон (Надя) */}
+    <ToastContainer
+    toastClassName="toast-custom"
+    progressClassName="toast-custom-progress"
+    position="bottom-left"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover 
+    theme="light"
+  />
 <Suspense fallback={<Loader/>}>
   <Routes>
     <Route path="/" element={<SharedLayout />}>
@@ -30,6 +49,7 @@ export default function App() {
         <Route path="*"  element={<NotFoundPage />} />
   </Routes>
 </Suspense>
+</>
   )
 };
 

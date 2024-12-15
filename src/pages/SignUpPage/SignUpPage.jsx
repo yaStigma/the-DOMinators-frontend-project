@@ -41,11 +41,17 @@ const fields = [
   },
 ];
 
-  const handleSignup = async (values) => {
+  const handleSignup = async (values, event) => {
     try {
       // Call backend API for signup
-      await dispatch(signUp(values)); 
-      navigate("/signin"); 
+      const payload = {
+        email: values.email,
+        password: values.password,
+        repeatPassword: values.repeatPassword,
+      };
+      await dispatch(signUp(payload)); 
+
+    // navigate("/home");
     } catch (error) {
       console.error("Signup error:", error);
       alert("Signup failed. Please try again.");
