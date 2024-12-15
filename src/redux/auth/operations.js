@@ -13,7 +13,7 @@ const clearAuthHeader = () => {
 };
 
 export const signUp = createAsyncThunk(
-  "auth/signup",
+  "user/signup",
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post("/signup", credentials);
@@ -53,7 +53,7 @@ export const signIn = createAsyncThunk(
     }
   }
 );
-export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/logout");
 
@@ -72,7 +72,7 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 });
 
 export const refreshUser = createAsyncThunk(
-  "auth/refresh",
+  "user/refresh",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;

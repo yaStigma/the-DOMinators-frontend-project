@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signUp, signIn, logOut, refreshUser, sendResetPasswordEmail } from "./operations";
 
 const authSlice = createSlice({
-  name: "auth",
+  name: "user",
   initialState: {
     user: {
       name: null,

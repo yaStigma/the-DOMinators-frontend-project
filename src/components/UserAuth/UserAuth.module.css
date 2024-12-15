@@ -1,0 +1,46 @@
+@media screen and (max-width:768px) {
+    .btn {
+        font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 133%;
+    color: var(--primery-color-blue);
+    border: none;
+    background-color: inherit;
+    /* padding-top: 14px; */
+    justify-content: center;
+    }
+    .icon {
+        /* justify-content: center;
+        padding: 10px 0; */
+        padding-top: 10px;
+    }
+    .wrapper {
+        justify-content: center;
+        display: flex;
+        height: 48px;
+        width:90px;
+        gap: 8px;
+    }
+}
+@media screen and (min-width:768px) {
+    .btn {
+        font-size: 18px;
+    }
+}
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke-width: 1px;
+    stroke: var(--primery-color-black);
+  }
+  .logo {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
