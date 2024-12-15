@@ -58,8 +58,8 @@
 
   .welcomePageWrapper {
     width: 704px;
-    min-height: 646px;
-    /*gap: 60px;*/
+    /*min-height: 646px;
+    gap: 60px;*/
     padding: 0;
   }
 }
@@ -76,6 +76,7 @@
       url('/public/welcomePageFoto/Background_element_Main_Page_desk_1x.png');
     background-repeat: no-repeat, no-repeat;
     background-position:  bottom, top;
+    background-size: auto;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -95,8 +96,8 @@
     /*min-height: 366px;*/
     margin: 0 auto;
     padding-top: 31px;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 0;
   }
 }
