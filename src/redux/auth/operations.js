@@ -13,10 +13,10 @@ const clearAuthHeader = () => {
 };
 
 export const signUp = createAsyncThunk(
-  "user/signup",
+  "auth/signup",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/user/signup", credentials);
+      const res = await axios.post("/signup", credentials);
       toast.success("The new user was created successfully!", {
         duration: 4000,
         position: "top-right",
@@ -37,7 +37,7 @@ export const signIn = createAsyncThunk(
   "auth/signin",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/user/signin", credentials);
+      const res = await axios.post("/signin", credentials);
       toast.success("You have successfully logged in.", {
         duration: 4000,
         position: "top-right",
@@ -53,9 +53,9 @@ export const signIn = createAsyncThunk(
     }
   }
 );
-export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
+export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await axios.post("/user/logout");
+    await axios.post("/logout");
 
     clearAuthHeader();
     toast.success("Logged out successfully!", {
@@ -72,7 +72,7 @@ export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
 });
 
 export const refreshUser = createAsyncThunk(
-  "user/refresh",
+  "auth/refresh",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
@@ -83,7 +83,7 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const res = await axios.get("/user/current");
+      const res = await axios.get("/current");
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -94,7 +94,7 @@ export const refreshUser = createAsyncThunk(
 export const sendResetPasswordEmail = (email) => {
   return async (dispatch) => {
     try {
-      const response = await fetch('/user/password-reset', {
+      const response = await fetch('/password-reset', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
