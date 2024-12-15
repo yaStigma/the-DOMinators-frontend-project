@@ -1,4 +1,3 @@
-
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import SharedLayout from "components/SharedLayout/SharedLayout";
@@ -6,6 +5,7 @@ import { ToastContainer} from "react-toastify"; //добавила для всп
 import 'react-toastify/dist/ReactToastify.css';
 // import PrivateRoute from "./PrivateRoute";
 // import RestrictedRoute from "./RestrictedRoute";
+import Loader from "components/Loader/Loader";
 
 
 export default function App() {
@@ -15,8 +15,9 @@ export default function App() {
   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
   // const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));  //исправить путь на верный
 
+  const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   return(
-<> 
+    <> 
 {/* добавила для всплывающих окон (Надя) */}
     <ToastContainer
     toastClassName="toast-custom"
@@ -32,8 +33,7 @@ export default function App() {
     pauseOnHover 
     theme="light"
   />
-
-<Suspense fallback={null}>
+<Suspense fallback={<Loader/>}>
   <Routes>
     <Route path="/" element={<SharedLayout />}>
     <Route index element={<WelcomePage />} />
@@ -45,8 +45,8 @@ export default function App() {
       {/* <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> */}
       {/* <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} /> */}
       {/* <Route path="home" element={ <PrivateRoute component={<HomePage/>} redirectTo="/signin" /> } /> */}
-      <Route path="*" element={<div>Page not found</div>} />
-    </Route>
+        </Route>
+        <Route path="*"  element={<NotFoundPage />} />
   </Routes>
 </Suspense>
 </>

@@ -16,7 +16,7 @@ export const signUp = createAsyncThunk(
   "user/signup",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/signup",credentials);
+      const res = await axios.post("/signup", credentials);
       toast.success("The new user was created successfully!", {
         duration: 4000,
         position: "top-right",
@@ -37,7 +37,7 @@ export const signIn = createAsyncThunk(
   "auth/signin",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/user/signin", credentials);
+      const res = await axios.post("/signin", credentials);
       toast.success("You have successfully logged in.", {
         duration: 4000,
         position: "top-right",
@@ -55,7 +55,7 @@ export const signIn = createAsyncThunk(
 );
 export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
-    await axios.post("/user/logout");
+    await axios.post("/logout");
 
     clearAuthHeader();
     toast.success("Logged out successfully!", {
@@ -83,7 +83,7 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const res = await axios.get("/user/current");
+      const res = await axios.get("/current");
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -91,36 +91,37 @@ export const refreshUser = createAsyncThunk(
   }
 );
 
-export const sendResetPasswordEmail = (email) => {
-  return async (dispatch) => {
+export const sendResetPasswordEmail = createAsyncThunk(
+  "auth/sendResetPasswordEmail",
+  async (email, thunkAPI) => {
     try {
-      const response = await fetch('/user/password-reset', {
+      const response = await fetch('/password-reset', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        
         body: JSON.stringify({ email }),
       });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || "Failed to send reset email");
+      }
+
       toast.success("Reset password email was successfully sent!", {
         duration: 4000,
         position: "top-right",
       });
-      if (!response.ok) {
-        throw new Error("Failed to send reset email");
-      }
 
-      dispatch({ type: 'RESET_PASSWORD_EMAIL_SENT' });
-      
+      return true; 
     } catch (error) {
-      toast.error("Error sending reset password email", {
+      toast.error(`Error sending reset password email: ${error.message}`, {
         duration: 4000,
         position: "top-right",
-      })
-      console.error('Error sending reset password email:', error);
-      throw error;
+      });
+      return thunkAPI.rejectWithValue(error.message); 
     }
-  };
-};
+  }
+);
 
 
