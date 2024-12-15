@@ -38,7 +38,7 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
     >
       {({ errors, touched, isSubmitting }) => (
         <Form className={css.formContainer} autoComplete="off">
-          <h2>{title}</h2>
+          <h2 className={css.title}>{title}</h2>
           {fields.map((field) => (
             <div key={field.name} className={css.formFieldWrap}>
               <label className={css.formLabel}>

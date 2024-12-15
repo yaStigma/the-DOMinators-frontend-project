@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signUp, signIn, logOut, refreshUser } from "./operations";
 
 const authSlice = createSlice({
-  name: "auth",
+  name: "user",
   initialState: {
     user: {
       name: null,
@@ -15,8 +15,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.user = { email: action.payload.data.email };
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
