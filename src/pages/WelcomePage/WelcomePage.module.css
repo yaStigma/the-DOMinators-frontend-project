@@ -2,8 +2,7 @@
   background-color: #fff;
   background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_1x.png');
   background-repeat: no-repeat;
-  background-position: center bottom;
-  margin: 0;
+  background-position: bottom;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -12,19 +11,19 @@
   .welcomePage {
     background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_2x.png');
     background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: cover;
+    background-position: bottom;
+    /*background-size: cover;*/
   }
 }
 
 .welcomePageWrapper {
   width: 280px;
-  min-height: 952px;
-  padding: 72px 0;
+ /* min-height: 952px;*/
+  padding: 24px 0 40px;
   margin: 0 auto;
-  display: flex;
+ /* display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 40px;*/
 }
 
 @media screen and (min-width: 375px) {
@@ -39,12 +38,12 @@
 
 @media screen and (min-width: 768px) {
   .welcomePage {
-    width: 768px;
-    padding: 104px 12px 50px;
+    padding: 20px 0 50px;
+    margin-top: 20px;
     background-image:
       url('/public/welcomePageFoto/Background_Main_Page_tab_1x.png');
-    background-position: center top;
-    background-size: contain;
+    background-position: bottom;
+    /*background-size: contain;*/
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -52,15 +51,15 @@
   (min-resolution: 2dppx) {
     .welcomePage {
       background-image: url('/public/welcomePageFoto/Background_Main_Page_tab_2x.png');
-      background-position: center top;
-      background-size: contain;
+      background-position: bottom;
+     /* background-size: contain;*/
     }
   }
 
   .welcomePageWrapper {
     width: 704px;
-    min-height: 646px;
-    gap: 60px;
+    /*min-height: 646px;
+    gap: 60px;*/
     padding: 0;
   }
 }
@@ -68,13 +67,16 @@
 @media screen and (min-width: 1440px) {
   .welcomePage {
     width: 1440px;
-    height: 800px;
-    padding: 109px 0;
+    height: 700px;
+    /*padding: 109px 0;*/
+    padding: 0;
+    margin-top: 49px;
     background-image:
       url('/public/welcomePageFoto/Background_Main_Page.png'),
       url('/public/welcomePageFoto/Background_element_Main_Page_desk_1x.png');
     background-repeat: no-repeat, no-repeat;
-    background-position: center bottom, center;
+    background-position:  bottom, top;
+    background-size: auto;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -84,17 +86,18 @@
       background-image: url('/public/welcomePageFoto/Background_Main_Page_2x.png'),
         url('/public/welcomePageFoto/Background_element_Main_Page_desk_2x.png');
       background-repeat: no-repeat, no-repeat;
-      background-position: center bottom, center;
+      background-position: bottom, top;
     }
   }
 
   .welcomePageWrapper {
     width: 1014px;
-    min-height: 366px;
+    height: 362px;
+    /*min-height: 366px;*/
     margin: 0 auto;
     padding-top: 31px;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 0;
   }
 }
