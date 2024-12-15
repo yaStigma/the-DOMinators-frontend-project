@@ -21,8 +21,8 @@ const UserLogo = () => {
       
   return (
     <div className={css.wrapper}>
- <div className={css.infoWrapper}>Evgen <div className={css.avatarText}>E</div> </div>
- <button type='button'  className={css.btn} onClick={()=> {}}><svg className={css.icon}>
+ <div className={css.infoWrapper}>Evgen <div className={css.avatarText}><span>E</span></div> </div>
+ <button type='button'  className={css.btn} onClick={()=> {}}><svg className={css.icon} >
       <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
  </svg> </button>
 {/* <div>{name} {avatarSrc ? <img src={avatarSrc} alt='avatar'></img> : <span className={css.spanName}>{avatarText}</span>}</div> */}
