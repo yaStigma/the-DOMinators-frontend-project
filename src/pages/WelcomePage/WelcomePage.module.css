@@ -3,6 +3,7 @@
   background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_1x.png');
   background-repeat: no-repeat;
   background-position: bottom;
+  margin: 0 auto;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2),
