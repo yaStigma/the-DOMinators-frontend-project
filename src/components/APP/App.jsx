@@ -12,8 +12,9 @@ export default function App() {
   const SignupPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
   // const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));  //исправить путь на верный
+  const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   return(
-<Suspense fallback={null}>
+<Suspense fallback={<Loader/>}>
   <Routes>
     <Route path="/" element={<SharedLayout />}>
     <Route index element={<WelcomePage />} />
@@ -25,8 +26,8 @@ export default function App() {
       {/* <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> */}
       {/* <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} /> */}
       {/* <Route path="home" element={ <PrivateRoute component={<HomePage/>} redirectTo="/signin" /> } /> */}
-      <Route path="*" element={<div>Page not found</div>} />
-    </Route>
+        </Route>
+        <Route path="*"  element={<NotFoundPage />} />
   </Routes>
 </Suspense>
   )
