@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import css from "./AuthForm.module.css";
 import { useState } from "react";
 
+
 export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
@@ -37,7 +38,7 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
     >
       {({ errors, touched, isSubmitting }) => (
         <Form className={css.formContainer} autoComplete="off">
-          <h2>{title}</h2>
+          <h2 className={css.title}>{title}</h2>
           {fields.map((field) => (
             <div key={field.name} className={css.formFieldWrap}>
               <label className={css.formLabel}>
@@ -68,8 +69,8 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
                       <img
                         src={
                           showPassword
-                            ? "/images_auth/eye.svg"
-                            : "/images_auth/eye-slash.svg"
+                            ? "./images_auth/eye.svg"
+                            : "./images_auth/eye-slash.svg"
                         }
                         alt={showPassword ? "Hide password" : "Show password"}
                       />
@@ -84,8 +85,8 @@ export const AuthForm = ({ title, fields, onSubmit, navigationLinks }) => {
                       <img
                         src={
                           showRepeatPassword
-                            ? "/images_auth/eye.svg"
-                            : "/images_auth/eye-slash.svg"
+                            ? "./images_auth/eye.svg"
+                            : "./images_auth/eye-slash.svg"
                         }
                         alt={
                           showRepeatPassword ? "Hide password" : "Show password"

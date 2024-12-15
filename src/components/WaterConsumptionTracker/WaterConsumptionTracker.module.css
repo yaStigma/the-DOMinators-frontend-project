@@ -127,9 +127,11 @@
 }
 
 @media screen and (min-width: 1440px) {
+
   .waterConsumptionTracker {
       margin: 0;
     }
+
   .waterConsumptionTrackerTitle {
     width: 439px;
     height: 38px;
