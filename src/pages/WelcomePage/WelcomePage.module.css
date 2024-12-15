@@ -3,6 +3,7 @@
   background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_1x.png');
   background-repeat: no-repeat;
   background-position: bottom;
+  margin: 0 auto;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -12,7 +13,7 @@
     background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_2x.png');
     background-repeat: no-repeat;
     background-position: bottom;
-    /*background-size: cover;*/
+    background-size: cover;
   }
 }
 
@@ -28,6 +29,8 @@
 
 @media screen and (min-width: 375px) {
   .welcomePage {
+    background-size: cover;
+    background-position: center;
     background-size: cover;
   }
 
@@ -58,8 +61,8 @@
 
   .welcomePageWrapper {
     width: 704px;
-    min-height: 646px;
-    /*gap: 60px;*/
+    /*min-height: 646px;
+    gap: 60px;*/
     padding: 0;
   }
 }
@@ -76,6 +79,7 @@
       url('/public/welcomePageFoto/Background_element_Main_Page_desk_1x.png');
     background-repeat: no-repeat, no-repeat;
     background-position:  bottom, top;
+    background-size: auto;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -84,8 +88,7 @@
     .welcomePage {
       background-image: url('/public/welcomePageFoto/Background_Main_Page_2x.png'),
         url('/public/welcomePageFoto/Background_element_Main_Page_desk_2x.png');
-      background-repeat: no-repeat, no-repeat;
-      background-position: bottom, top;
+      background-size: contain;
     }
   }
 
@@ -95,8 +98,8 @@
     /*min-height: 366px;*/
     margin: 0 auto;
     padding-top: 31px;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 0;
   }
 }

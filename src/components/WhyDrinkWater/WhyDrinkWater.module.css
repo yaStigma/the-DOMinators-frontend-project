@@ -10,6 +10,7 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 111%;
+  margin-top: 0;
   margin-bottom: 12px;
 }
 
@@ -54,6 +55,7 @@
   .whyDrinkWater {
     width: 446px;
     padding: 32px 24px 16px;
+    margin: 0;
   }
 }
 
@@ -62,6 +64,7 @@
     width: 446px;
     height: 270px;
     padding: 32px 24px;
+    margin: 0;
     margin-top: 28px;
   }
 }
