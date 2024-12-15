@@ -12,7 +12,7 @@
     background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_2x.png');
     background-repeat: no-repeat;
     background-position: bottom;
-    /*background-size: cover;*/
+    background-size: cover;
   }
 }
 
@@ -85,8 +85,7 @@
     .welcomePage {
       background-image: url('/public/welcomePageFoto/Background_Main_Page_2x.png'),
         url('/public/welcomePageFoto/Background_element_Main_Page_desk_2x.png');
-      background-repeat: no-repeat, no-repeat;
-      background-position: bottom, top;
+      background-size: contain;
     }
   }
 
