@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://the-dominators-back-project.onrender.com";
 
@@ -10,6 +10,21 @@ const setAuthHeader = (token) => {
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
+};
+
+const getErrorMessage = (error) => {
+  // Если сервер не возвращает сообщение, маппим коды ошибок на текст
+  const defaultMessage = "An error occurred. Please try again later.";
+  if (!error.response) return defaultMessage;
+  const { status } = error.response;
+  switch (status) {
+    case 400: return "Bad request. Please check your input.";
+    case 401: return "Unauthorized. Please check your credentials.";
+    case 404: return "User not found";
+    case 409: return "Email is already in use";
+    case 500: return "Internal server error. Try again later.";
+    default: return defaultMessage;
+  }
 };
 
 export const signUp = createAsyncThunk(
@@ -24,11 +39,26 @@ export const signUp = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      toast.error("Something is wrong ", {
+      if (error.response) {
+        const { status, message, data } = error.response.data;
+        toast.error(`Error: ${message}`, {
+          duration: 4000,
+          position: "top-right",
+        });
+
+        return thunkAPI.rejectWithValue({ status, message, data })
+      }
+
+      toast.error(`Error: ${error.message}`, {
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(error.message);
+
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     }
   }
 );
@@ -38,21 +68,40 @@ export const signIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post("/signin", credentials);
+
       toast.success("You have successfully logged in.", {
         duration: 4000,
         position: "top-right",
       });
+
       setAuthHeader(res.data.token);
+
       return res.data;
     } catch (error) {
-      toast.error("Invalid login or password!", {
+      if (error.response) {
+        const { status, message, data } = error.response.data;
+        toast.error(`Error: ${message}`, {
+          duration: 4000,
+          position: "top-right",
+        });
+
+        return thunkAPI.rejectWithValue({ status, message, data })
+      }
+
+      toast.error(`Error: ${error.message}`, {
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(error.message);
+
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     }
   }
 );
+
 export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/logout");
@@ -63,13 +112,29 @@ export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
       position: "top-right",
     });
   } catch (error) {
-    toast.error("Logout failed!", {
+    if (error.response) {
+      const { status, message, data } = error.response.data;
+      toast.error(`Error: ${message}`, {
+        duration: 4000,
+        position: "top-right",
+      });
+
+      return thunkAPI.rejectWithValue({ status, message, data })
+    }
+
+    toast.error(`Error: ${error.message}`, {
       duration: 4000,
       position: "top-right",
     });
-    return thunkAPI.rejectWithValue(error.message);
+
+    return thunkAPI.rejectWithValue({
+      status: null,
+      message: error.message,
+      data: null,
+    });
   }
-});
+}
+);
 
 export const refreshUser = createAsyncThunk(
   "user/refresh",
@@ -95,33 +160,40 @@ export const sendResetPasswordEmail = createAsyncThunk(
   "auth/sendResetPasswordEmail",
   async (email, thunkAPI) => {
     try {
-      const response = await fetch('/password-reset', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage || "Failed to send reset email");
-      }
-
+      const response = await axios.post("/request-reset-pwd", { email });
       toast.success("Reset password email was successfully sent!", {
         duration: 4000,
         position: "top-right",
       });
 
-      return true; 
+      return {
+        status: response.status,
+        message: "Reset password email was successfully sent!",
+        data: response.data,
+      };
     } catch (error) {
-      toast.error(`Error sending reset password email: ${error.message}`, {
+      if (error.response) {
+  
+        const { status, message, data } = error.response.data;
+        toast.error(`Error: ${message}`, {
+          duration: 4000,
+          position: "top-right",
+        });
+
+        return thunkAPI.rejectWithValue({ status, message, data });
+      }
+
+      toast.error(`Error: ${error.message}`, {
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(error.message); 
+
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     }
   }
 );
-
 
