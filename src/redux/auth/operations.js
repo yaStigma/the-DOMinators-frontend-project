@@ -160,34 +160,27 @@ export const sendResetPasswordEmail = createAsyncThunk(
   "auth/sendResetPasswordEmail",
   async (email, thunkAPI) => {
     try {
-      const response = await fetch('/password-reset', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage || "Failed to send reset email");
-      }
-
+      const response = await axios.post("/request-reset-pwd", { email });
       toast.success("Reset password email was successfully sent!", {
         duration: 4000,
         position: "top-right",
       });
 
-      return true; 
+      return {
+        status: response.status,
+        message: "Reset password email was successfully sent!",
+        data: response.data,
+      };
     } catch (error) {
       if (error.response) {
+  
         const { status, message, data } = error.response.data;
         toast.error(`Error: ${message}`, {
           duration: 4000,
           position: "top-right",
         });
 
-        return thunkAPI.rejectWithValue({ status, message, data })
+        return thunkAPI.rejectWithValue({ status, message, data });
       }
 
       toast.error(`Error: ${error.message}`, {
@@ -203,5 +196,4 @@ export const sendResetPasswordEmail = createAsyncThunk(
     }
   }
 );
-
 

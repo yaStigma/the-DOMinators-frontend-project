@@ -1,13 +1,14 @@
 import React from 'react';
 import * as Yup from 'yup'; 
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from 'react-redux'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react'; 
 import { sendResetPasswordEmail } from '../../redux/auth/operations';
+import {toast} from "react-toastify";
 import css from "./SendResetEmailModal.module.css";
 
 export const SendResetEmailModal = ({ onClose }) => {
   const dispatch = useDispatch();
-
 
   const initialValues = {   
     email: "",
@@ -22,20 +23,19 @@ export const SendResetEmailModal = ({ onClose }) => {
 
 
   const handleSendResetEmail = async (values, { setSubmitting }) => {
-    try {
-      const payload = {
-        email: values.email,
-      };
-      await dispatch(sendResetPasswordEmail(payload)); 
+  try {
+    const resultAction = await dispatch(sendResetPasswordEmail(values));
 
-      onClose();
-    } catch (error) {
-      console.error("Error sending reset email:", error);
+    if (sendResetPasswordEmail.fulfilled.match(resultAction)) {
+    onClose(); 
+    } else {
+         }
+  } catch (error) {
 
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className={css.overlay} onClick={onClose}>

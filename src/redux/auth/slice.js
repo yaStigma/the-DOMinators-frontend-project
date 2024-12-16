@@ -11,6 +11,11 @@ const authSlice = createSlice({
         token: null,
     isLoggedIn: false,
     isRefreshing: false,
+    resetPassword: {
+      loading: false,
+      success: false,
+      error: null,
+    },
   },
   extraReducers: (builder) => {
     builder
