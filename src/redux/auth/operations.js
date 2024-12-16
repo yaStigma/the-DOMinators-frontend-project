@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://the-dominators-back-project.onrender.com";
 
@@ -39,11 +39,26 @@ export const signUp = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      toast.error("Something is wrong ", {
+      if (error.response) {
+        const { status, message, data } = error.response.data;
+        toast.error(`Error: ${message}`, {
+          duration: 4000,
+          position: "top-right",
+        });
+
+        return thunkAPI.rejectWithValue({ status, message, data })
+      }
+
+      toast.error(`Error: ${error.message}`, {
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(error.message);
+
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     }
   }
 );
@@ -53,22 +68,40 @@ export const signIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post("/signin", credentials);
+
       toast.success("You have successfully logged in.", {
         duration: 4000,
         position: "top-right",
       });
+
       setAuthHeader(res.data.token);
+
       return res.data;
     } catch (error) {
-      const errorMessage = getErrorMessage(error);
-      toast.error(errorMessage, {
+      if (error.response) {
+        const { status, message, data } = error.response.data;
+        toast.error(`Error: ${message}`, {
+          duration: 4000,
+          position: "top-right",
+        });
+
+        return thunkAPI.rejectWithValue({ status, message, data })
+      }
+
+      toast.error(`Error: ${error.message}`, {
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(error.message);
+
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     }
   }
 );
+
 export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/logout");
@@ -79,13 +112,29 @@ export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
       position: "top-right",
     });
   } catch (error) {
-    toast.error("Logout failed!", {
+    if (error.response) {
+      const { status, message, data } = error.response.data;
+      toast.error(`Error: ${message}`, {
+        duration: 4000,
+        position: "top-right",
+      });
+
+      return thunkAPI.rejectWithValue({ status, message, data })
+    }
+
+    toast.error(`Error: ${error.message}`, {
       duration: 4000,
       position: "top-right",
     });
-    return thunkAPI.rejectWithValue(error.message);
+
+    return thunkAPI.rejectWithValue({
+      status: null,
+      message: error.message,
+      data: null,
+    });
   }
-});
+}
+);
 
 export const refreshUser = createAsyncThunk(
   "user/refresh",
@@ -131,11 +180,26 @@ export const sendResetPasswordEmail = createAsyncThunk(
 
       return true; 
     } catch (error) {
-      toast.error(`Error sending reset password email: ${error.message}`, {
+      if (error.response) {
+        const { status, message, data } = error.response.data;
+        toast.error(`Error: ${message}`, {
+          duration: 4000,
+          position: "top-right",
+        });
+
+        return thunkAPI.rejectWithValue({ status, message, data })
+      }
+
+      toast.error(`Error: ${error.message}`, {
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(error.message); 
+
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     }
   }
 );
