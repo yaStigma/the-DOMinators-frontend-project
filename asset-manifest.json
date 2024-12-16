@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/the-DOMinators-frontend-project/static/css/main.e4f38af2.css",
-    "main.js": "/the-DOMinators-frontend-project/static/js/main.c0dbe2fe.js",
+    "main.css": "/the-DOMinators-frontend-project/static/css/main.f1f13d40.css",
+    "main.js": "/the-DOMinators-frontend-project/static/js/main.d011b624.js",
     "static/css/917.138e7cee.chunk.css": "/the-DOMinators-frontend-project/static/css/917.138e7cee.chunk.css",
     "static/js/917.5c24c8a0.chunk.js": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js",
     "static/css/991.fe6abe49.chunk.css": "/the-DOMinators-frontend-project/static/css/991.fe6abe49.chunk.css",
@@ -25,8 +25,8 @@
     "static/media/Background_MainPage.svg": "/the-DOMinators-frontend-project/static/media/Background_MainPage.68611ca8e47c8bcd12b2.svg",
     "static/media/Background_SignIn_mobile.svg": "/the-DOMinators-frontend-project/static/media/Background_SignIn_mobile.dc724774fee1771c5263.svg",
     "index.html": "/the-DOMinators-frontend-project/index.html",
-    "main.e4f38af2.css.map": "/the-DOMinators-frontend-project/static/css/main.e4f38af2.css.map",
-    "main.c0dbe2fe.js.map": "/the-DOMinators-frontend-project/static/js/main.c0dbe2fe.js.map",
+    "main.f1f13d40.css.map": "/the-DOMinators-frontend-project/static/css/main.f1f13d40.css.map",
+    "main.d011b624.js.map": "/the-DOMinators-frontend-project/static/js/main.d011b624.js.map",
     "917.138e7cee.chunk.css.map": "/the-DOMinators-frontend-project/static/css/917.138e7cee.chunk.css.map",
     "917.5c24c8a0.chunk.js.map": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js.map",
     "991.fe6abe49.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.fe6abe49.chunk.css.map",
@@ -38,7 +38,7 @@
     "306.17656025.chunk.js.map": "/the-DOMinators-frontend-project/static/js/306.17656025.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e4f38af2.css",
-    "static/js/main.c0dbe2fe.js"
+    "static/css/main.f1f13d40.css",
+    "static/js/main.d011b624.js"
   ]
 }
