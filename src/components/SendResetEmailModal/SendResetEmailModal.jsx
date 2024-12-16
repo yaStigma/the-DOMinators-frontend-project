@@ -1,10 +1,8 @@
 import React from 'react';
 import * as Yup from 'yup'; 
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react'; 
+import { useDispatch } from 'react-redux';
 import { sendResetPasswordEmail } from '../../redux/auth/operations';
-import {toast} from "react-toastify";
 import css from "./SendResetEmailModal.module.css";
 
 export const SendResetEmailModal = ({ onClose }) => {
@@ -14,33 +12,21 @@ export const SendResetEmailModal = ({ onClose }) => {
     email: "",
   };
 
- 
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
   });
 
-
-  const handleSendResetEmail = async (values, { setSubmitting }) => {
-  try {
-    const resultAction = await dispatch(sendResetPasswordEmail(values));
-
-    if (sendResetPasswordEmail.fulfilled.match(resultAction)) {
-    onClose(); 
-    } else {
-         }
-  } catch (error) {
-
-  } finally {
-    setSubmitting(false);
-  }
-};
+  const handleSendResetEmail = (values, { setSubmitting }) => {
+    dispatch(sendResetPasswordEmail(values.email));
+    setSubmitting(false); 
+    onClose();
+  };
 
   return (
     <div className={css.overlay} onClick={onClose}>
       <div className={css.modal} onClick={(e) => e.stopPropagation()}>
-
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -48,7 +34,7 @@ export const SendResetEmailModal = ({ onClose }) => {
         >
           {({ isSubmitting }) => (
             <Form className={css.formContainer} autoComplete="off">
-            <h2 className={css.title}>Reset your Password</h2>
+              <h2 className={css.title}>Reset your Password</h2>
               <label className={css.formLabel}>
                 Email
                 <Field
