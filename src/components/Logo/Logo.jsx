@@ -9,9 +9,10 @@ const Logo = () => {
         </a>
       
  </svg>
-
+ <a href="/the-DOMinators-frontend-project" className={css.link}> 
     <h1 className={css.logo}>Tracker
     of water</h1>
+  </a>
   </div>
   );
 };
