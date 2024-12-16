@@ -1,0 +1,52 @@
+
+  .spanName {
+    border: 1px solid black;
+    border-radius:50% ;
+}
+.wrapper {
+    display: flex;
+    padding: 10px 0;
+    justify-content: center;
+}
+.icon {
+    display: inline-block;
+    width: 16px;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: var(--primery-color-blue);
+ 
+  }
+  .btn {
+    border: none;
+    background-color: inherit;
+  }
+  .avatarText {
+    border: 1px solid black;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+  .infoWrapper {
+    display: flex;
+    gap:8px;
+    justify-content: center;
+
+    font-family: var(--font-family);
+font-weight: 400;
+font-size: 16px;
+line-height: 133%;
+text-align: right;
+color: var(--primery-color-black);
+  }
+ @media screen and (min-width: 768px) {
+  .infoWrapper {
+    font-size: 18px;
+  }
+ }
+ 

@@ -28,7 +28,7 @@ const getErrorMessage = (error) => {
 };
 
 export const signUp = createAsyncThunk(
-  "auth/signup",
+  "user/signup",
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post("/signup", credentials);
@@ -65,32 +65,11 @@ export const signIn = createAsyncThunk(
         duration: 4000,
         position: "top-right",
       });
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-// export const signIn = createAsyncThunk(
-//   "auth/signin",
-//   async (credentials, thunkAPI) => {
-//     try {
-//       const res = await axios.post("/signin", credentials);
-//       toast.success("You have successfully logged in.", {
-//         duration: 4000,
-//         position: "top-right",
-//       });
-//       setAuthHeader(res.data.token);
-//       return res.data;
-//     } catch (error) {
-//       toast.error("Invalid login or password!", {
-//         duration: 4000,
-//         position: "top-right",
-//       });
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/logout");
 
@@ -109,7 +88,7 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 });
 
 export const refreshUser = createAsyncThunk(
-  "auth/refresh",
+  "user/refresh",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
