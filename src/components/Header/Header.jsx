@@ -7,7 +7,7 @@ import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import UserLogo from 'components/UserLogo/UserLogo';
 const Header = () => {
   const isLogin = useSelector(selectIsLoggedIn)
-  console.log(isLogin)
+  console.log(isLogin);
   return (
     <div className={css.HeaderDiv}>
           <Logo />

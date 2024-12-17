@@ -1,5 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { signUp, signIn, logOut, refreshUser, sendResetPasswordEmail } from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  signUp,
+  signIn,
+  logOut,
+  refreshUser,
+  sendResetPasswordEmail,
+} from './operations';
 
 const authSlice = createSlice({
   name: "auth",
@@ -18,7 +24,7 @@ const authSlice = createSlice({
       error: null,
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
         state.user = action.payload.data.userId || { email: action.payload.data.email };
@@ -32,14 +38,14 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(signIn.rejected, (state, action) => {
-        state.error = action.payload; 
+        state.error = action.payload;
       })
-      .addCase(logOut.fulfilled, (state) => {
+      .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.accessToken = null;
         state.isLoggedIn = false;
       })
-      .addCase(refreshUser.pending, (state) => {
+      .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
@@ -48,15 +54,15 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.rejected, (state) => {
+      .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
-      .addCase(sendResetPasswordEmail.pending, (state) => {
+      .addCase(sendResetPasswordEmail.pending, state => {
         state.resetPassword.loading = true;
         state.resetPassword.success = false;
         state.resetPassword.error = null;
       })
-      .addCase(sendResetPasswordEmail.fulfilled, (state) => {
+      .addCase(sendResetPasswordEmail.fulfilled, state => {
         state.resetPassword.loading = false;
         state.resetPassword.success = true;
         state.resetPassword.error = null;
@@ -70,4 +76,3 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
-
