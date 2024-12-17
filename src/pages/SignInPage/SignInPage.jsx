@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { AuthWrapper } from "../../components/AuthWrapper/AuthWrapper";
 import {SendResetEmailModal} from "../../components/SendResetEmailModal/SendResetEmailModal";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import css from "./SignInPage.module.css";
 
 const SigninPage = () => {
