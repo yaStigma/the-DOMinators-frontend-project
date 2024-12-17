@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <div className={css.HeaderDiv}>
           <Logo />
-          {true ? <UserLogo /> : <UserAuth />}
+          {isLogin ? <UserLogo /> : <UserAuth />}
           
     </div>
 
