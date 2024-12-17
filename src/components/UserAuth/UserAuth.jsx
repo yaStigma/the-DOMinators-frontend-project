@@ -5,11 +5,13 @@ import css from './UserAuth.module.css';
 const UserAuth = () => {
   return (
     <div className={css.wrapper}>
-      <Link to="/signin">
+      <Link to="/signin" className={css.Link}>
         <button type="button" className={css.btn}>
           Sign in
         </button>
+        </Link>
         <div className={css.icon}>
+        <Link to="/signin" className={css.Link}>
           <svg
             width="24"
             height="24"
@@ -32,8 +34,9 @@ const UserAuth = () => {
               </clipPath>
             </defs>
           </svg>
+          </Link>
         </div>
-      </Link>
+     
     </div>
   );
 
