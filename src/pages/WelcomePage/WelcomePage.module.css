@@ -1,4 +1,5 @@
 .welcomePage {
+  max-width: 100%;
   background-color: #fff;
   background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_1x.png');
   background-repeat: no-repeat;
@@ -29,6 +30,7 @@
 
 @media screen and (min-width: 375px) {
   .welcomePage {
+    max-width: 375px;
     background-size: cover;
     background-position: center;
     background-size: cover;
@@ -41,6 +43,7 @@
 
 @media screen and (min-width: 768px) {
   .welcomePage {
+    max-width: 768px;
     padding: 20px 0 50px;
     margin-top: 20px;
     background-image:
@@ -69,7 +72,7 @@
 
 @media screen and (min-width: 1440px) {
   .welcomePage {
-    width: 1440px;
+    max-width: 1440px;
     height: 700px;
     /*padding: 109px 0;*/
     padding: 0;
