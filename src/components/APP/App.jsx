@@ -1,12 +1,14 @@
 import { lazy, Suspense} from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import SharedLayout from "components/SharedLayout/SharedLayout";
+import SharedLayout from "../../components/SharedLayout/SharedLayout.jsx";
+import Loader from "../Loader/Loader.jsx";
 import { ToastContainer} from "react-toastify"; //добавила для всплывающих окон (Надя)
 import 'react-toastify/dist/ReactToastify.css';
 // import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
-import Loader from "components/Loader/Loader";
+
+
 
 
 
