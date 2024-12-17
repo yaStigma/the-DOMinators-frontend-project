@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from 'components/APP/App';
 import { Provider } from "react-redux"; // импрортировала и использовала Provider
-import { persistor } from "./redux/store"; // импортировала store
-import store from "./redux/store";
+import store from "./redux/store"; // импортировала store
+import { persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react"; //Ініціалізація PersistGate
 import './index.css';
 

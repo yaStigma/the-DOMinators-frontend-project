@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+const setAuthHeader = accessToken => {
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
@@ -36,7 +36,8 @@ export const signUp = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
-      setAuthHeader(res.data.token);
+      setAuthHeader(res.data.accessToken);
+      
       return res.data;
     } catch (error) {
       if (error.response) {
@@ -74,7 +75,7 @@ export const signIn = createAsyncThunk(
         position: 'top-right',
       });
 
-      setAuthHeader(res.data.token);
+      setAuthHeader(res.data.accessToken);
 
       return res.data;
     } catch (error) {
@@ -139,7 +140,7 @@ export const refreshUser = createAsyncThunk(
   'user/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const persistedToken = state.auth.accessToken;
 
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
