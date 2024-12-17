@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import {useSelector} from 'redux'
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
-const setAuthHeader = accessToken => {
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+const setAuthHeader = (token) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
+  axios.defaults.headers.common.Authorization = "";
 };
 
 // const getErrorMessage = (error) => {
@@ -74,7 +75,7 @@ export const signIn = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
-
+      
       setAuthHeader(res.data.accessToken);
 
       return res.data;
@@ -140,7 +141,7 @@ export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const persistedToken = state.auth.accessToken;
 
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue("Unable to fetch user");
@@ -148,7 +149,7 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const res = await axios.get("/current");
+      const res = await axios.post("/refresh");
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
