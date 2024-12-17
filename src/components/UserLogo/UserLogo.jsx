@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import css from './UserLogo.module.css';
 import { selectUserInfo } from '../../redux/user/selectors';
 import { fetchUser } from '../../redux/user/operations';
