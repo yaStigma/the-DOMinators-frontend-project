@@ -1,0 +1,30 @@
+.logo {
+    font-family: var(--font-family);
+font-weight: 700;
+font-size: 12px;
+text-transform: uppercase;
+color: var(--primery-color-blue);
+width: 58px;
+/* padding: 10px 0; */
+justify-content: center;
+}
+.main {
+    display: flex;
+    width: 102px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+}
+ .icon {
+    display: inline-block;
+    width: 40px;
+    height: 48px;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    
+  }
+  .link {
+    outline: none;
+  text-decoration: none;
+  }

@@ -1,0 +1,28 @@
+@media screen and (max-width: 768px) {
+    .HeaderDiv {
+     width: 280px;
+     display: flex;
+     justify-content: space-between;
+     padding-top:8px;
+     margin-left: auto;
+     margin-right: auto;
+    }
+}
+@media screen and (min-width: 768px) {
+    .HeaderDiv {
+        width: 704px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: space-between;
+        padding-top:8px;
+    }
+}
+@media screen and (min-width: 1440px) {
+    .HeaderDiv {
+        width: 1216px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+   
+}
