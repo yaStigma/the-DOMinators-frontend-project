@@ -8,7 +8,7 @@ const authSlice = createSlice({
       name: null,
       email: null,
     },
-        token: null,
+    token: null,
     isLoggedIn: false,
     isRefreshing: false,
     resetPassword: {
@@ -21,6 +21,7 @@ const authSlice = createSlice({
     builder
       .addCase(signUp.fulfilled, (state, action) => {
         state.user = { email: action.payload.data.email };
+        state.token = action.payload.token;
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
