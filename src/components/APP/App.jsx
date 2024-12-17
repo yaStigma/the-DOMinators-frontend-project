@@ -1,11 +1,11 @@
 import { lazy, Suspense} from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import SharedLayout from "../../components/SharedLayout/SharedLayout.jsx";
-import Loader from "../Loader/Loader.jsx";
+import SharedLayout from "../SharedLayout/SharedLayout";
+import Loader from "../Loader/Loader";
 import { ToastContainer} from "react-toastify"; //добавила для всплывающих окон (Надя)
 import 'react-toastify/dist/ReactToastify.css';
-// import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
 
 
@@ -19,7 +19,7 @@ export default function App() {
   const WelcomePage = lazy(() => import('../../pages/WelcomePage/WelcomePage'));
   const SignupPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
-  // const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));  //исправить путь на верный
+  const HomePage = lazy(() => import('../../pages/HomeTest/HomeTest.jsx'));  //исправить путь на верный
   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   
 
@@ -54,7 +54,7 @@ export default function App() {
 
       <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> 
       <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} />
-       {/* <Route path="home" element={ <PrivateRoute component={<HomePage/>} redirectTo="/signin" /> } /> */}
+       <Route path="home" element={ <PrivateRoute component={<HomePage/>} redirectTo="/signin" /> } />
         </Route>
         <Route path="*"  element={<NotFoundPage />} />
   </Routes>

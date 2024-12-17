@@ -6,51 +6,51 @@ import { selectUserInfo } from '../../redux/user/selectors';
 import { fetchUser } from '../../redux/user/operations';
 
 const UserLogo = ({ userId }) => {
-  const dispatch = useDispatch();
-  const { user } = useSelector(selectUserInfo);
+//   const dispatch = useDispatch();
+//   const { user } = useSelector(selectUserInfo);
 
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchUser(userId));
-    }
-  }, [dispatch, userId]);
+//   useEffect(() => {
+//     if (userId) {
+//       dispatch(fetchUser(userId));
+//     }
+//   }, [dispatch, userId]);
 
  
-  const { name, email, avatarUrl } = user.data;
+//   const { name, email, avatarUrl } = user.data;
 
-  let avatarSrc = '';
-  let avatarText = '';
-  let displayName = '';
+//   let avatarSrc = '';
+//   let avatarText = '';
+//   let displayName = '';
 
-  if (avatarUrl) {
-    avatarSrc = avatarUrl;
-  } else if (name) {
-    avatarText = name.charAt(0).toUpperCase();
-    displayName = name;
-  } else if (email) {
-    avatarText = email.charAt(0).toUpperCase();
-    displayName = email;
-  }
-console.log(user.data);
-  return (
-    <div className={css.wrapper}>
-      <div className={css.infoWrapper}>
-        {displayName && <span>{displayName}</span>}
-        <div className={css.avatarText}>
-          {avatarSrc ? (
-            <img src={avatarSrc} alt="avatar" className={css.avatarImg} />
-          ) : (
-            <span className={css.spanName}>{avatarText}</span>
-          )}
-        </div>
-      </div>
-      <button type="button" className={css.btn} onClick={() => {}}>
-        <svg className={css.icon}>
-          <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
-        </svg>
-      </button>
-    </div>
-  );
+//   if (avatarUrl) {
+//     avatarSrc = avatarUrl;
+//   } else if (name) {
+//     avatarText = name.charAt(0).toUpperCase();
+//     displayName = name;
+//   } else if (email) {
+//     avatarText = email.charAt(0).toUpperCase();
+//     displayName = email;
+//   }
+// console.log(user.data);
+//   return (
+//     <div className={css.wrapper}>
+//       <div className={css.infoWrapper}>
+//         {displayName && <span>{displayName}</span>}
+//         <div className={css.avatarText}>
+//           {avatarSrc ? (
+//             <img src={avatarSrc} alt="avatar" className={css.avatarImg} />
+//           ) : (
+//             <span className={css.spanName}>{avatarText}</span>
+//           )}
+//         </div>
+//       </div>
+//       <button type="button" className={css.btn} onClick={() => {}}>
+//         <svg className={css.icon}>
+//           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
+//         </svg>
+//       </button>
+//     </div>
+//   );
 };
 
 
@@ -73,10 +73,10 @@ console.log(user.data);
       
 //   return (
 //     <div className={css.wrapper}>
-//  {/* <div className={css.infoWrapper}>Evgen <div className={css.avatarText}><span>E</span></div> </div>
+//  <div className={css.infoWrapper}>Evgen <div className={css.avatarText}><span>E</span></div> </div>
 //  <button type='button'  className={css.btn} onClick={()=> {}}><svg className={css.icon} >
 //       <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
-//  </svg> </button> */}
+//  </svg> </button>
 
 
  
