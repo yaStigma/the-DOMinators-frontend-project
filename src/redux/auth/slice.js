@@ -27,13 +27,13 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
-        state.user = action.payload.data.userId || { email: action.payload.data.email };
+        state.user = action.payload.data._id || { email: action.payload.data.email };
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.user = action.payload.data.userId;
-        state.accessToken = action.payload.data.accessToken || null;
+        state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
         state.error = null;
       })
@@ -50,7 +50,6 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
-        state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
