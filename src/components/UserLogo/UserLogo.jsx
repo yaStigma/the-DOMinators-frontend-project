@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './UserLogo.module.css';
-import { selectUserInfo } from '../../redux/user/selectors';
+// import { selectUserInfo } from '../../redux/user/selectors';
+import { userId } from '../../redux/user/selectors';
 import { fetchUser } from '../../redux/user/operations';
+import UserLogoModal from 'components/UserLogoModal/UserLogoModal';
+import { selectUser } from '../../redux/auth/selectors';
 
-const UserLogo = ({ userId }) => {
+const UserLogo = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector(selectUserInfo);
-
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchUser(userId));
+  const id = useSelector(userId);
+  
+  console.log(id)
+  // const user = useSelector(selectUserInfo);
+// const dataGet = async() => {
+//   if (id) {
+//     await dispatch(fetchUser(id)); 
+//   }
+// }
+// dataGet()
+const [open, setOpen] = useState(false)
+const openDropdown = () => {
+  setOpen((prev)=>!prev)
+}
+ useEffect(  () => {
+    if (id) {
+      dispatch(fetchUser(id)); 
     }
-  }, [dispatch, userId]);
-
- 
+  }, [dispatch, id]);
+  const user = useSelector(selectUser);
+  console.log(user.data)
   const { name, email, avatarUrl } = user.data;
 
   let avatarSrc = '';
@@ -31,7 +46,6 @@ const UserLogo = ({ userId }) => {
     avatarText = email.charAt(0).toUpperCase();
     displayName = email;
   }
-console.log(user.data);
   return (
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
@@ -44,10 +58,11 @@ console.log(user.data);
           )}
         </div>
       </div>
-      <button type="button" className={css.btn} onClick={() => {}}>
+      <button type="button" className={css.btn} onClick={openDropdown}>
         <svg className={css.icon}>
           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
         </svg>
+        {open && <UserLogoModal isOpen={open}  onClose={openDropdown}/>}
       </button>
     </div>
   );
