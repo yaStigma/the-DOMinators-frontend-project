@@ -10,7 +10,7 @@ import RestrictedRoute from "./RestrictedRoute";
 import { useDispatch, useSelector } from 'react-redux';  //добавила для обновления токена после перезагрузки (Надя)
 import { useEffect } from 'react'; //добавила для обновления токена после перезагрузки (Надя)
 import { refreshUser } from '../../redux/auth/operations'; //добавила для обновления токена после перезагрузки (Надя)
-
+import { selectIsRefreshing } from "../../redux/auth/selectors";
 
 export default function App() {
 
@@ -21,10 +21,13 @@ export default function App() {
   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(state => state.auth.isRefreshing);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshUser());
+    const token = localStorage.getItem('persist:auth');
+    if (token) {
+      dispatch(refreshUser());
+    }
   }, [dispatch]);
   
   return isRefreshing ? (

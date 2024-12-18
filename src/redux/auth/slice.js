@@ -32,7 +32,7 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
-        state.user = action.payload.data.userId;
+        state.user = action.payload.data.userId || action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
         state.error = null;

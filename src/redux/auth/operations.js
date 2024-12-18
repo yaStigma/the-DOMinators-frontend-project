@@ -1,32 +1,17 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import {useSelector} from 'redux'
+
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
-const setAuthHeader = (token) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+const setAuthHeader = (accessToken) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
 };
-
-// const getErrorMessage = (error) => {
-//   // Если сервер не возвращает сообщение, маппим коды ошибок на текст
-//   const defaultMessage = "An error occurred. Please try again later.";
-//   if (!error.response) return defaultMessage;
-//   const { status } = error.response;
-//   switch (status) {
-//     case 400: return "Bad request. Please check your input.";
-//     case 401: return "Unauthorized. Please check your credentials.";
-//     case 404: return "User not found";
-//     case 409: return "Email is already in use";
-//     case 500: return "Internal server error. Try again later.";
-//     default: return defaultMessage;
-//   }
-// };
 
 export const signUp = createAsyncThunk(
   'user/signup',
@@ -143,17 +128,14 @@ export const refreshUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.accessToken;
 
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue("Unable to fetch user");
+    if (!persistedToken) {
+      return thunkAPI.rejectWithValue("No token found");
     }
 
-    try {
-      setAuthHeader(persistedToken);
-      const res = await axios.post("/refresh");
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+    return {
+      user: state.auth.user,
+      accessToken: persistedToken,
+    };
   }
 );
 
