@@ -7,12 +7,10 @@ import { ToastContainer} from "react-toastify"; //добавила для всп
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
-
-
-
-
-
-
+import { useDispatch, useSelector } from 'react-redux';  //добавила для обновления токена после перезагрузки (Надя)
+import { useEffect } from 'react'; //добавила для обновления токена после перезагрузки (Надя)
+import { refreshUser } from '../../redux/auth/operations'; //добавила для обновления токена после перезагрузки (Надя)
+import { selectIsRefreshing } from "../../redux/auth/selectors";
 
 export default function App() {
 
@@ -22,13 +20,20 @@ export default function App() {
   const HomePage = lazy(() => import('../../pages/HomeTest/HomeTest.jsx'));  //исправить путь на верный
   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
+  useEffect(() => {
+    const token = localStorage.getItem('persist:auth');
+    if (token) {
+      dispatch(refreshUser());
+    }
+  }, [dispatch]);
   
-  return(
+  return isRefreshing ? (
+    <p>Loading...</p>) : (
     <> 
-
-
-{/* добавила для всплывающих окон (Надя) */}
+    {/* добавила для всплывающих окон (Надя) */}
     <ToastContainer
     toastClassName="toast-custom"
     progressClassName="toast-custom-progress"
@@ -42,7 +47,7 @@ export default function App() {
     draggable
     pauseOnHover 
     theme="light"
-  />
+    />
 <Suspense fallback={<Loader/>}>
   <Routes>
     <Route path="/" element={<SharedLayout />}>

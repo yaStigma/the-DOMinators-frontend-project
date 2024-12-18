@@ -8,15 +8,16 @@ import {
 } from './operations';
 
 const authSlice = createSlice({
-  name: 'user',
+  name: "auth",
   initialState: {
     user: {
       name: null,
       email: null,
     },
-    token: null,
+    accessToken: null,
     isLoggedIn: false,
     isRefreshing: false,
+    error: null,
     resetPassword: {
       loading: false,
       success: false,
@@ -26,14 +27,13 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
-        state.user = { email: action.payload.data.email };
+        state.user = action.payload.data._id || { email: action.payload.data.email };
+        state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
-        // state.user = action.payload.user;
-        // state.token = action.payload.token;
-        state.user = action.payload.data.user; //правки від Степана
-        state.token = action.payload.data.accessToken; //правки від Степана
+        state.user = action.payload.data.userId || action.payload.data.user;
+        state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
         state.error = null;
       })
@@ -42,7 +42,7 @@ const authSlice = createSlice({
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
-        state.token = null;
+        state.accessToken = null;
         state.isLoggedIn = false;
       })
       .addCase(refreshUser.pending, state => {
