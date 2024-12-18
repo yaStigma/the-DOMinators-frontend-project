@@ -1,5 +1,6 @@
 @import-normalize; /* bring in normalize.css styles */
 @import './styles/variables.css';
+@import './styles/custom-toast.css';
 body {
   margin: 0;
   font-family: var(--font-family);

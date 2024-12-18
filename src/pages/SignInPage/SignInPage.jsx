@@ -1,15 +1,18 @@
 import { useDispatch } from "react-redux";
 import { signIn } from "../../redux/auth/operations";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
-import React from 'react';
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import {AuthWrapper} from "../../components/AuthWrapper/AuthWrapper";
+import { AuthWrapper } from "../../components/AuthWrapper/AuthWrapper";
+import {SendResetEmailModal} from "../../components/SendResetEmailModal/SendResetEmailModal";
+// import { toast } from "react-hot-toast";
 import css from "./SignInPage.module.css";
 
 const SigninPage = () => {
-const dispatch = useDispatch();
-const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fields = [
     {
@@ -26,42 +29,58 @@ const navigate = useNavigate();
       type: "password",
       label: "Password",
       placeholder: "Password",
-      validation: Yup.string().min(8, "Password must be at least 6 characters").max(64, "Password must be not more than 64 characters").required("Password is required"),
+      validation: Yup.string()
+        .min(8, "Password must be at least 6 characters")
+        .max(64, "Password must be not more than 64 characters")
+        .required("Password is required"),
     },
   ];
 
   const handleSignin = async (values) => {
-    try {
-      // Call backend API for signin
-    await dispatch(signIn(values)); 
-    //   navigate("/home");
-    } catch (error) {
-      console.error("Signin error:", error);
-      alert("Signin failed. Please try again.");
-    }
+      try {
+        // Call backend API for signup
+        const payload = {
+          email: values.email,
+          password: values.password,
+          repeatPassword: values.repeatPassword,
+        };
+        await dispatch(signIn(payload)); 
+      // navigate("/home");
+      } catch (error) {
+      }
+    };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <div className={css.SigninPageWrapper}>
-      
-    <AuthWrapper>
-    <AuthForm
-      title="Sign In"
-      fields={fields}
-      onSubmit={handleSignin}
-      navigationLinks={[
-        {
-          text: "Sign Up",
-        onClick: () => navigate("/signup"),
-        },
-        {
-          text: "Forgot your password?",
-        //   onClick: () => navigate("/forgot-password"),
-        },
-      ]}
-    />
-   </AuthWrapper>
-</div>
+      <AuthWrapper>
+        <AuthForm
+          title="Sign In"
+          fields={fields}
+          onSubmit={handleSignin}
+          navigationLinks={[
+            {
+              text: "Sign Up",
+              onClick: () => navigate("/signup"),
+            },
+            {
+              text: "Forgot your password?",
+              onClick: openModal, 
+            },
+          ]}
+        />
+      </AuthWrapper>
+
+      {isModalOpen && <SendResetEmailModal onClose={closeModal} />}
+    </div>
   );
 };
-export default(SigninPage)   //додала експорт по дефолду для навігації (Таня)
+
+export default SigninPage;

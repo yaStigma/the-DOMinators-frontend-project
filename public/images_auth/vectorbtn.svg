@@ -1,0 +1,7 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-vector-btn" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.2" d="M16 11.2v9.6M20.8 16h-9.6M30.4 16c0 1.891-0.372 3.764-1.096 5.511s-1.784 3.334-3.121 4.672c-1.337 1.337-2.925 2.398-4.672 3.121s-3.62 1.096-5.511 1.096-3.764-0.372-5.511-1.096c-1.747-0.724-3.335-1.784-4.672-3.121s-2.398-2.925-3.122-4.672c-0.724-1.747-1.096-3.62-1.096-5.511 0-3.819 1.517-7.482 4.218-10.182s6.363-4.218 10.182-4.218c3.819 0 7.482 1.517 10.182 4.218s4.218 6.363 4.218 10.182z"></path>
+</symbol>
+</defs>
+</svg>
