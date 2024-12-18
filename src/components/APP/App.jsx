@@ -51,7 +51,7 @@ export default function App() {
     <Route path="welcome" element={<WelcomePage />} />
       {/* <Route path="signup" element={<SignupPage />} />
       <Route path="signin" element={<SigninPage />} /> */}
-      {/* <Route path="home" element={ <HomePage/> } /> */}
+      <Route path="home" element={ <HomePage/> } />
 
       <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> 
       <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} />
