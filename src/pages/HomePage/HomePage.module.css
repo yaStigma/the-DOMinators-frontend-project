@@ -1,0 +1,72 @@
+.homeContainer {
+    margin-top: 24px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+    width: 100%;
+    max-width: 1440px;
+    background-image: url('/public/images_auth/Background_element_Homescreen_mob.svg'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center center; 
+    display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+
+  .dailyNormaSection {
+    width: 100%;
+    max-width: 400px; 
+    text-align: center;
+  }
+  
+  .waterTrackerSection {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .todayWaterListSection {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .homeContainer {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 768px;
+      max-width: 100%;
+      background-image: url('/public/images_auth/Background_elementHomeScreendec.svg'); 
+    }
+  
+    .dailyNormaSection,
+    .waterTrackerSection,
+    .todayWaterListSection {
+      width: 45%;
+    }
+  
+    .dailyNormaSection {
+      text-align: left;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .homeContainer {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 40px;
+      background-image: url('/public/images_auth/Background_elementHomeScreendec.svg');
+    }
+  
+    .dailyNormaSection,
+    .waterTrackerSection,
+    .todayWaterListSection {
+      width: 30%;
+      max-width: none;
+    }
+  }

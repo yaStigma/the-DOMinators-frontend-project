@@ -1,0 +1,184 @@
+.imageContainer {
+    margin-bottom: 0 auto 8px;
+    width: 280px;
+    height: 208px;
+    background-image: 
+      url('/public/images_auth/Bottlehomescreenmob.svg');
+    background-size: contain, cover; 
+    background-repeat: no-repeat, no-repeat; 
+    background-position: center center, center center;
+  }
+  
+  .slider {
+    width: 100%;
+    margin-bottom: 8px; 
+  }
+  .waterBottle {
+    width: 100%;
+    max-width: 280px; 
+    height: auto;
+    margin: 0 auto; 
+  }
+  .progressContainer {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  
+  .progressBar {
+    display: block;
+  }
+  
+  .progressMarkers {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 6px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.33333;
+    text-align: center;
+    color: #407bff;
+  }
+  
+  .marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tick {
+    width: 2px;
+    height: 8px;
+    border: 1px solid #d7e3ff;
+    width: 8px;
+    height: 0px;
+    transform: rotate(-90deg);
+    margin-bottom: 4px;
+    margin-top: 4px;
+    margin-left: 12px;
+  }
+  
+  .progressLabels span {
+    font-size: 12px;
+    color: #888888;
+    font-weight: 400;
+  }
+  
+  .addWaterBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    background-color: #407bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .addWaterBtn:hover {
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+    background: #407bff;
+    color: #ff9d43;
+  }
+  
+  .addWaterBtn:active {
+    background: #407bff;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; 
+    fill: none;
+    stroke-width: 2px;
+    stroke: #ffffff;
+  }
+  .icon:hover {
+    fill: #ff9d43;
+  }
+  @media screen and (min-width: 768px) {
+    .dailyNormaSection {
+      position: relative; 
+      width: 518px;
+      height: 386px;
+      margin: 0 auto;
+    }
+  
+    myDailyNorma {
+    position: absolute; 
+    top: 10%; 
+    left: 93%; 
+    z-index: 3; 
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+  
+    .imageContainer {
+      position: relative; 
+      overflow: hidden; 
+      border-radius: 20px; 
+      width: 518px;
+      height: 386px;
+      margin: 0 auto;
+      background-position: left top, center center;
+      background-size: contain, cover;
+      background-repeat: no-repeat, no-repeat;
+      background-image: 
+      url('/public/images_auth/Botle_Homescreentab.svg');
+    }
+  
+    .waterBottle {
+      width: 100%;
+      height: 100%; 
+      object-fit: cover; 
+    }
+  
+    .myDailyNorma {
+      position: absolute; 
+      top: 50%; 
+      left: -73px;
+      transform: translateY(-50%); 
+      z-index: 2;
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+    }
+  
+    .bottomSection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+  
+    .progressContainer {
+      flex: 1;
+      margin-right: 10px;
+    }
+  
+    .addWaterBtn {
+      flex-shrink: 0;
+      padding: 10px 20px;
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    
+    .imageContainer {
+      background-image: 
+      url('/public/images_auth/Botle_Homescreendec.svg');
+    }
+  }
