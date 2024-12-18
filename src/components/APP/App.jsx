@@ -13,7 +13,7 @@ export default function App() {
   const WelcomePage = lazy(() => import('../../pages/WelcomePage/WelcomePage'));
   const SignupPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
-  // const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));  //исправить путь на верный
+  const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 
   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   return(
@@ -40,7 +40,7 @@ export default function App() {
     <Route path="welcome" element={<WelcomePage />} />
       <Route path="signup" element={<SignupPage />} />
       <Route path="signin" element={<SigninPage />} />
-      {/* <Route path="home" element={ <HomePage/> } /> */}
+      <Route path="home" element={ <HomePage/> } /> 
 
       {/* <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> */}
       {/* <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} /> */}
