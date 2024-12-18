@@ -1,11 +1,17 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense} from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import SharedLayout from "components/SharedLayout/SharedLayout";
+import SharedLayout from "../SharedLayout/SharedLayout";
+import Loader from "../Loader/Loader";
 import { ToastContainer} from "react-toastify"; //добавила для всплывающих окон (Надя)
 import 'react-toastify/dist/ReactToastify.css';
-// import PrivateRoute from "./PrivateRoute";
-// import RestrictedRoute from "./RestrictedRoute";
-import Loader from "components/Loader/Loader";
+import PrivateRoute from "./PrivateRoute";
+import RestrictedRoute from "./RestrictedRoute";
+
+
+
+
+
 
 
 export default function App() {
@@ -16,8 +22,13 @@ export default function App() {
   const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 
   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
+  
+
+  
   return(
     <> 
+
+
 {/* добавила для всплывающих окон (Надя) */}
     <ToastContainer
     toastClassName="toast-custom"
@@ -38,13 +49,13 @@ export default function App() {
     <Route path="/" element={<SharedLayout />}>
     <Route index element={<WelcomePage />} />
     <Route path="welcome" element={<WelcomePage />} />
-      <Route path="signup" element={<SignupPage />} />
-      <Route path="signin" element={<SigninPage />} />
-      <Route path="home" element={ <HomePage/> } /> 
+      {/* <Route path="signup" element={<SignupPage />} />
+      <Route path="signin" element={<SigninPage />} /> */}
+      {/* <Route path="home" element={ <HomePage/> } /> */}
 
-      {/* <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> */}
-      {/* <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} /> */}
-      {/* <Route path="home" element={ <PrivateRoute component={<HomePage/>} redirectTo="/signin" /> } /> */}
+      <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> 
+      <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} />
+       <Route path="home" element={ <PrivateRoute component={<HomePage/>} redirectTo="/signin" /> } />
         </Route>
         <Route path="*"  element={<NotFoundPage />} />
   </Routes>

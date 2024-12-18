@@ -1,3 +1,7 @@
 .Toastify__progress-bar--success {
     background: var(--primery-color-blue);
 }
+
+.Toastify__progress-bar--error {
+    background: var(--secondary-color-3);
+}

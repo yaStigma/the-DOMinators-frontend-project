@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { AuthWrapper } from "../../components/AuthWrapper/AuthWrapper";
 import {SendResetEmailModal} from "../../components/SendResetEmailModal/SendResetEmailModal";
+// import { toast } from "react-hot-toast";
 import css from "./SignInPage.module.css";
 
 const SigninPage = () => {
@@ -36,20 +37,18 @@ const SigninPage = () => {
   ];
 
   const handleSignin = async (values) => {
-    try {
-      // Вызов API для авторизации
-      const payload = {
-        email: values.email,
-        password: values.password,
-      };
-      await dispatch(signIn(payload));
-
+      try {
+        // Call backend API for signup
+        const payload = {
+          email: values.email,
+          password: values.password,
+          repeatPassword: values.repeatPassword,
+        };
+        await dispatch(signIn(payload)); 
       // navigate("/home");
-    } catch (error) {
-      console.error("Signin error:", error);
-      alert("Signin failed. Please try again.");
-    }
-  };
+      } catch (error) {
+      }
+    };
 
   const openModal = () => {
     setIsModalOpen(true);

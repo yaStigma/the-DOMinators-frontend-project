@@ -24,3 +24,7 @@ justify-content: center;
     fill: currentColor;
     
   }
+  .link {
+    outline: none;
+  text-decoration: none;
+  }
