@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import SharedLayout from "../../components/SharedLayout/SharedLayout.jsx";
 // import PrivateRoute from "./PrivateRoute";
 // import RestrictedRoute from "./RestrictedRoute";
-import Loader from "../Loader/Loader.jsx";
+import Loader from "../Loader/Loader.jsx"
 
 
 export default function App() {
