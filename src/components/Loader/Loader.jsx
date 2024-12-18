@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './Loader.module.css';
 
 const Loader = () => (
   <div style={{
@@ -13,7 +14,7 @@ const Loader = () => (
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 9999,
   }}>
-    <div className="spinner" />
+    <div className={css.spinner} />
   </div>
 );
 
