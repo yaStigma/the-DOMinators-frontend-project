@@ -54,7 +54,7 @@ export default function App() {
 
 
   return (
-    <>
+    <div>
       {/* добавила для всплывающих окон (Надя) */}
       <ToastContainer
         toastClassName="toast-custom"
@@ -70,29 +70,53 @@ export default function App() {
         pauseOnHover
         theme="light"
       />
-// ======= почистити після перевірки  ======
-//   const WelcomePage = lazy(() => import('../../pages/WelcomePage/WelcomePage'));
-//   const SignupPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
-//   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
-//   const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+      
+ 
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={isLoggedIn ? <HomePage /> : <WelcomePage />} />
+            <Route
+              path="signup"
+              element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />}
+            />
+            <Route
+              path="signin"
+              element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />}
+            />
+            <Route
+              path="home"
+              element={<PrivateRoute component={<HomePage />} redirectTo="/signin" />}
+            />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </div>
+  );
+}
+  {/* const WelcomePage = lazy(() => import('../../pages/WelcomePage/WelcomePage'));
+   const SignupPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
+   const SigninPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
+   const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 
-//   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
+   const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
   
-//   const dispatch = useDispatch();
-//   const isRefreshing = useSelector(selectIsRefreshing);
-//   const isLoggedIn = useSelector(selectIsLoggedIn);
-//   useEffect(() => {
-//     const token = localStorage.getItem('persist:auth');
-//     if (token) {
-//       dispatch(refreshUser());
-//     }
-//   }, [dispatch]);
-  
-//   return isRefreshing ? (
+   const dispatch = useDispatch();
+   const isRefreshing = useSelector(selectIsRefreshing);
+ const isLoggedIn = useSelector(selectIsLoggedIn); */}
+ {/* useEffect(() => { 
+    const token = localStorage.getItem('persist:auth');
+    if (token) {
+      dispatch(refreshUser());
+    }
+  }, [dispatch]);
+   */}
+{/* //   return isRefreshing ? (
 //     <p>Loading...</p>) : (
 //     <> 
 //     {/* добавила для всплывающих окон (Надя) */}
-//     <ToastContainer
+  //   <ToastContainer }
 //     toastClassName="toast-custom"
 //     progressClassName="toast-custom-progress"
 //     position="bottom-left"
@@ -125,29 +149,6 @@ export default function App() {
 // </>
 //   )
 // };
-// >>>>>>> main
+// >>>>>>> main */}
 
       {/* Application Routes */}
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={isLoggedIn ? <HomePage /> : <WelcomePage />} />
-            <Route
-              path="signup"
-              element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />}
-            />
-            <Route
-              path="signin"
-              element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />}
-            />
-            <Route
-              path="home"
-              element={<PrivateRoute component={<HomePage />} redirectTo="/signin" />}
-            />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
-    </>
-  );
-}
