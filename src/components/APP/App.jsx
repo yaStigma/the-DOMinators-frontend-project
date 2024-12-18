@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';  //добавила дл
 import { useEffect } from 'react'; //добавила для обновления токена после перезагрузки (Надя)
 import { refreshUser } from '../../redux/auth/operations'; //добавила для обновления токена после перезагрузки (Надя)
 import { selectIsRefreshing } from "../../redux/auth/selectors";
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
 export default function App() {
 
@@ -23,7 +24,7 @@ export default function App() {
   
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
-
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   useEffect(() => {
     const token = localStorage.getItem('persist:auth');
     if (token) {
@@ -52,11 +53,11 @@ export default function App() {
 <Suspense fallback={<Loader/>}>
   <Routes>
     <Route path="/" element={<SharedLayout />}>
-    <Route index element={<WelcomePage />} />
+    <Route index element={isLoggedIn? <HomePage/>:<WelcomePage />} />
     <Route path="welcome" element={<WelcomePage />} />
       {/* <Route path="signup" element={<SignupPage />} />
       <Route path="signin" element={<SigninPage />} /> */}
-      <Route path="home" element={ <HomePage/> } />
+      {/* <Route path="home" element={ <HomePage/> } /> */}
 
       <Route path="signup" element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />} /> 
       <Route path="signin" element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />} />
