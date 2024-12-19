@@ -22,6 +22,8 @@ const HomePage = () => {
           onAddWaterClick={handleAddWater}
         />
       </section>
+      <section className={styles.todayWaterListSection}>
+      </section>
     </div>
   );
 };
