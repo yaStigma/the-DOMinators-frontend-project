@@ -27,7 +27,7 @@ const fields = [
     label: "Password",
     placeholder: "Password",
     validation: Yup.string()
-      .min(8, "Password must be at least 6 characters").max(64, "Password must be not more than 64 characters")
+      .min(8, "Password must be at least 8 characters").max(64, "Password must be not more than 64 characters")
       .required("Password is required"),
   },
   {
@@ -47,11 +47,10 @@ const fields = [
       const payload = {
         email: values.email,
         password: values.password,
-        repeatPassword: values.repeatPassword,
       };
       await dispatch(signUp(payload)); 
 
-    // navigate("/home");
+      navigate("/home");
     } catch (error) {
       console.error("Signup error:", error);
       alert("Signup failed. Please try again.");
