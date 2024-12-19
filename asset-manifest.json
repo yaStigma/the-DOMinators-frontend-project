@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/the-DOMinators-frontend-project/static/css/main.7bbc8754.css",
-    "main.js": "/the-DOMinators-frontend-project/static/js/main.e2b6da98.js",
+    "main.css": "/the-DOMinators-frontend-project/static/css/main.601f2466.css",
+    "main.js": "/the-DOMinators-frontend-project/static/js/main.8fbdf7fb.js",
     "static/css/917.218b314a.chunk.css": "/the-DOMinators-frontend-project/static/css/917.218b314a.chunk.css",
     "static/js/917.5c24c8a0.chunk.js": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js",
     "static/css/991.21916bd4.chunk.css": "/the-DOMinators-frontend-project/static/css/991.21916bd4.chunk.css",
@@ -32,8 +32,8 @@
     "static/media/Background_element_Homescreen_mob.svg": "/the-DOMinators-frontend-project/static/media/Background_element_Homescreen_mob.cda48ada2e0d7bf38ef9.svg",
     "static/media/Background_SignIn_mobile.svg": "/the-DOMinators-frontend-project/static/media/Background_SignIn_mobile.dc724774fee1771c5263.svg",
     "index.html": "/the-DOMinators-frontend-project/index.html",
-    "main.7bbc8754.css.map": "/the-DOMinators-frontend-project/static/css/main.7bbc8754.css.map",
-    "main.e2b6da98.js.map": "/the-DOMinators-frontend-project/static/js/main.e2b6da98.js.map",
+    "main.601f2466.css.map": "/the-DOMinators-frontend-project/static/css/main.601f2466.css.map",
+    "main.8fbdf7fb.js.map": "/the-DOMinators-frontend-project/static/js/main.8fbdf7fb.js.map",
     "917.218b314a.chunk.css.map": "/the-DOMinators-frontend-project/static/css/917.218b314a.chunk.css.map",
     "917.5c24c8a0.chunk.js.map": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js.map",
     "991.21916bd4.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.21916bd4.chunk.css.map",
@@ -47,7 +47,7 @@
     "306.17656025.chunk.js.map": "/the-DOMinators-frontend-project/static/js/306.17656025.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7bbc8754.css",
-    "static/js/main.e2b6da98.js"
+    "static/css/main.601f2466.css",
+    "static/js/main.8fbdf7fb.js"
   ]
 }
