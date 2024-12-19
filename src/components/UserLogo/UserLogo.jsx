@@ -2,34 +2,36 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './UserLogo.module.css';
-import { userId } from '../../redux/user/selectors';
+// import { userId } from '../../redux/user/selectors';
 import { selectUserInfo } from '../../redux/user/selectors';
 import { fetchUser } from '../../redux/user/operations';
 
 const UserLogo = () => {
   const dispatch = useDispatch();
-  const id = useSelector(userId)
-  if (id) {
-      dispatch(fetchUser(id));
-    }
-    
-    const  {user}  = useSelector(selectUserInfo);
-console.log(user.data)
- 
-  const { name, email, avatarUrl } = user;
+  // const id = useSelector(userId)
+  useEffect(() => {
+    dispatch(fetchUser());
+ },[dispatch])
+ const  userInfo = useSelector(selectUserInfo);
+ console.log(userInfo.user.data)
+  const data = userInfo.user.data;
 
   let avatarSrc = '';
   let avatarText = '';
   let displayName = '';
 
-  if (avatarUrl) {
-    avatarSrc = avatarUrl;
-  } else if (name) {
-    avatarText = name.charAt(0).toUpperCase();
-    displayName = name;
-  } else if (email) {
-    avatarText = email.charAt(0).toUpperCase();
-    displayName = email;
+  // if (data.name) {
+  //   avatarSrc = data.avatarUrl;
+  //   avatarText = data.name.charAt(0).toUpperCase();
+  //   displayName = data.name;
+  // } else 
+  if ( data.avatarUrl) {
+    // avatarText = data.name.charAt(0).toUpperCase();
+    // displayName = data.name;
+        avatarSrc = data.avatarUrl;
+  } else if (data.email) {
+    avatarText = data.email.charAt(0).toUpperCase();
+    displayName = data.email;
   }
   return (
     <div className={css.wrapper}>
