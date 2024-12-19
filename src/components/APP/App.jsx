@@ -56,3 +56,26 @@ return (
       theme="light"
     />
       {/* Application Routes */}
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={isLoggedIn ? <HomePage /> : <WelcomePage />} />
+            <Route
+              path="signup"
+              element={<RestrictedRoute component={<SignupPage />} redirectTo="/home" />}
+            />
+            <Route
+              path="signin"
+              element={<RestrictedRoute component={<SigninPage />} redirectTo="/home" />}
+            />
+            <Route
+              path="home"
+              element={<PrivateRoute component={<HomePage />} redirectTo="/signin" />}
+            />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </>
+  );
+}

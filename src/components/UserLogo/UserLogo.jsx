@@ -14,7 +14,7 @@ const UserLogo = () => {
     }
     
     const  {user}  = useSelector(selectUserInfo);
-console.log(user)
+console.log(user.data)
  
   const { name, email, avatarUrl } = user;
 
