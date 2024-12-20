@@ -4,24 +4,24 @@ import PropTypes from "prop-types";
 import DailyNorma from "../DailyNorma/DailyNorma";
 
 const ProgressBar = ({ sliderValue }) => {
-  const [sliderWidth, setSliderWidth] = useState(256); 
+  const [sliderWidth, setSliderWidth] = useState(256);
 
   useEffect(() => {
     const updateSliderWidth = () => {
       if (window.innerWidth >= 1440) {
-        setSliderWidth(350); 
+        setSliderWidth(350);
       } else if (window.innerWidth >= 768) {
-        setSliderWidth(325); 
+        setSliderWidth(325);
       } else {
-        setSliderWidth(256); 
+        setSliderWidth(256);
       }
     };
 
-    updateSliderWidth(); 
-    window.addEventListener("resize", updateSliderWidth); 
+    updateSliderWidth();
+    window.addEventListener("resize", updateSliderWidth);
 
     return () => {
-      window.removeEventListener("resize", updateSliderWidth); 
+      window.removeEventListener("resize", updateSliderWidth);
     };
   }, []);
 
@@ -69,8 +69,8 @@ const WaterTracker = ({ sliderValue, onAddWaterClick }) => {
 
           <div className={styles.progressMarkers}>
   {[0, 50, 100].map((value, index) => {
-    const isActive = sliderValue === value; 
-    const fontSize = isActive ? 16 : 12; 
+    const isActive = sliderValue === value;
+    const fontSize = isActive ? 16 : 12;
 
     return (
       <div key={index} className={styles.marker}>
