@@ -13,7 +13,9 @@ const authSlice = createSlice({
     user: {
       name: null,
       email: null,
+      
     },
+    userId: null,
     accessToken: null,
     isLoggedIn: false,
     isRefreshing: false,
@@ -22,18 +24,22 @@ const authSlice = createSlice({
       loading: false,
       success: false,
       error: null,
+
     },
   },
   extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
+        // state.user = action.payload.User
         state.user = action.payload.data._id || { email: action.payload.data.email };
         state.accessToken = action.payload.data.accessToken;
+        state.userId = action.payload.data._id
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.user = action.payload.data.userId || action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
+        state.userId = action.payload.data._id
         state.isLoggedIn = true;
         state.error = null;
       })
