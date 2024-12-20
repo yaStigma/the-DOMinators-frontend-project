@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; //додала useCallback
 import { useDispatch } from 'react-redux';
 import { updateDailyNorma } from '../../redux/water/dailyNormaModal';
 import css from './DailyNormaModal.module.css';
@@ -17,9 +17,9 @@ const App = ({ setModalVisible }) => { // Принимаем setModalVisible к�
     return () => window.removeEventListener('resize', adjustTextareaHeight);
   }, []);
 
-  useEffect(() => {
-    calculateWaterIntake();
-  }, [gender, weight, activityTime]);
+  // useEffect(() => {
+  //   calculateWaterIntake();
+  // }, [gender, weight, activityTime]);   перенесла у calculateWaterIntake
 
   const adjustTextareaHeight = () => {
     const textarea = document.getElementById('infoText');
@@ -27,7 +27,7 @@ const App = ({ setModalVisible }) => { // Принимаем setModalVisible к�
     textarea.style.height = textarea.scrollHeight + 'px';
   };
 
-  const calculateWaterIntake = () => {
+  const calculateWaterIntake = useCallback(() => {   // додала використання колбеку, для  для мемоізації функції 
     let V;
     if (gender === 'woman') {
       V = weight * 0.03 + activityTime * 0.4;
@@ -40,7 +40,11 @@ const App = ({ setModalVisible }) => { // Принимаем setModalVisible к�
     }
 
     setRequiredWater(V === 0 ? '0 L' : V.toFixed(2) + ' L');
-  };
+  }, [gender, weight, activityTime]);
+
+  useEffect(() => {
+    calculateWaterIntake();
+  }, [calculateWaterIntake]);  // використання useEffect у функції
 
   const clearDefault = (event) => {
     if (event.target.value === '0') {
