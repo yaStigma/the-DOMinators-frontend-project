@@ -11,24 +11,18 @@ const userInfoSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchUser.pending, state => {
-        state.loading = true;
-        state.error = null;
-        state.unauthorized = false;
-      })
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(fetchUser.rejected, (state, action) => {
-        state.loading = false;
-        if (action.payload === 'Access token expired') {
-          state.unauthorized = true;
-          state.error = action.payload;
-        } else {
-          state.error = action.payload;
-        }
-      });
+          .addCase(fetchUser.pending, (state) => {
+            state.isFetchingUser = true;
+            state.error = null;
+          })
+          .addCase(fetchUser.fulfilled, (state, action) => {
+              state.user = action.payload;
+              state.isFetchingUser = false;
+            })
+          .addCase(fetchUser.rejected, (state, action) => {
+              state.error = action.payload;
+              state.isFetchingUser = false;
+            })
   },
 });
 

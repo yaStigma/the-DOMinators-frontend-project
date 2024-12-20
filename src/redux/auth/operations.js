@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-
+import { fetchUser } from '../user/operations';
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
@@ -14,7 +14,7 @@ const clearAuthHeader = () => {
 };
 
 export const signUp = createAsyncThunk(
-  'user/signup',
+  'auth/signup',
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post('/signup', credentials);
@@ -89,7 +89,7 @@ export const signIn = createAsyncThunk(
   }
 );
 
-export const logOut = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/logout');
 
@@ -123,19 +123,23 @@ export const logOut = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 });
 
 export const refreshUser = createAsyncThunk(
-  "auth/refresh",
+  'auth/refresh',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.accessToken;
+    try {
+      // Получаем токен из состояния
+      const state = thunkAPI.getState();
+      const token = state.auth.accessToken;
 
-    if (!persistedToken) {
-      return thunkAPI.rejectWithValue("No token found");
+      if (!token) {
+        return thunkAPI.rejectWithValue('No token found');
+      }
+
+      // Если токен существует, вызываем fetchUser для получения данных пользователя
+      const userData = await thunkAPI.dispatch(fetchUser()).unwrap();
+      return { user: userData, accessToken: token };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
-
-    return {
-      user: state.auth.user,
-      accessToken: persistedToken,
-    };
   }
 );
 
