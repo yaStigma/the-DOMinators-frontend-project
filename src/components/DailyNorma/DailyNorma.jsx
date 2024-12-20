@@ -1,8 +1,3 @@
-
-
-
-
-
 import React, { useState } from 'react';
 import styles from "./DailyNorma.module.css";
 import DailyNormaModal from '../DailyNormaModal/DailyNormaModal'; // Путь к модальному окну
