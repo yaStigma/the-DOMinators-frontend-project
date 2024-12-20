@@ -11,10 +11,10 @@ const Header = () => {
     <div className={css.HeaderDiv}>
           <Logo />
           {isLogin ? <UserLogo /> : <UserAuth />}
-          
+
     </div>
 
-  
+
   );
 };
 
