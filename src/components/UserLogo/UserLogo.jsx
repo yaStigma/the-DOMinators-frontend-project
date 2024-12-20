@@ -27,10 +27,13 @@ const UserLogo = () => {
 
   // Логика для отображения аватара или текста
   if (data.avatarUrl) {
-    avatarSrc = data.avatarUrl;
+    avatarSrc = data.avatarUrl; // Если есть аватар, используем его
+  } else if (data.name) {
+    avatarText = data.name.charAt(0).toUpperCase(); // Первая буква имени
+    displayName = data.name; // Имя пользователя
   } else if (data.email) {
-    avatarText = data.email.charAt(0).toUpperCase();
-    displayName = data.email;
+    avatarText = data.email.charAt(0).toUpperCase(); // Первая буква email
+    displayName = data.email; // Email пользователя
   }
 
   return (

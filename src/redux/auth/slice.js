@@ -5,7 +5,7 @@ import {
   logOut,
   refreshUser,
   sendResetPasswordEmail,
-  fetchUser,
+
 } from './operations';
 
 const authSlice = createSlice({
