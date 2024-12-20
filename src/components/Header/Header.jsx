@@ -43,7 +43,7 @@ const Header = () => {
       <Logo />
       {isLogin ? <UserLogo /> : <UserAuth onLogin={handleLogin} />}
     </div>
-  );
+);
 };
 
 export default Header;
