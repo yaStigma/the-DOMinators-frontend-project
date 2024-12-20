@@ -1,38 +1,38 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './UserLogo.module.css';
-// import { userId } from '../../redux/user/selectors';
 import { selectUserInfo } from '../../redux/user/selectors';
 import { fetchUser } from '../../redux/user/operations';
 
 const UserLogo = () => {
   const dispatch = useDispatch();
-  // const id = useSelector(userId)
+  
+  // Используем useEffect для загрузки данных
   useEffect(() => {
     dispatch(fetchUser());
- },[dispatch])
- const  userInfo = useSelector(selectUserInfo);
- console.log(userInfo)
-  const data = userInfo.data;
+  }, [dispatch]);
+
+  const userInfo = useSelector(selectUserInfo);
+
+  // Проверяем состояние userInfo
+  if (!userInfo) {
+    return <div>Загрузка...</div>;  // Можно показать индикатор загрузки, если данные ещё не загружены
+  }
+
+  const data = userInfo.data || {};  // Если данных нет, используем пустой объект
 
   let avatarSrc = '';
   let avatarText = '';
   let displayName = '';
 
-  // if (data.name) {
-  //   avatarSrc = data.avatarUrl;
-  //   avatarText = data.name.charAt(0).toUpperCase();
-  //   displayName = data.name;
-  // } else 
-  if ( data.avatarUrl) {
-    // avatarText = data.name.charAt(0).toUpperCase();
-    // displayName = data.name;
-        avatarSrc = data.avatarUrl;
+  // Логика для отображения аватара или текста
+  if (data.avatarUrl) {
+    avatarSrc = data.avatarUrl;
   } else if (data.email) {
     avatarText = data.email.charAt(0).toUpperCase();
     displayName = data.email;
   }
+
   return (
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
@@ -54,38 +54,4 @@ const UserLogo = () => {
   );
 };
 
-
-// --------------------------------
-// const UserLogo = () => {
-//   const data = useSelector(selectUser)
-//   console.log(data)
-//       let name = '';
-//       let avatarSrc = '';
-//       let avatarText = '';
-//       if( data.src  ) {
-//      avatarSrc = data.src
-//       } else if(data.name) {
-//    avatarText = data.name.toUpperCase()
-//             name = data.name
-//         }  else if(data.email) {
-//             avatarText = data.email.charAt(0).toUpperCase()
-//             name = data.email
-//         }
-      
-//   return (
-//     <div className={css.wrapper}>
-//  <div className={css.infoWrapper}>Evgen <div className={css.avatarText}><span>E</span></div> </div>
-//  <button type='button'  className={css.btn} onClick={()=> {}}><svg className={css.icon} >
-//       <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
-//  </svg> </button>
-
-
- 
-// <div className={css.infoWrapper}>{name} {avatarSrc ? <img src={avatarSrc} alt='avatar'></img> : <span className={css.avatarText}>{avatarText}</span>}</div>
-// <button type='button'  className={css.btn} onClick={()=> {}}><svg className={css.icon} >
-//       <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
-//  </svg> </button> 
-// </div>
-//   );
-// };
-export default UserLogo
+export default UserLogo;
