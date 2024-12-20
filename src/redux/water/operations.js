@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const createWaterRecord = (token, amount, time) => async (dispatch) => {
+export const createWaterRecord = (token, amount, time) => async dispatch => {
   try {
     const response = await axios.post(
       'https://the-dominators-back-project.onrender.com/water-records',
@@ -28,13 +28,12 @@ export const createWaterRecord = (token, amount, time) => async (dispatch) => {
       alert('An error occurred while processing the request.');
       throw new Error('An error occurred while processing the request.');
     }
-    dispatch({
-      type: 'CREATE_WATER_RECORD_FAIL',
-      payload: error.response ? error.response.data : { message: 'An error occurred' },
-    });
+    // dispatch({
+    //   type: 'CREATE_WATER_RECORD_FAIL',
+    //   payload: error.response ? error.response.data : { message: 'An error occurred' },
+    // });
   }
 };
-
 
 // import axios from 'axios';
 
