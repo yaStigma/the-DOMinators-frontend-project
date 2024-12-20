@@ -36,15 +36,15 @@ const setAuthHeader = (token) => {
 
 export const fetchUser = createAsyncThunk(
   'user/fetchUser',
-  async (userId, thunkAPI) => {
+  async ( thunkAPI) => {
     try {
       // Извлекаем токен из состояния Redux (или другого хранилища)
       const state = thunkAPI.getState();
       const token = state.auth.accessToken;
-
+  console.log(token)
       // Если токена нет, сразу отклоняем запрос
       if (!token) {
-        return thunkAPI.rejectWithValue('Токен не найден. Пользователь не авторизован.');
+        return thunkAPI.rejectWithValue('Token not found');
       }
 
       // Устанавливаем токен в заголовки
