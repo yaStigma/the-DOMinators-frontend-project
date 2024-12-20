@@ -30,7 +30,8 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
-        state.user = action.payload.data._id || { email: action.payload.data.email };
+        state.user = action.payload.User
+        // state.user = action.payload.data._id || { email: action.payload.data.email };
         state.accessToken = action.payload.data.accessToken;
         state.userId = action.payload.data._id
         state.isLoggedIn = true;

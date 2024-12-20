@@ -13,7 +13,7 @@ const UserLogo = () => {
     dispatch(fetchUser());
  },[dispatch])
  const  userInfo = useSelector(selectUserInfo);
- console.log(userInfo.user.data)
+ console.log(userInfo.data)
   const data = userInfo.user.data;
 
   let avatarSrc = '';
