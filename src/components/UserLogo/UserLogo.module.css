@@ -2,6 +2,12 @@
   .spanName {
     border: 1px solid black;
     border-radius:50% ;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
 }
 .wrapper {
     display: flex;
@@ -20,17 +26,28 @@
   .btn {
     border: none;
     background-color: inherit;
+    width: 16px;
+    padding: 0;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  .btn:hover {
+    background-color: inherit;
   }
   .avatarText {
-    border: 1px solid black;
-    border-radius: 100%;
+    /* border: 1px solid black;
+    border-radius: 100%; */
     display: flex;
     justify-content: center;
     text-align: center;
     align-items: center;
     width: 28px;
     height: 28px;
-    font-size: 18px;
+    font-size: 16px;
+    margin-right: 8px;
   }
   .infoWrapper {
     display: flex;
@@ -47,6 +64,9 @@ color: var(--primery-color-black);
  @media screen and (min-width: 768px) {
   .infoWrapper {
     font-size: 18px;
+  }
+  .btn {
+    padding-bottom: 7px;
   }
  }
  

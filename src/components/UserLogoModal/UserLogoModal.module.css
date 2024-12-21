@@ -3,6 +3,9 @@
   box-shadow: 0 4px 9px #0000001a;
   padding: 16px;
   border-radius: 10px;
+  position: absolute;
+  left: 1435px;
+  top: 48px;
 }
 .user__actions{
   display: flex;
