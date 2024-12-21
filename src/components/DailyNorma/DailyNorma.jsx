@@ -4,6 +4,7 @@ import DailyNormaModal from '../DailyNormaModal/DailyNormaModal'; // Путь к
 
 const DailyNorma = () => {
   const [modalVisible, setModalVisible] = useState(false); // Состояние для видимости модального окна
+  const [normaValue] = useState(2.0);
 
   const openModal = () => {
     setModalVisible(true); // Функция для открытия модального окна
@@ -13,7 +14,7 @@ const DailyNorma = () => {
     <div className={styles.dailyNormaContainer}>
       <p className={styles.title}>My daily norma</p>
       <div className={styles.normaContainer}>
-        <span className={styles.normaValue}>1.5 L</span>
+        <span className={styles.normaValue}>{normaValue} L</span>
         <button onClick={openModal} className={styles.editButton}>Edit</button> {/* Кнопка для открытия модального окна */}
       </div>
       {modalVisible && <DailyNormaModal setModalVisible={setModalVisible} />} {/* Отображение модального окна */}

@@ -101,3 +101,4 @@ WaterTracker.propTypes = {
 };
 
 export default WaterTracker;
+
