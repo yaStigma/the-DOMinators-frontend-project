@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import css from './UserLogo.module.css';
 import { selectUserInfo } from '../../redux/user/selectors';
 import { fetchUser } from '../../redux/user/operations';
+import UserLogoModal from 'components/UserLogoModal/UserLogoModal';
 
 const UserLogo = () => {
   const dispatch = useDispatch();
+  const [open,setOpen]=useState(false) 
   
   // Используем useEffect для загрузки данных
   useEffect(() => {
@@ -26,16 +29,16 @@ const UserLogo = () => {
   let displayName = '';
 
   // Логика для отображения аватара или текста
-  if (data.avatarUrl) {
-    avatarSrc = data.avatarUrl; // Если есть аватар, используем его
-  } else if (data.name) {
+ if (data.name) {
     avatarText = data.name.charAt(0).toUpperCase(); // Первая буква имени
     displayName = data.name; // Имя пользователя
+    
   } else if (data.email) {
     avatarText = data.email.charAt(0).toUpperCase(); // Первая буква email
     displayName = data.email; // Email пользователя
-  }
+  } 
 
+   const openDropdown=()=>{setOpen((prev)=>!prev)}
   return (
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
@@ -48,10 +51,11 @@ const UserLogo = () => {
           )}
         </div>
       </div>
-      <button type="button" className={css.btn} onClick={() => {}}>
+      <button type="button" className={css.btn} onClick={openDropdown}>
         <svg className={css.icon}>
           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
         </svg>
+        {open && <UserLogoModal  isOpen={open} onClose={openDropdown}/>}
       </button>
     </div>
   );
