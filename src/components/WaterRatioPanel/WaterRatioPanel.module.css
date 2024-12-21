@@ -112,7 +112,6 @@
   .addWaterBtn:hover {
     box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
     background: #407bff;
-    color: #ff9d43;
   }
   
   .addWaterBtn:active {
@@ -126,9 +125,7 @@
     stroke-width: 2px;
     stroke: #ffffff;
   }
-  .icon:hover {
-    fill: #ff9d43;
-  }
+
   @media screen and (min-width: 768px) {
     .dailyNormaSection {
       position: relative;
