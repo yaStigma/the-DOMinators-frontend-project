@@ -47,12 +47,14 @@
   .amount {
     font-size: 16px;
     font-weight: bold;
-    color: #407bff;
+  
   }
   
   .time {
-    font-size: 14px;
-    color: #888888;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 2;
+    color: #2f2f2f;
   }
   
   .actions {
