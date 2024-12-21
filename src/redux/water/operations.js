@@ -8,9 +8,9 @@ const setAuthHeader = (accessToken) => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
-const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
+// const clearAuthHeader = () => {
+//   axios.defaults.headers.common.Authorization = '';
+// };
 
 export const createWaterRecord = createAsyncThunk(
   'water/createRecord',
