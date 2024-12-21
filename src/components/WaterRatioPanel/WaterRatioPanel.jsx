@@ -2,26 +2,27 @@ import React, { useState, useEffect } from "react";
 import styles from "./WaterRatioPanel.module.css";
 import PropTypes from "prop-types";
 import DailyNorma from "../DailyNorma/DailyNorma";
+import AddWaterModal from "../AddWaterModal/AddWaterModal";
 
 const ProgressBar = ({ sliderValue }) => {
-  const [sliderWidth, setSliderWidth] = useState(256); 
+  const [sliderWidth, setSliderWidth] = useState(256);
 
   useEffect(() => {
     const updateSliderWidth = () => {
       if (window.innerWidth >= 1440) {
-        setSliderWidth(350); 
+        setSliderWidth(350);
       } else if (window.innerWidth >= 768) {
-        setSliderWidth(325); 
+        setSliderWidth(325);
       } else {
-        setSliderWidth(256); 
+        setSliderWidth(256);
       }
     };
 
-    updateSliderWidth(); 
-    window.addEventListener("resize", updateSliderWidth); 
+    updateSliderWidth();
+    window.addEventListener("resize", updateSliderWidth);
 
     return () => {
-      window.removeEventListener("resize", updateSliderWidth); 
+      window.removeEventListener("resize", updateSliderWidth);
     };
   }, []);
 
@@ -58,6 +59,12 @@ ProgressBar.propTypes = {
 };
 
 const WaterTracker = ({ sliderValue, onAddWaterClick }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleAddWaterClick = () => {
+    setModalVisible(true);
+  };
+
   return (
     <div className={styles.dailyNormaSection}>
       <DailyNorma />
@@ -68,29 +75,31 @@ const WaterTracker = ({ sliderValue, onAddWaterClick }) => {
           <ProgressBar sliderValue={sliderValue} />
 
           <div className={styles.progressMarkers}>
-  {[0, 50, 100].map((value, index) => {
-    const isActive = sliderValue === value; 
-    const fontSize = isActive ? 16 : 12; 
+            {[0, 50, 100].map((value, index) => {
+              const isActive = sliderValue === value;
+              const fontSize = isActive ? 16 : 12;
 
-    return (
-      <div key={index} className={styles.marker}>
-        <div className={styles.tick}></div>
-        <span style={{ fontSize: `${fontSize}px` }}>
-          {value}%
-        </span>
-      </div>
-    );
-  })}
-</div>
+              return (
+                <div key={index} className={styles.marker}>
+                  <div className={styles.tick}></div>
+                  <span style={{ fontSize: `${fontSize}px` }}>
+                    {value}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        <button className={styles.addWaterBtn} onClick={onAddWaterClick}>
+        <button className={styles.addWaterBtn} onClick={handleAddWaterClick}>
           <svg className={styles.icon} width="20" height="20">
             <use href="images_auth/vectorbtn.svg#icon-vector-btn"></use>
           </svg>
           Add Water
         </button>
       </div>
+
+      {modalVisible && <AddWaterModal setModalVisible={setModalVisible} />}
     </div>
   );
 };
