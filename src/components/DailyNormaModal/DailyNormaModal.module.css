@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -21,7 +21,7 @@ ul {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
+} */
 
 /* body {
   font-family: Arial, sans-serif;
@@ -125,16 +125,16 @@ position:relative;
   background-color: #007bff;
 }
 
-h2,
+/* h2,
 h3,
 h4 {
   margin: 10px 0;
-}
+} */
 
-label {
+/* label {
   display: block;
   margin: 10px 0;
-}
+} */
 
 .formulas {
   display: flex;
@@ -223,7 +223,7 @@ textarea:read-only {
   cursor: not-allowed;
 }
 
-button {
+/* button {
   width: 100px;
   padding: 10px;
   background-color: #007bff;
@@ -232,11 +232,11 @@ button {
   border-radius: 4px;
   cursor: pointer;
   align-self: flex-end;
-}
+} */
 
-button:hover {
+/* button:hover {
   background-color: #0056b3;
-}
+} */
 
 .bluInput {
   width: 100%;
@@ -282,7 +282,7 @@ button:hover {
     text-align: left;
   }
 
-  button {
+  /* button {
     align-self: center;
   }
 
@@ -309,8 +309,8 @@ button:hover {
 
   textarea {
     font-size: 0.9em;
-  }
-}
+  }*/
+} 
 
 /* Адаптация для всех компьютеров и браузеров */
 @media (min-width: 769px) {
@@ -350,9 +350,9 @@ display: flex;
     display: block;
   }
 
-  button {
+  /* button {
     align-self: flex-end;
-  }
+  } */
 }
 
 .blu {
