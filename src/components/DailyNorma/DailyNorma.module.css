@@ -11,6 +11,7 @@
     background: #fff;
     padding: 8px 20px;
     box-sizing: border-box;
+    z-index: 10;
   }
   
   .title {

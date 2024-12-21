@@ -34,6 +34,7 @@ const HomePage = () => {
 
   return (
     <div className={styles.homeContainer}>
+      <div className={styles.homeSectionsWrapper}>
       <section className={styles.waterTrackerSection}>
         <WaterTracker
           sliderValue={sliderValue}
@@ -49,6 +50,7 @@ const HomePage = () => {
           onDelete={handleDelete}
         />
       </section>
+      </div>
     </div>
   );
 };

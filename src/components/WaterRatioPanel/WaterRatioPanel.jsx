@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import DailyNorma from "../DailyNorma/DailyNorma";
 
 const ProgressBar = ({ sliderValue }) => {
-const [sliderWidth, setSliderWidth] = useState(256);
+const [sliderWidth, setSliderWidth] = useState(280);
 
    useEffect(() => {
    const updateSliderWidth = () => {
@@ -13,7 +13,7 @@ const [sliderWidth, setSliderWidth] = useState(256);
        } else if (window.innerWidth >= 768) {
          setSliderWidth(325);
        } else {
-         setSliderWidth(256);
+         setSliderWidth(280);
        }
      };
 
@@ -28,7 +28,7 @@ const [sliderWidth, setSliderWidth] = useState(256);
    return (
     <svg
        className={styles.progressBar}
-       width="100%"
+       width={sliderWidth}
        height="20"
        viewBox={`0 0 ${sliderWidth} 20`}
      >
