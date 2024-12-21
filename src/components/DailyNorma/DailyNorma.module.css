@@ -36,6 +36,7 @@
     font-size: 22px;
     color: #407bff;
     line-height: 1;
+    display: inline-flex;
   }
   
   .editButton {
