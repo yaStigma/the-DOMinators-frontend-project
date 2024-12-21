@@ -1,4 +1,4 @@
-.homeContainer {
+/* .homeContainer {
     margin-top: 24px auto;
     display: flex;
     flex-direction: column;
@@ -67,4 +67,58 @@
       grid-template-columns: repeat(12, 1fr); 
       column-gap: 32px; 
     }
+  } */
+
+
+  .homeContainer {
+    position: relative;
+    height: 1320px;
+    width: 100%;
+    background-image: url('/public/images_homePage/Background_element_Home_screen_mob.svg');      
+    background-color: var(--primery-color-white);
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center top;
+    margin: 0 auto;
+    z-index: 0;} 
+  
+  .waterTrackerSection {
+      display: block;
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+  }
+
+  @media screen and (min-width: 320px) {
+    .homeContainer {
+      width: 320px;
+      height: 1320px;
+    }
+
+  }
+  @media screen and (min-width: 768px) {
+    .homeContainer {
+      width: 768px;
+      background-image: url('/public/images_homePage/Background_element_Home_Screen_tab.svg');
+      background-position: center top;
+      height: 1280px;
+    
+    }
+    .waterTrackerSection {
+      width: 704px;
+      height: 100%;
+  }
+  }
+  @media screen and (min-width: 1440px) { 
+    .homeContainer {
+      width: 1440px;
+      background-image: url('/public/images_auth/Background_MainPage.svg');
+      background-position: left top, center top;
+      height: 680px;
+    }
+    .waterTrackerSection {
+      width: 1216px;
+      height: 680px;
+      margin: 0 auto;
+  }
   }
