@@ -113,12 +113,22 @@
     .homeContainer {
       width: 1440px;
       background-image: url('/public/images_auth/Background_MainPage.svg');
-      background-position: left top, center top;
+      background-position: center top;
       height: 680px;
     }
-    .waterTrackerSection {
+    .homeSectionsWrapper{
+      display: flex;
+      justify-content: space-between;
       width: 1216px;
-      height: 680px;
       margin: 0 auto;
+    }
+    .waterTrackerSection {
+      width: 600px;
+      height: 680px;
+   
+  }
+  .todayWaterListSection {
+    width:592px;
+    height: 680px;
   }
   }

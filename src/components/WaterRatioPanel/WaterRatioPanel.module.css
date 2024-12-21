@@ -157,7 +157,7 @@
       position: absolute;
       background-image: url('../../../public/images_homePage/Bottle_Home_Screen_tab.svg');
       width: 100%;
-      max-width: 500px;
+      width: 500px;
       height: 386px;
       top: 10px;
       left: 10%;
@@ -205,9 +205,9 @@
     }
     .imageContainer {
       top: -15px;
-      left: -2%;
+      left: -15%;
       height: 548px;
-      max-width: 738px;
+      width: 738px;
     }
     .progressBar {
       width: 350px;
