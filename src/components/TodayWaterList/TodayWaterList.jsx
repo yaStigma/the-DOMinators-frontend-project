@@ -91,7 +91,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord, deleteWaterRecord } from "../../redux/water/operations"; 
+import { createWaterRecord} from "../../redux/water/operations";  //deleteWaterRecord 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -149,20 +149,20 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
     }
   };
 
-  const handleDeleteWater = async (id) => {
-    if (accessToken) {
-      try {
-        await dispatch(deleteWaterRecord(id, accessToken));
-        setWaterRecords((prevRecords) =>
-          prevRecords.filter((record) => record._id !== id)
-        );
-      } catch (err) {
-        console.error("Error deleting water record", err);
-      }
-    } else {
-      console.error("No access token available.");
-    }
-  };
+  // const handleDeleteWater = async (id) => {
+  //   if (accessToken) {
+  //     try {
+  //       await dispatch(deleteWaterRecord(id, accessToken));
+  //       setWaterRecords((prevRecords) =>
+  //         prevRecords.filter((record) => record._id !== id)
+  //       );
+  //     } catch (err) {
+  //       console.error("Error deleting water record", err);
+  //     }
+  //   } else {
+  //     console.error("No access token available.");
+  //   }
+  // };
 
   return (
     <section className={styles.todayWaterListSection}>
@@ -194,7 +194,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
                 </button>
                 <button
                   className={styles.deleteButton}
-                  onClick={() => handleDeleteWater(_id)}
+                  // onClick={() => handleDeleteWater(_id)}
                   aria-label="Delete"
                 >
                   <svg width="16" height="16">
