@@ -1,0 +1,184 @@
+.monthTableWrap {
+  border-radius: 10px;
+  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.3);
+  background-color: var(--light-color);
+  padding: 24px 8px;
+  max-width: 280px;
+}
+
+@media screen and (min-width: 768px) {
+  .monthTableWrap {
+    padding: 32px 24px;
+    max-width: 704px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .monthTableWrap {
+    max-width: 592px;
+  }
+}
+
+.paginationWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  max-width: 264px;
+}
+
+@media screen and (min-width: 768px) {
+  .paginationWrap {
+    max-width: none;
+    width: 656px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .paginationWrap {
+    width: 544px;
+  }
+}
+
+.daysList {
+  padding: 0;
+  margin: 0;
+  max-width: 264px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 13px;
+}
+
+@media screen and (min-width: 768px) {
+  .daysList {
+    gap: 10px 17px;
+    max-width: 646px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .daysList {
+    gap: 10px 11px;
+    max-width: 538px;
+  }
+}
+
+.dayItem {
+  flex-basis: calc((100% - 4 * 26px) / 5);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+@media screen and (min-width: 768px) {
+  .dayItem {
+    flex-basis: calc((100% - 9 * 34px) / 10);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .dayItem {
+    flex-basis: calc((100% - 9 * 22px) / 10);
+  }
+}
+
+.dayNumber {
+  width: 32px;
+  height: 32px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: Roboto, sans-serif;
+  text-align: center;
+  border-radius: 50%;
+  border: transparent;
+  background-color: var(--primery-color-white);
+  font-size: 14px;
+  line-height: 1.29;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.dayNumber:hover,
+.dayNumber:focus {
+  box-shadow: 0px 2px 4px 0px rgba(64, 123, 255, 0.3);
+  transform: scale(1.1);
+}
+
+@media screen and (min-width: 768px) {
+  .dayNumber {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+}
+
+.dayPercentage {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--secondary-color-4);
+}
+
+@media screen and (min-width: 768px) {
+  .dayPercentage {
+    font-size: 13px;
+    line-height: 1.54;
+  }
+}
+
+.monthsHead {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--primery-color-black);
+}
+
+@media screen and (min-width: 768px) {
+  .monthsHead {
+    font-size: 26px;
+    line-height: 1.23;
+  }
+}
+
+.monthSelector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.monthAndYear {
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.25;
+  color: var(--primery-color-blue);
+}
+
+.monthBackButton,
+.monthNextButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--primery-color-blue);
+  transition: color 0.3s;
+}
+
+.monthBackButton {
+  transform: rotate(90deg);
+}
+
+.monthNextButton {
+  transform: rotate(-90deg);
+}
+
+.monthBackButton:hover,
+.monthBackButton:focus,
+.monthNextButton:hover,
+.monthNextButton:focus {
+  color: var(--secondary-color-5);
+}
