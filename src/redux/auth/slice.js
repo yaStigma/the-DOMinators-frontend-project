@@ -5,13 +5,10 @@ import {
   logOut,
   refreshUser,
   sendResetPasswordEmail,
-
 } from './operations';
 
-
-
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     user: {
       name: null,
@@ -30,7 +27,9 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
-        state.user = action.payload.data._id || { email: action.payload.data.email };
+        state.user = action.payload.data._id || {
+          email: action.payload.data.email,
+        };
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
       })
@@ -47,12 +46,14 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = false;
         state.user = { name: null, email: null };
-      }).addCase(logOut.fulfilled, state => {
+      })
+      .addCase(logOut.fulfilled, state => {
         state.loading = false;
         state.user = { name: null, email: null };
         state.accessToken = null;
         state.isLoggedIn = false;
-      }).addCase(logOut.rejected, (state,action) => {
+      })
+      .addCase(logOut.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.user = { name: null, email: null };

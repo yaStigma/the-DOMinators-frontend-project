@@ -2,20 +2,23 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { fetchUser } from '../user/operations';
+import { showLoader, hideLoader } from '../loader/slice';
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
-const setAuthHeader = (accessToken) => {
+const setAuthHeader = accessToken => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = "";
+  axios.defaults.headers.common.Authorization = '';
 };
 
 export const signUp = createAsyncThunk(
   'auth/signup',
   async (credentials, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const res = await axios.post('/signup', credentials);
       toast.success('The new user was created successfully!', {
@@ -23,7 +26,7 @@ export const signUp = createAsyncThunk(
         position: 'top-right',
       });
       setAuthHeader(res.data.accessToken);
-      
+
       return res.data;
     } catch (error) {
       if (error.response) {
@@ -46,6 +49,8 @@ export const signUp = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
@@ -60,7 +65,7 @@ export const signIn = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
-      
+
       setAuthHeader(res.data.accessToken);
 
       return res.data;
