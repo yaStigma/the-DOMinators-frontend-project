@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { showLoader, hideLoader } from '../loader/slice';
+
 
 // Устанавливаем базовый URL для axios
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
@@ -349,14 +349,11 @@ export const updateDailyNorma = createAsyncThunk(
   }
 );
 
-<<<<<<< HEAD
 
 
 
 
 
-=======
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
 export const createWaterRecord = createAsyncThunk(
   'water/createRecord',
   async ({ accessToken, amount, time }, thunkAPI) => {
@@ -403,62 +400,6 @@ export const createWaterRecord = createAsyncThunk(
   }
 );*/
 
-<<<<<<< HEAD
-
-=======
-// import axios from 'axios';
-// import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { toast } from 'react-toastify';
-
-// axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
-
-// const setAuthHeader = (accessToken) => {
-//   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-// };
-
-// const clearAuthHeader = () => {
-//   axios.defaults.headers.common.Authorization = '';
-// };
-
-// export const updateDailyNorma = createAsyncThunk(
-//   'user/water-rate',
-//   async ({ accessToken, dailyNorma }, thunkAPI) => {
-//     try {
-//       setAuthHeader(accessToken);
-
-//       const response = await axios.put('/water-rate', { dailyNorma });
-
-//       toast.success(response.data.message, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return response.data;
-//     } catch (error) {
-//       if (error.response) {
-//         const { status, message, data } = error.response.data;
-//         toast.error(`Error: ${message}`, {
-//           duration: 4000,
-//           position: 'top-right',
-//         });
-
-//         return thunkAPI.rejectWithValue({ status, message, data });
-//       }
-
-//       toast.error(`Error: ${error.message}`, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return thunkAPI.rejectWithValue({
-//         status: null,
-//         message: error.message,
-//         data: null,
-//       });
-//     }
-//   }
-// );
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
 
 // export const createWaterRecord = createAsyncThunk(
 //   'water/createRecord',
@@ -502,7 +443,6 @@ export const createWaterRecord = createAsyncThunk(
 //     }
 //   }
 // );
-<<<<<<< HEAD
 
 
 
@@ -551,5 +491,3 @@ export const createWaterRecord = createAsyncThunk(
 
 
 
-=======
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc

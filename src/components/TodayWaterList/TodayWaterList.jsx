@@ -81,9 +81,6 @@ TodayWaterList.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-<<<<<<< HEAD
-export default TodayWaterList;
-=======
 export default TodayWaterList;*/
 /**/
 
@@ -94,7 +91,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord, deleteWaterRecord } from "../../redux/water/operations"; 
+import { createWaterRecord } from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -103,14 +100,14 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   const accessToken = useSelector(selectToken);
 
   const [waterRecords, setWaterRecords] = useState([]);
-  const [totalWaterAmount, setTotalWaterAmount] = useState(0);  // Define the state for total water amount
-  const [goalPercentage, setGoalPercentage] = useState(0);      // Define the state for goal percentage
+  const [totalWaterAmount, setTotalWaterAmount] = useState(0);  
+  const [goalPercentage, setGoalPercentage] = useState(0);      
   const listRef = useRef(null);
 
   const fetchWaterRecords = () => {
     if (accessToken) {
       const currentDate = new Date();
-      const formattedDate = currentDate.toISOString().slice(0, 16); // e.g., "2024-12-15T12:10"
+      const formattedDate = currentDate.toISOString().slice(0, 16); 
   
       axios
         .get("https://the-dominators-back-project.onrender.com/water/today", {
@@ -122,8 +119,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
           },
         })
         .then((response) => {
-          console.log("API Response:", response.data); // Выводим весь ответ от API
-  
+          console.log("API Response:", response.data); 
           const { status, percentageOfGoal, records } = response.data;
   
           if (status === 200) {
@@ -148,7 +144,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   };
   
   useEffect(() => {
-    fetchWaterRecords();  // Fetch water records on initial render
+    fetchWaterRecords();  
   }, [accessToken]);
 
   useEffect(() => {
@@ -166,10 +162,9 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
 
     if (accessToken) {
       try {
-        // Create a new water record
+        
         await dispatch(createWaterRecord({ amount, time, accessToken }));
 
-        // Refetch water records after adding a new one
         fetchWaterRecords();
       } catch (err) {
         console.error("Error adding water record", err);
@@ -182,7 +177,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   const handleDeleteWater = async (id) => {
     if (accessToken) {
       try {
-        await dispatch(deleteWaterRecord(id, accessToken));
+        await dispatch((id, accessToken));
         setWaterRecords((prevRecords) =>
           prevRecords.filter((record) => record._id !== id)
         );
@@ -249,4 +244,3 @@ TodayWaterList.propTypes = {
 };
 
 export default TodayWaterList;
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc

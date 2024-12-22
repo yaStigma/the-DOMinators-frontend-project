@@ -116,7 +116,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { createWaterRecord } from "../../redux/water/operations";
 import { selectToken } from "../../redux/auth/selectors";
-import TodayWaterList from "../TodayWaterList/TodayWaterList"; // Импортируем компонент для отображения списка воды
+import TodayWaterList from "../TodayWaterList/TodayWaterList"; 
 
 const ProgressBar = ({ sliderValue }) => {
   const [sliderWidth, setSliderWidth] = useState(256);
