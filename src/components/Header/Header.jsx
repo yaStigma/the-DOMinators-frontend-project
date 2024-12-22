@@ -1,21 +1,22 @@
 import React from 'react';
-import {  useSelector } from 'react-redux';
-// import { unwrapResult } from '@reduxjs/toolkit';
 import Logo from 'components/Logo/Logo';
 import UserAuth from 'components/UserAuth/UserAuth';
-import UserLogo from 'components/UserLogo/UserLogo';
-import css from './Header.module.css';
+import css from './Header.module.css'
+import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
-
-
+import UserLogo from 'components/UserLogo/UserLogo';
 const Header = () => {
-  const isLogin = useSelector(selectIsLoggedIn);
+  const isLogin = useSelector(selectIsLoggedIn)
+  console.log(isLogin);
   return (
     <div className={css.HeaderDiv}>
-      <Logo />
-      {isLogin ? <UserLogo /> : <UserAuth  />}
+          <Logo />
+          {isLogin ? <UserLogo /> : <UserAuth />}
+          
     </div>
-);
+
+  
+  );
 };
 
 export default Header;

@@ -89,9 +89,3 @@
   box-shadow: 0 4px 14px var(--primery-color-blue);
   transition: box-shadow 300ms linear;
 }
-.modal__close:hover .modal__close_icon{
-  fill: var(--secondary-color-5);
-  stroke: var(--secondary-color-5);
-  transition: stroke 300ms linear;
-}
-

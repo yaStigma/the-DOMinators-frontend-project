@@ -18,9 +18,6 @@
   .SigninPageWrapper {
     width: 768px;
     background-image: url('/public/images_auth/Bottle_SignIn_tablet.svg');
-    background-position: center top;
-    height: 548px;
-  
   }
 }
 @media screen and (min-width: 1440px) {

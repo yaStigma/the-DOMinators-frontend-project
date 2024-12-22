@@ -7,12 +7,12 @@
 
 @media screen and (min-width: 320px) {
     .AuthWrapper {
-        width: 280px;
+        width: 320px;
     }
   }
   @media screen and (min-width: 768px) {
     .AuthWrapper {
-        width: 704px;
+        width: 768px;
         height: 100%;
     }
   }

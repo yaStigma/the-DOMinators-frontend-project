@@ -1,118 +1,59 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import css from './SettingModal.module.css';
 import SvgIcons from '../SvgIcons/SvgIcons';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateAvatar, updateUser } from '../../redux/user/operations.js';
-import { selectUserInfo } from '../../redux/user/selectors.js';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/auth/selectors.js';
 
-const ValidateSchema = Yup.object().shape(
-  {
-    name: Yup.string()
-      .min(3, 'Name is too short')
-      .max(50, 'Name is too long.')
-      .trim(),
-    email: Yup.string()
-      .email('Invalid email address')
-      .min(3, 'Invalid email address')
-      .trim(),
-    outdated: Yup.string().when(['new', 'repeat'], {
-      is: (newPassword, repeatPassword) => newPassword || repeatPassword,
-      then: schema => schema.required('Current password is required'),
-      otherwise: schema => schema.notRequired().trim(),
-    }),
-    new: Yup.string().when(['outdated', 'repeat'], {
-      is: (oldPassword, repeatPassword) => oldPassword || repeatPassword,
-      then: schema =>
-        schema
-          .required('New password is required')
-          .min(8, 'Password must be at least 8 characters')
-          .max(64, 'Password must be not more than 64 characters')
-          .trim()
-          .oneOf([Yup.ref('repeat')], 'Passwords must match'),
-      otherwise: schema =>
-        schema
-          .notRequired()
-          .min(8, 'Password must be at least 8 characters')
-          .max(64, 'Password must be not more than 64 characters')
-          .trim()
-          .oneOf([Yup.ref('repeat')], 'Passwords must match'),
-    }),
-    repeat: Yup.string()
-      .min(8, 'Password must be at least 8 characters')
-      .max(64, 'Password must be not more than 64 characters')
-      .trim()
-      .oneOf([Yup.ref('new')], 'Passwords must match'),
-  },
-  ['outdated', 'new']
-);
+const ValidateSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Name is too short')
+    .max(50, 'Name is too long.')
+    .trim(),
+  email: Yup.string().email('Invalid email address').trim(),
+  new: Yup.string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(64, 'Password must be not more than 64 characters'),
+  repeat: Yup.string().oneOf([Yup.ref('new')], 'Passwords must match'),
+});
+
 
 export default function SettingModal({ onClose }) {
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [avatarLetter, setAvatarLetter] = useState('');
+  const userInfo = useSelector(selectUser)
+  const initialValues = {
+    gender: userInfo.gender || 'woman',
+    name: userInfo.name || '',
+    email: userInfo.email || '',
+    outdated:"",
+    new: '',
+    repeat:""
+  }
+
+  const handleSubmit = (values, actions) => {
+    actions.resetForm();
+    onClose();
+  };
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileUrl = URL.createObjectURL(file);
+      setPreviewUrl(fileUrl);
+    }
+  };
+
   const [showPassword, setShowPassword] = useState({
     outdated: false,
     new: false,
     repeat: false,
   });
-  const userInfo = useSelector(selectUserInfo);
-  const dispatch = useDispatch();
-  const { name, email, gender, avatarUrl } = userInfo.data;
-  const initialValues = {
-    gender: gender,
-    name: '',
-    email: '',
-    outdated: '',
-    new: '',
-    repeat: '',
-  };
-  const filteredValues = values => {
-    return Object.keys(values).reduce((acc, key) => {
-      if (values[key] !== '') {
-        acc[key] = values[key];
-      }
-      return acc;
-    }, {});
-  };
-  const handleSubmit = (values, actions) => {
-    dispatch(
-      updateUser(
-        filteredValues({
-          name: values.name,
-          email: values.email,
-          gender: values.gender,
-          password: values.new,
-        })
-      )
-    );
-    actions.resetForm();
-    onClose();
-  };
-
-  const handleFileChange = e => {
-    const file = e.target.files[0];
-    if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      const formData = new FormData();
-      formData.append('avatarUrl', file);
-      setPreviewUrl(fileUrl);
-      dispatch(updateAvatar(formData));
-    }
-  };
   const toggleShowPassword = field => {
     setShowPassword(prev => ({
       ...prev,
       [field]: !prev[field],
     }));
   };
-
-  useEffect(() => {
-    const letter = name?.[0].toUpperCase() || email?.[0].toUpperCase() || '';
-    if (!avatarUrl && !previewUrl) {
-      setAvatarLetter(letter);
-    }
-  }, [avatarUrl, previewUrl, name, email]);
 
   return (
     <div className={css.modal__container}>
@@ -124,15 +65,8 @@ export default function SettingModal({ onClose }) {
       </div>
       <div className={css.modal__photo}>
         <h3 className={css.modal__form_desc}>Your photo</h3>
-        {previewUrl || avatarUrl ? (
-          <img
-            src={previewUrl || avatarUrl}
-            alt={name ?? 'user-avatar'}
-            className={css.modal__user_photo}
-          />
-        ) : (
-          <span className={css.modal__user_photo}>{avatarLetter}</span>
-        )}
+        {/* <span className={css.modal__user_photo}></span> */}
+        <img src={previewUrl} alt="" className={css.modal__user_photo} />
         <label className={css.modal__label_photo}>
           <SvgIcons name="arrow" />
           Upload a photo
@@ -157,7 +91,7 @@ export default function SettingModal({ onClose }) {
                 <Field
                   className={css.modal__form_radio}
                   type="radio"
-                  value="female"
+                  value="woman"
                   name="gender"
                 />
                 Woman
@@ -166,7 +100,7 @@ export default function SettingModal({ onClose }) {
                 <Field
                   className={css.modal__form_radio}
                   type="radio"
-                  value="male"
+                  value="man"
                   name="gender"
                 />
                 Man
@@ -178,7 +112,7 @@ export default function SettingModal({ onClose }) {
                 <Field
                   className={css.modal__form_input}
                   type="text"
-                  placeholder={name || 'Your name'}
+                  placeholder="David"
                   name="name"
                   autoComplete="name"
                 />
@@ -189,7 +123,7 @@ export default function SettingModal({ onClose }) {
                 <Field
                   className={css.modal__form_input}
                   type="text"
-                  placeholder={email}
+                  placeholder="david01@gmail.com"
                   name="email"
                   autoComplete="email"
                 />
@@ -215,7 +149,6 @@ export default function SettingModal({ onClose }) {
               >
                 <SvgIcons name={showPassword.outdated ? 'eye' : 'eyeSlash'} />
               </button>
-              <ErrorMessage component="span" name="outdated" />
             </label>
             <label className={css.modal__form_label}>
               New Password:

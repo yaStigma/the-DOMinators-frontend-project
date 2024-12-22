@@ -1,8 +1,7 @@
-export default function SvgIcons({ name,className }) {
+export default function SvgIcons({ name }) {
   const icons = {
     arrow: (
       <svg
-      className={className}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -19,7 +18,6 @@ export default function SvgIcons({ name,className }) {
     ),
     close: (
       <svg
-      className={className}
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -37,7 +35,6 @@ export default function SvgIcons({ name,className }) {
     ),
     eyeSlash: (
       <svg
-      className={className}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -54,7 +51,6 @@ export default function SvgIcons({ name,className }) {
     ),
     eye: (
       <svg
-      className={className}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -77,7 +73,6 @@ export default function SvgIcons({ name,className }) {
     ),
     settings: (
       <svg
-      className={className}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -100,7 +95,6 @@ export default function SvgIcons({ name,className }) {
     ),
     logout: (
       <svg
-      className={className}
         width="16"
         height="16"
         viewBox="0 0 16 16"

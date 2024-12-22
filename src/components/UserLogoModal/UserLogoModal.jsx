@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import css from './UserLogoModal.module.css';
 import SvgIcons from 'components/SvgIcons/SvgIcons';
 import ModalWrapper from 'components/ModalWrapper/ModalWrapper';
@@ -9,17 +9,7 @@ export default function UserLogoModal({ isOpen, onClose }) {
   const openModal = modalName => {
     setActivateModal(modalName);
   };
-  useEffect(() => {
-    const handleKeyDown = e => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onClose]);
+
   const closeModal = () => {
     setActivateModal(null);
     onClose();

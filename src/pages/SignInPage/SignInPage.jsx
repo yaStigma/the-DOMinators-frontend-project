@@ -30,7 +30,7 @@ const SigninPage = () => {
       label: "Password",
       placeholder: "Password",
       validation: Yup.string()
-        .min(8, "Password must be at least 8 characters")
+        .min(8, "Password must be at least 6 characters")
         .max(64, "Password must be not more than 64 characters")
         .required("Password is required"),
     },
@@ -42,9 +42,10 @@ const SigninPage = () => {
         const payload = {
           email: values.email,
           password: values.password,
+          repeatPassword: values.repeatPassword,
         };
         await dispatch(signIn(payload)); 
-      navigate("/home");
+      // navigate("/home");
       } catch (error) {
       }
     };

@@ -1,20 +1,15 @@
-.user__info {
+.user__info{
   background-color: var(--primery-color-white);
   box-shadow: 0 4px 9px #0000001a;
   padding: 16px;
   border-radius: 10px;
-  position: absolute;
-  right: 0;
-  top: 25px;
-  z-index: 20;
-
 }
-.user__actions {
+.user__actions{
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.user__btn {
+.user__btn{
   background-color: inherit;
   border: none;
   display: flex;
@@ -23,7 +18,7 @@
   padding: 0 4px;
   cursor: url("/public/welcomePageFoto/mdi_cursor-pointer.png"), auto;
 }
-.user__desc {
+.user__desc{
   font-size: 16px;
   line-height: 1.2;
   font-family: var(--font-family);
@@ -31,8 +26,3 @@
   margin: 0;
 }
 
-@media screen and (min-width: 1440px) {
-}
-.user__info {
-  top: 31px;
-}

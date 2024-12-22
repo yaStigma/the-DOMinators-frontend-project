@@ -1,16 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUser, updateAvatar, updateUser } from './operations';
+import { fetchUser } from './operations';
 
 const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState: {
-    user: {
-      name: '',
-      email: '',
-      password: '',
-      gender: 'female',
-      avatarUrl: '',
-    },
+    user: null,
     loading: false,
     error: null,
     unauthorized: false,
@@ -18,40 +12,22 @@ const userInfoSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchUser.pending, state => {
-        state.isFetchingUser = true;
+        state.loading = true;
         state.error = null;
+        state.unauthorized = false;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
+        state.loading = false;
         state.user = action.payload;
-        state.isFetchingUser = false;
       })
       .addCase(fetchUser.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isFetchingUser = false;
-      })
-      .addCase(updateUser.pending, (state, action) => {
-        state.loading = true;
-        state.error = false;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-      .addCase(updateAvatar.pending, (state, action) => {
-        state.loading = true;
-        state.error = false;
-      })
-      .addCase(updateAvatar.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(updateAvatar.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        if (action.payload === 'Access token expired') {
+          state.unauthorized = true;
+          state.error = action.payload;
+        } else {
+          state.error = action.payload;
+        }
       });
   },
 });
