@@ -82,7 +82,7 @@ TodayWaterList.propTypes = {
 };
 
 export default TodayWaterList;*/
-
+/**/
 
 
 import { useState, useEffect, useRef } from "react";
@@ -91,7 +91,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord} from "../../redux/water/operations-old";  //deleteWaterRecord 
+import { createWaterRecord } from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -100,21 +100,39 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   const accessToken = useSelector(selectToken);
 
   const [waterRecords, setWaterRecords] = useState([]);
+  const [totalWaterAmount, setTotalWaterAmount] = useState(0);  
+  const [goalPercentage, setGoalPercentage] = useState(0);      
   const listRef = useRef(null);
 
-  useEffect(() => {
+  const fetchWaterRecords = () => {
     if (accessToken) {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().slice(0, 16); 
+  
       axios
         .get("https://the-dominators-back-project.onrender.com/water/today", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+          params: {
+            date: formattedDate,
+          },
         })
         .then((response) => {
-          if (response.data.status === 200 && Array.isArray(response.data.records)) {
-            setWaterRecords(response.data.records);
+          console.log("API Response:", response.data); 
+          const { status, percentageOfGoal, records } = response.data;
+  
+          if (status === 200) {
+            if (Array.isArray(records)) {
+              setWaterRecords(records);
+              const totalAmount = records.reduce((total, record) => total + record.amount, 0);
+              setTotalWaterAmount(totalAmount);
+              setGoalPercentage(percentageOfGoal || 0);
+            } else {
+              console.error("Received 'records' is not an array", records);
+            }
           } else {
-            console.error("Received 'records' is not an array", response.data.records);
+            console.error("Unexpected response status:", status);
           }
         })
         .catch((error) => {
@@ -123,6 +141,10 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
     } else {
       console.error("No access token available.");
     }
+  };
+  
+  useEffect(() => {
+    fetchWaterRecords();  
   }, [accessToken]);
 
   useEffect(() => {
@@ -140,7 +162,10 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
 
     if (accessToken) {
       try {
+        
         await dispatch(createWaterRecord({ amount, time, accessToken }));
+
+        fetchWaterRecords();
       } catch (err) {
         console.error("Error adding water record", err);
       }
@@ -149,20 +174,20 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
     }
   };
 
-  // const handleDeleteWater = async (id) => {
-  //   if (accessToken) {
-  //     try {
-  //       await dispatch(deleteWaterRecord(id, accessToken));
-  //       setWaterRecords((prevRecords) =>
-  //         prevRecords.filter((record) => record._id !== id)
-  //       );
-  //     } catch (err) {
-  //       console.error("Error deleting water record", err);
-  //     }
-  //   } else {
-  //     console.error("No access token available.");
-  //   }
-  // };
+  const handleDeleteWater = async (id) => {
+    if (accessToken) {
+      try {
+        await dispatch((id, accessToken));
+        setWaterRecords((prevRecords) =>
+          prevRecords.filter((record) => record._id !== id)
+        );
+      } catch (err) {
+        console.error("Error deleting water record", err);
+      }
+    } else {
+      console.error("No access token available.");
+    }
+  };
 
   return (
     <section className={styles.todayWaterListSection}>
@@ -179,7 +204,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
                   {amount} ml
                 </span>
                 <span className={styles.time}>
-                  {new Date(date).toLocaleTimeString()} 
+                  {new Date(date).toLocaleTimeString()}
                 </span>
               </div>
               <div className={styles.actions}>
@@ -219,4 +244,3 @@ TodayWaterList.propTypes = {
 };
 
 export default TodayWaterList;
-
