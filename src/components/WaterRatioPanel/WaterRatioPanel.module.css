@@ -2,13 +2,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: left;
   margin-left: 20px;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* width: 100%; */
+  /* background-size: cover;
+  background-repeat: no-repeat; */
+
   margin-top: 24px;
-  margin-left: 20px;
-  margin-right: 20px;
+  /* mmargin-left: 20px;
+  margin-right: 20px; */
 }
 
 .imageContainer {
@@ -20,22 +23,22 @@
   background-repeat: no-repeat;
   z-index: 2;
   }
-  
+
   .slider {
     width: 100%;
-    margin-bottom: 8px; 
+    margin-bottom: 8px;
   }
   .waterBottle {
     width: 100%;
-    max-width: 280px; 
+    max-width: 280px;
     height: auto;
-    margin: 0 auto; 
+    margin: 0 auto;
   }
   .progressContainer {
     position: relative;
     width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
+    /* max-width: 280px; */
+    /* margin: 0 auto; */
     overflow: visible;
   }
 
@@ -49,10 +52,13 @@
   .progressBar {
     margin-top: 8px;
     display: block;
-    width: 256px;
-    margin-left: 10px;
+    width: 100%;
+    margin-left: 5px;
   }
-  
+
+  .rect {
+    width: 100%;
+  }
   .progressMarkers {
     display: flex;
     justify-content: space-between;
@@ -63,16 +69,16 @@
     line-height: 1.33333;
     text-align: center;
     color: #407bff;
-    margin-left: -8px;
+    /* margin-left: -8px; */
   }
-  
+
   .marker {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
   }
-  
+
   .tick {
     width: 2px;
     height: 8px;
@@ -84,20 +90,20 @@
     margin-top: 4px;
     margin-left: 12px;
   }
-  
+
   .progressLabels span {
     transition: font-size 0.2s, color 0.2s;
     color: #407bff;
     font-weight: 400;
   }
-  
+
   .addWaterBtn {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 20px auto;
     width: 100%;
-    max-width: 300px;
+    /* max-width: 300px; */
     padding: 10px;
     background-color: #407bff;
     color: white;
@@ -108,63 +114,65 @@
     text-align: center;
     margin-right: 20px;
   }
-  
+
   .addWaterBtn:hover {
     box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
     background: #407bff;
-    color: #ff9d43;
   }
-  
+
   .addWaterBtn:active {
     background: #407bff;
   }
   .icon {
     width: 20px;
     height: 20px;
-    margin-right: 10px; 
+    margin-right: 10px;
     fill: none;
     stroke-width: 2px;
     stroke: #ffffff;
   }
-  .icon:hover {
-    fill: #ff9d43;
-  }
+
   @media screen and (min-width: 768px) {
     .dailyNormaSection {
       position: relative;
       margin-top: 40px;
-      width: 100%;
-      max-width: none; 
-      margin-left: 40px;
-      margin-right: 40px;
+      margin-left: 0px;
+      /* width: 100%;
+      max-width: none;  */
+      /*
+      margin-right: 40px; */
     }
-    
+
     .progressContainer {
-      width: 100%; 
-      max-width: none; 
+      /* width: 100%;
+      max-width: none; */
       margin-top: 326px;
       flex: 1;
       margin-right: 28px;
-      max-width: 356px;
+      width: 356px;
+
     }
 
     .imageContainer {
-      position: absolute; 
-      top: 10px; 
-      left: 10%;
-      transform: translateX(-20%); 
+      position: absolute;
+      background-image: url('../../../public/images_homePage/Bottle_Home_Screen_tab.svg');
       width: 100%;
-      max-width: 500px; 
+      width: 500px;
       height: 386px;
+      top: 10px;
+      left: 10%;
+
+      /* ;
+      transform: translateX(-20%);
       z-index: -1;
-      margin-left: 125px;
+      margin-left: 125px; */
     }
-  
+
     .waterBottle {
       width: 100%;
-      object-fit: cover; 
+      object-fit: cover;
     }
-  
+
     .bottomSection {
       display: flex;
       justify-content: space-between;
@@ -173,7 +181,7 @@
       margin-top: 20px;
       max-width: nones;
     }
-  
+
     .addWaterBtn {
       max-width: 336px;
       flex-shrink: 0;
@@ -189,7 +197,7 @@
     }
   }
   @media screen and (min-width: 1440px) {
-    
+
     .addWaterBtn {
       max-width: 178px;
       margin-top: 524px;
@@ -197,9 +205,9 @@
     }
     .imageContainer {
       top: -15px;
-      left: -2%;
-      height: 548px; 
-      max-width: 738px;
+      left: -15%;
+      height: 548px;
+      width: 738px;
     }
     .progressBar {
       width: 350px;
