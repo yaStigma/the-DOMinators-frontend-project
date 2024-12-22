@@ -1,4 +1,6 @@
-
+.headerActions{
+  position: relative;
+}
   .spanName {
     border: 1px solid black;
     border-radius:50% ;
@@ -13,6 +15,7 @@
     display: flex;
     padding: 10px 0;
     justify-content: center;
+    align-items: center;
 }
 .icon {
     display: inline-block;
@@ -21,18 +24,18 @@
     stroke-width: 0;
     stroke: currentColor;
     fill: var(--primery-color-blue);
- 
+
   }
   .btn {
     border: none;
     background-color: inherit;
     width: 16px;
     padding: 0;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;
-   
+
   }
   .btn:hover {
     background-color: inherit;
@@ -69,4 +72,3 @@ color: var(--primery-color-black);
     padding-bottom: 7px;
   }
  }
- 

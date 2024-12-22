@@ -8,6 +8,8 @@ import {
 
 } from './operations';
 
+
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -19,8 +21,8 @@ const authSlice = createSlice({
     isLoggedIn: false,
     isRefreshing: false,
     error: null,
+    loading: false,
     resetPassword: {
-      loading: false,
       success: false,
       error: null,
     },
@@ -41,10 +43,19 @@ const authSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(logOut.fulfilled, state => {
+      .addCase(logOut.pending, state => {
+        state.loading = true;
+        state.error = false;
+        state.user = { name: null, email: null };
+      }).addCase(logOut.fulfilled, state => {
+        state.loading = false;
         state.user = { name: null, email: null };
         state.accessToken = null;
         state.isLoggedIn = false;
+      }).addCase(logOut.rejected, (state,action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.user = { name: null, email: null };
       })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
@@ -58,17 +69,17 @@ const authSlice = createSlice({
         state.isRefreshing = false;
       })
       .addCase(sendResetPasswordEmail.pending, state => {
-        state.resetPassword.loading = true;
+        state.loading = true;
         state.resetPassword.success = false;
         state.resetPassword.error = null;
       })
       .addCase(sendResetPasswordEmail.fulfilled, state => {
-        state.resetPassword.loading = false;
+        state.loading = false;
         state.resetPassword.success = true;
         state.resetPassword.error = null;
       })
       .addCase(sendResetPasswordEmail.rejected, (state, action) => {
-        state.resetPassword.loading = false;
+        state.loading = false;
         state.resetPassword.success = false;
         state.resetPassword.error = action.payload;
       });
