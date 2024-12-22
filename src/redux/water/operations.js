@@ -44,7 +44,12 @@ export const fetchTodayWaterRecords = createAsyncThunk(
     try {
       setAuthHeader(accessToken);
       const response = await axios.get('/water/today');
-      return response.data;
+      const { percentageOfGoal, records } = response.data;
+
+      return {
+        percentageOfGoal,
+        records: records,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     } finally {
@@ -95,7 +100,7 @@ export const createWaterRecord = createAsyncThunk(
 
       const response = await axios.post('/water', {
         amount,
-        date: formatDateTime(time), // Форматируем дату и время
+        date: formatDateTime(time),
       });
 
       toast.success('Water record created successfully!', {
@@ -173,11 +178,35 @@ export const updateWaterRecord = createAsyncThunk(
       return response.data;
     } catch (error) {
       toast.error(
-        error.response.data.message || 'Failed to update water record'
+        error.response.message || 'Failed to update water record'
       );
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue({
+        status: null,
+        message: error.message,
+        data: null,
+      });
     } finally {
       clearAuthHeader();
+    }
+  }
+);
+
+export const deleteWaterRecord = createAsyncThunk(
+  "water/deleteWaterRecord",
+  async (userId, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/water/${userId}`);
+      toast.success('Successfully deleted the water record!');
+      return response.data.data; // Возвращаем только "data"
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || 'Failed to delete water record'
+      );
+      return thunkAPI.rejectWithValue({
+        status: error.response?.status || null,
+        message: error.response?.data?.message || error.message,
+        data: null,
+      });
     }
   }
 );
