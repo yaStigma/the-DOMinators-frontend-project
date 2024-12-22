@@ -90,9 +90,9 @@ const [sliderWidth, setSliderWidth] = useState(280);
          <button className={styles.addWaterBtn} onClick={onAddWaterClick}>
            <svg className={styles.icon} width="20" height="20">
             <use href="images_auth/vectorbtn.svg#icon-vector-btn"></use>
-           </svg>
-           Add Water
-         </button>
+    </svg>
+ Add Water
+ </button>
       </div>
      </div>
    );
