@@ -70,7 +70,7 @@ export const updateDailyNorma = createAsyncThunk(
 
       setAuthHeader(accessToken);
 
-      const response = await axios.patch('/users/norma', {
+      const response = await axios.patch('/users/water-rate', {
         daylyNorm: dailyNorma * 1000, // Переводим в миллилитры
       });
 
@@ -79,7 +79,8 @@ export const updateDailyNorma = createAsyncThunk(
         position: 'top-right',
       });
 
-      return response.data.data.daylyNorm / 1000;
+      // Возвращаем полный объект из ответа сервера
+      return response.data.data;
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
     }

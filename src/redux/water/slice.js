@@ -25,10 +25,14 @@ const waterSlice = createSlice({
         })
         .addCase(updateDailyNorma.fulfilled, (state, action) => {
           state.loading = false;
-          if (state.dailyInfo) {
-            state.dailyInfo.dailyGoal = action.payload.dailyGoal; // Обновляем дневную норму
-            state.dailyInfo.percentageOfGoal = action.payload.percentageOfGoal; // Обновляем процент
-          }
+        
+          // Обновляем состояние на основе нового payload
+          state.dailyInfo = {
+            ...state.dailyInfo,
+            dailyNorm: action.payload.amount / 1000,
+            userId: action.payload.userId,          
+            date: action.payload.date,              
+          };
         })
         .addCase(updateDailyNorma.rejected, (state, action) => {
           state.loading = false;
