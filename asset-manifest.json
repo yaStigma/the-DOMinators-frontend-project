@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/the-DOMinators-frontend-project/static/css/main.a4acecc5.css",
-    "main.js": "/the-DOMinators-frontend-project/static/js/main.132cc42b.js",
+    "main.js": "/the-DOMinators-frontend-project/static/js/main.904d92ce.js",
     "static/css/917.218b314a.chunk.css": "/the-DOMinators-frontend-project/static/css/917.218b314a.chunk.css",
     "static/js/917.5c24c8a0.chunk.js": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js",
-    "static/css/991.21916bd4.chunk.css": "/the-DOMinators-frontend-project/static/css/991.21916bd4.chunk.css",
+    "static/css/991.6fda9991.chunk.css": "/the-DOMinators-frontend-project/static/css/991.6fda9991.chunk.css",
     "static/js/991.f5666c28.chunk.js": "/the-DOMinators-frontend-project/static/js/991.f5666c28.chunk.js",
-    "static/css/772.55cda7c7.chunk.css": "/the-DOMinators-frontend-project/static/css/772.55cda7c7.chunk.css",
+    "static/css/772.88b61e09.chunk.css": "/the-DOMinators-frontend-project/static/css/772.88b61e09.chunk.css",
     "static/js/772.38166e3f.chunk.js": "/the-DOMinators-frontend-project/static/js/772.38166e3f.chunk.js",
-    "static/css/692.e97fb095.chunk.css": "/the-DOMinators-frontend-project/static/css/692.e97fb095.chunk.css",
-    "static/js/692.58bb316a.chunk.js": "/the-DOMinators-frontend-project/static/js/692.58bb316a.chunk.js",
+    "static/css/692.798ede19.chunk.css": "/the-DOMinators-frontend-project/static/css/692.798ede19.chunk.css",
+    "static/js/692.402bdaae.chunk.js": "/the-DOMinators-frontend-project/static/js/692.402bdaae.chunk.js",
     "static/css/154.f27f22c7.chunk.css": "/the-DOMinators-frontend-project/static/css/154.f27f22c7.chunk.css",
     "static/js/154.0deea6b6.chunk.js": "/the-DOMinators-frontend-project/static/js/154.0deea6b6.chunk.js",
     "static/media/Background_Main_Page_tab_2x.png": "/the-DOMinators-frontend-project/static/media/Background_Main_Page_tab_2x.10dfa127bef7bbf76dad.png",
@@ -31,20 +31,20 @@
     "static/media/Background_SignIn_mobile.svg": "/the-DOMinators-frontend-project/static/media/Background_SignIn_mobile.dc724774fee1771c5263.svg",
     "index.html": "/the-DOMinators-frontend-project/index.html",
     "main.a4acecc5.css.map": "/the-DOMinators-frontend-project/static/css/main.a4acecc5.css.map",
-    "main.132cc42b.js.map": "/the-DOMinators-frontend-project/static/js/main.132cc42b.js.map",
+    "main.904d92ce.js.map": "/the-DOMinators-frontend-project/static/js/main.904d92ce.js.map",
     "917.218b314a.chunk.css.map": "/the-DOMinators-frontend-project/static/css/917.218b314a.chunk.css.map",
     "917.5c24c8a0.chunk.js.map": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js.map",
-    "991.21916bd4.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.21916bd4.chunk.css.map",
+    "991.6fda9991.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.6fda9991.chunk.css.map",
     "991.f5666c28.chunk.js.map": "/the-DOMinators-frontend-project/static/js/991.f5666c28.chunk.js.map",
-    "772.55cda7c7.chunk.css.map": "/the-DOMinators-frontend-project/static/css/772.55cda7c7.chunk.css.map",
+    "772.88b61e09.chunk.css.map": "/the-DOMinators-frontend-project/static/css/772.88b61e09.chunk.css.map",
     "772.38166e3f.chunk.js.map": "/the-DOMinators-frontend-project/static/js/772.38166e3f.chunk.js.map",
-    "692.e97fb095.chunk.css.map": "/the-DOMinators-frontend-project/static/css/692.e97fb095.chunk.css.map",
-    "692.58bb316a.chunk.js.map": "/the-DOMinators-frontend-project/static/js/692.58bb316a.chunk.js.map",
+    "692.798ede19.chunk.css.map": "/the-DOMinators-frontend-project/static/css/692.798ede19.chunk.css.map",
+    "692.402bdaae.chunk.js.map": "/the-DOMinators-frontend-project/static/js/692.402bdaae.chunk.js.map",
     "154.f27f22c7.chunk.css.map": "/the-DOMinators-frontend-project/static/css/154.f27f22c7.chunk.css.map",
     "154.0deea6b6.chunk.js.map": "/the-DOMinators-frontend-project/static/js/154.0deea6b6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a4acecc5.css",
-    "static/js/main.132cc42b.js"
+    "static/js/main.904d92ce.js"
   ]
 }
