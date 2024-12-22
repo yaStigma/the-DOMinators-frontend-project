@@ -7,13 +7,13 @@ import { toast } from 'react-toastify';
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
 // Функция для установки заголовка авторизации
-const setAuthHeader = (accessToken) => {
+const setAuthHeader = accessToken => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
-    axios.defaults.headers.common.Authorization = '';
-  };
+  axios.defaults.headers.common.Authorization = '';
+};
 
 // Получение дневной нормы
 export const fetchDailyNorma = createAsyncThunk(
@@ -25,10 +25,10 @@ export const fetchDailyNorma = createAsyncThunk(
 
       if (!accessToken) throw new Error('Unauthorized');
 
-      setAuthHeader(accessToken);  // Установка токена
+      setAuthHeader(accessToken); // Установка токена
 
       const response = await axios.get('/users');
-      return response.data.data.daylyNorm / 1000;  // Приводим к литрам
+      return response.data.data.daylyNorm / 1000; // Приводим к литрам
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
     }
@@ -66,7 +66,7 @@ export const updateDailyNorma = createAsyncThunk(
       setAuthHeader(accessToken);
 
       const response = await axios.patch('/users/norma', {
-        daylyNorm: dailyNorma * 1000,  // Переводим в миллилитры
+        daylyNorm: dailyNorma * 1000, // Переводим в миллилитры
       });
 
       toast.success('Daily norma updated successfully!', {
@@ -95,7 +95,7 @@ export const createWaterRecord = createAsyncThunk(
 
       const response = await axios.post('/water', {
         amount,
-        date: formatDateTime(time),  // Форматируем дату и время
+        date: formatDateTime(time), // Форматируем дату и время
       });
 
       toast.success('Water record created successfully!', {
@@ -131,9 +131,9 @@ export const fetchWaterRecords = createAsyncThunk(
 );
 
 // Вспомогательная функция для форматирования даты и времени
-const formatDateTime = (time) => {
+const formatDateTime = time => {
   const date = new Date();
-  const formattedDate = date.toISOString().split('T')[0];  // YYYY-MM-DD
+  const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
   return `${formattedDate}T${time}:00Z`;
 };
 
@@ -172,7 +172,9 @@ export const updateWaterRecord = createAsyncThunk(
       toast.success('Successfully updated the water record!');
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message || 'Failed to update water record');
+      toast.error(
+        error.response.data.message || 'Failed to update water record'
+      );
       return thunkAPI.rejectWithValue(error.response.data);
     } finally {
       clearAuthHeader();
@@ -180,3 +182,46 @@ export const updateWaterRecord = createAsyncThunk(
   }
 );
 
+export const fetchDaysArray = createAsyncThunk(
+  'water/fetchDaysArray',
+  async ({ monthName, year, accessToken }, thunkAPI) => {
+    // const { dispatch } = thunkAPI;
+    // dispatch(showLoader()); // Показуємо лоадер перед запитом
+
+    if (!accessToken) {
+      return thunkAPI.rejectWithValue('No token found');
+    }
+    const months = {
+      January: 1,
+      February: 2,
+      March: 3,
+      April: 4,
+      May: 5,
+      June: 6,
+      July: 7,
+      August: 8,
+      September: 9,
+      October: 10,
+      November: 11,
+      December: 12,
+    };
+    console.log(monthName);
+    console.log(year);
+    setAuthHeader(accessToken);
+
+    try {
+      const { data } = await axios.get('/water/month', {
+        params: { month: months[monthName], year },
+      });
+      console.log(monthName);
+      console.log(year);
+      console.log(data);
+      return data; // Повертаємо отримані дані
+    } catch (error) {
+      const message = error.response?.data?.message || error.message;
+      return thunkAPI.rejectWithValue(message); // Повертаємо повідомлення про помилку
+    } finally {
+      // dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
+    }
+  }
+);

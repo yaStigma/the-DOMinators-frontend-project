@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
-import waterReducer from './water/slice'; 
+import waterReducer from './water/slice';
+import { loaderReducer } from './loader/slice';
+import { ManthReduser } from './water/slice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -25,6 +27,8 @@ const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     userInfo: userInfoReducer,
     water: waterReducer,
+    manth: ManthReduser,
+    loader: loaderReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -37,7 +41,6 @@ const store = configureStore({
 
 export default store;
 export const persistor = persistStore(store);
-
 
 // import { configureStore } from '@reduxjs/toolkit';
 // import { authReducer } from './auth/slice';
@@ -54,7 +57,6 @@ export const persistor = persistStore(store);
 //   PURGE,
 //   REGISTER,
 // } from 'redux-persist';
-
 
 // const authPersistConfig = {
 //   key: 'auth',
@@ -79,9 +81,6 @@ export const persistor = persistStore(store);
 
 // export default store;
 // export const persistor = persistStore(store);
-
-
-
 
 // import { configureStore } from '@reduxjs/toolkit';
 // import { authReducer } from './auth/slice';
