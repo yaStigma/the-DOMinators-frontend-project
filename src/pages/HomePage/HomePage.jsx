@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import WaterTracker from "../../components/WaterRatioPanel/WaterRatioPanel";
 import TodayWaterList from "../../components/TodayWaterList/TodayWaterList";
+
+import MonthStatsTable from "components/MonthStatsTable/MonthStatsTable";
+
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
@@ -34,6 +37,7 @@ const HomePage = () => {
 
   return (
     <div className={styles.homeContainer}>
+      <div className={styles.homeSectionsWrapper}>
       <section className={styles.waterTrackerSection}>
         <WaterTracker
           sliderValue={sliderValue}
@@ -48,7 +52,15 @@ const HomePage = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
-      </section>
+        </section>
+        
+
+        <section className={styles.MonthStatsTableSection}>
+        <MonthStatsTable /> 
+        </section>
+
+        
+      </div>
     </div>
   );
 };

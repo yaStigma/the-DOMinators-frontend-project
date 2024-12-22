@@ -80,7 +80,7 @@ const DailyNormaModal = ({ setModalVisible }) => {
       <div className={css.modal}>
         <div className={css.modalContent}>
           <div className={css.navnButton}>
-            <h2>My daily norma</h2>
+            <h2 className={css.h2}>My daily norma</h2>
             <button className={css.closeButton} onClick={() => setModalVisible(false)}>&times;</button>
           </div>
           <div className={css.formulas}>
@@ -99,8 +99,8 @@ const DailyNormaModal = ({ setModalVisible }) => {
             className={css.textarea}
             value="* V is the volume of the water norm in liters per day, M is your body weight, T is the time of active sports, or another type of activity commensurate in terms of loads (in the absence of these, you must set 0)"
           />
-          <form onSubmit={handleSave}>
-            <h4>Calculate your rate:</h4>
+          <form className={css.form} onSubmit={handleSave}>
+            <h4 className={css.h4}>Calculate your rate:</h4>
             <div className={css.radioGroup}>
               <label className={css.radioLabel}>
                 <input type="radio" name="gender" value="woman" checked={gender === 'woman'} onChange={() => setGender('woman')} /> For woman
@@ -141,7 +141,7 @@ const DailyNormaModal = ({ setModalVisible }) => {
                 <span className={`${css.blu} ${css.requiredWater}`}>{requiredWater}</span>
               </p>
             </div>
-            <h4>Write down how much water you will drink:</h4>
+            <h4 className={css.h4}>Write down how much water you will drink:</h4>
             <div className={css.inputWrapper}>
               <input
                 className={css.bluInput}

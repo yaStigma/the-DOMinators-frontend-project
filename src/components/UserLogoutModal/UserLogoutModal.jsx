@@ -14,7 +14,7 @@ export default function UserLogoutModal({ onClose }) {
       <div className={css.modal__header}>
         <h2 className={css.modal__title}>Log out</h2>
         <button className={css.modal__close} onClick={onClose}>
-          <SvgIcons name="close" />
+          <SvgIcons name="close"className={css.modal__close_icon}/>
         </button>
       </div>
       <div className={css.modal__actions}>

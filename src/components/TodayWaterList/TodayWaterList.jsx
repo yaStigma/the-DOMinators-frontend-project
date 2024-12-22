@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./TodayWaterList.module.css";
 
 const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
-  const listRef = useRef(null); 
+  const listRef = useRef(null);
 
   useEffect(() => {
     if (listRef.current) {
@@ -34,10 +34,10 @@ const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
               aria-label="Edit"
               >
               <svg
-        
+
                   width="16"
                   height="16"
-        
+
                   >
                     <use href="./images_auth/pendelete.svg#icon-pencil"></use>
                   </svg>
@@ -49,12 +49,12 @@ const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
                   aria-label="Delete"
                 >
                   <svg
-                
+
                     width="16"
                     height="16"
-            
+
                   >
-                    
+
                     <use href="./images_auth/pendelete.svg#icon-delete"></use>
                   </svg>
                 </button>
@@ -81,6 +81,9 @@ TodayWaterList.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
+<<<<<<< HEAD
+export default TodayWaterList;
+=======
 export default TodayWaterList;*/
 /**/
 
@@ -91,7 +94,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord } from "../../redux/water/operations"; // deleteWaterRecord
+import { createWaterRecord, deleteWaterRecord } from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -176,6 +179,21 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
     }
   };
 
+  const handleDeleteWater = async (id) => {
+    if (accessToken) {
+      try {
+        await dispatch(deleteWaterRecord(id, accessToken));
+        setWaterRecords((prevRecords) =>
+          prevRecords.filter((record) => record._id !== id)
+        );
+      } catch (err) {
+        console.error("Error deleting water record", err);
+      }
+    } else {
+      console.error("No access token available.");
+    }
+  };
+
   return (
     <section className={styles.todayWaterListSection}>
       <h2 className={styles.title}>Today</h2>
@@ -231,3 +249,4 @@ TodayWaterList.propTypes = {
 };
 
 export default TodayWaterList;
+>>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
