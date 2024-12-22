@@ -11,13 +11,13 @@ import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
 
 import { refreshUser } from "../../redux/auth/operations";
-import { selectIsRefreshing, selectIsLoggedIn } from "../../redux/auth/selectors";
+import {  selectIsLoggedIn } from "../../redux/auth/selectors"; //selectIsRefreshing,
 import { selectLoader } from "../../redux/loader/selectors";
 import { showLoader, hideLoader } from "../../redux/loader/slice";
 
 export default function App() {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
+  // const isRefreshing = useSelector(selectIsRefreshing);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isLoading = useSelector(selectLoader)
   // Lazy-loaded pages
@@ -31,19 +31,21 @@ export default function App() {
     const token = localStorage.getItem("persist:auth");
     if (token) {
       dispatch(showLoader()); // Показати лоадер
-      dispatch(refreshUser());
-      dispatch(hideLoader()); // Приховати лоадер
-    }
+      dispatch(refreshUser())
+      .finally(() => {
+        dispatch(hideLoader()); // Приховати лоадер після завершення запиту
+      });
+      }
   }, [dispatch]);
 
-  if (isRefreshing) {
-    return <Loader/>;
-  }
+  // if (isRefreshing) {
+  //   return <Loader/>;
+  // }
 
 
 return (
   <>
-  {/* {isLoading && <Loader />} */}
+{isLoading && <Loader />}
     {/* добавила для всплывающих окон (Надя) */}
     <ToastContainer
       toastClassName="toast-custom"

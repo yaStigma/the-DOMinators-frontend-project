@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { showLoader, hideLoader } from '../loader/slice';
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
-const setAuthHeader = (accessToken) => {
+const setAuthHeader = accessToken => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
@@ -15,10 +16,14 @@ const setAuthHeader = (accessToken) => {
 export const updateDailyNorma = createAsyncThunk(
   'user/water-rate',
   async ({ accessToken, dailyNorma }, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       setAuthHeader(accessToken);
 
-      const response = await axios.patch('/users/water-rate', { daylyNorm: dailyNorma });
+      const response = await axios.patch('/users/water-rate', {
+        daylyNorm: dailyNorma,
+      });
 
       toast.success(response.data.message, {
         duration: 4000,
@@ -47,17 +52,18 @@ export const updateDailyNorma = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
-
-
-
 
 export const createWaterRecord = createAsyncThunk(
   'water/createRecord',
 
   async ({ accessToken, amount, time }, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       setAuthHeader(accessToken);
 
@@ -93,11 +99,11 @@ export const createWaterRecord = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
-
-
 
 // import axios from 'axios';
 // import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -112,7 +118,6 @@ export const createWaterRecord = createAsyncThunk(
 // const clearAuthHeader = () => {
 //   axios.defaults.headers.common.Authorization = '';
 // };
-
 
 // export const updateDailyNorma = createAsyncThunk(
 //   'user/water-rate',
@@ -152,9 +157,6 @@ export const createWaterRecord = createAsyncThunk(
 //     }
 //   }
 // );
-
-
-
 
 // export const createWaterRecord = createAsyncThunk(
 //   'water/createRecord',
@@ -198,5 +200,3 @@ export const createWaterRecord = createAsyncThunk(
 //     }
 //   }
 // );
-
-

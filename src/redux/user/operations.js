@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { showLoader, hideLoader } from '../loader/slice';
 
 const setAuthHeader = accessToken => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -9,6 +10,8 @@ const setAuthHeader = accessToken => {
 export const fetchUser = createAsyncThunk(
   'auth/fetchUser',
   async (_, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const state = thunkAPI.getState();
       const token = state.auth.accessToken;
@@ -25,12 +28,16 @@ export const fetchUser = createAsyncThunk(
     } catch (error) {
       const message = error.response?.data?.message || error.message;
       return thunkAPI.rejectWithValue(message);
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
 export const updateUser = createAsyncThunk(
   'user/update',
   async (body, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const state = thunkAPI.getState();
       const token = state.auth.accessToken;
@@ -49,12 +56,16 @@ export const updateUser = createAsyncThunk(
       });
 
       return thunkAPI.rejectWithValue(message);
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
 export const updateAvatar = createAsyncThunk(
   'user/update/avatar',
   async (body, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const state = thunkAPI.getState();
       const token = state.auth.accessToken;
@@ -73,6 +84,8 @@ export const updateAvatar = createAsyncThunk(
       });
 
       return thunkAPI.rejectWithValue(message);
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );

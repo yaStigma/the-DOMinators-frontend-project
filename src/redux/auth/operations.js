@@ -58,6 +58,8 @@ export const signUp = createAsyncThunk(
 export const signIn = createAsyncThunk(
   'auth/signin',
   async (credentials, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const res = await axios.post('/signin', credentials);
 
@@ -90,11 +92,16 @@ export const signIn = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  const { dispatch } = thunkAPI;
+  dispatch(showLoader()); // Показати лоадер перед початком запиту
+
   try {
     await axios.post('/logout');
 
@@ -124,12 +131,16 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
       message: error.message,
       data: null,
     });
+  } finally {
+    dispatch(hideLoader()); // Приховати лоадер
   }
 });
 
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       // Получаем токен из состояния
       const state = thunkAPI.getState();
@@ -144,6 +155,8 @@ export const refreshUser = createAsyncThunk(
       return { user: userData, accessToken: token };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер
     }
   }
 );
@@ -151,6 +164,8 @@ export const refreshUser = createAsyncThunk(
 export const sendResetPasswordEmail = createAsyncThunk(
   'auth/sendResetPasswordEmail',
   async (email, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const response = await axios.post('/request-reset-pwd', { email });
       toast.success('Reset password email was successfully sent!', {
@@ -184,6 +199,8 @@ export const sendResetPasswordEmail = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер
     }
   }
 );
