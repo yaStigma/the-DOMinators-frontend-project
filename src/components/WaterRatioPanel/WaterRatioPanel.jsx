@@ -160,33 +160,31 @@ ProgressBar.propTypes = {
   sliderValue: PropTypes.number.isRequired,
 };
 
-const WaterTracker = ({ sliderValue }) => {
+const WaterTracker = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalWater, setTotalWater] = useState(0);
-  const [dailyNorma] = useState(2000); // Default daily norm
-  const [waterRecords, setWaterRecords] = useState([]); // Состояние для хранения записей воды
+  const [dailyNorma] = useState(2000); // Default daily goal
+  const [waterRecords, setWaterRecords] = useState([]);
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
 
+  // Fetch water records on component mount
   useEffect(() => {
     const fetchWaterRecords = async () => {
       try {
-        // Получаем текущую дату и форматируем ее как "YYYY-MM-DDTHH:MM"
         const currentDate = new Date();
-        const formattedDate = currentDate.toISOString().slice(0, 16); // e.g., "2024-12-15T12:10"
+        const formattedDate = currentDate.toISOString().slice(0, 16);
 
         const response = await axios.get("https://the-dominators-back-project.onrender.com/water/today", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          params: {
-            date: formattedDate, // Передаем отформатированную дату как параметр
-          },
+          params: { date: formattedDate },
         });
 
-        const waterRecords = response.data.recotds || [];
-        const totalWaterIntake = waterRecords.reduce((acc, record) => acc + record.amount, 0);
-        setWaterRecords(waterRecords); // Обновляем состояние с записями
+        const records = response.data.records || [];
+        const totalWaterIntake = records.reduce((acc, record) => acc + record.amount, 0);
+        setWaterRecords(records);
         setTotalWater(totalWaterIntake);
       } catch (err) {
         console.error("Error fetching water records", err);
@@ -196,6 +194,9 @@ const WaterTracker = ({ sliderValue }) => {
     fetchWaterRecords();
   }, [accessToken]);
 
+  // Calculate percentage of goal
+  const sliderPercentage = Math.min((totalWater / dailyNorma) * 100, 100);
+
   const handleAddWaterClick = () => {
     setModalVisible(true);
   };
@@ -204,18 +205,24 @@ const WaterTracker = ({ sliderValue }) => {
     setModalVisible(false);
 
     try {
-      const newRecord = { amount, time };
-      await dispatch(createWaterRecord({ accessToken, ...newRecord }));
-
-      // После добавления новой записи, обновляем список воды
-      setWaterRecords(prevRecords => [...prevRecords, { amount, date: time }]);
-      setTotalWater(prevTotal => prevTotal + amount);
+      await dispatch(createWaterRecord({ accessToken, amount, time }));
+      const newRecord = { amount, date: time };
+      setWaterRecords((prevRecords) => [...prevRecords, newRecord]);
+      setTotalWater((prevTotal) => prevTotal + amount);
     } catch (err) {
       console.error("Error adding water record", err);
     }
   };
 
-  const sliderPercentage = (totalWater / dailyNorma) * 100;
+  // Delete water record and update state
+  const handleDeleteRecord = (id) => {
+    setWaterRecords((prevRecords) => {
+      const filteredRecords = prevRecords.filter((record) => record._id !== id);
+      const updatedTotal = filteredRecords.reduce((acc, record) => acc + record.amount, 0);
+      setTotalWater(updatedTotal);
+      return filteredRecords;
+    });
+  };
 
   return (
     <div className={styles.dailyNormaSection}>
@@ -227,44 +234,25 @@ const WaterTracker = ({ sliderValue }) => {
           <ProgressBar sliderValue={sliderPercentage} />
 
           <div className={styles.progressMarkers}>
-            {[0, 50, 100].map((value, index) => {
-              const isActive = sliderPercentage === value;
-              const fontSize = isActive ? 16 : 12;
-
-              return (
-                <div key={index} className={styles.marker}>
-                  <div className={styles.tick}></div>
-                  <span style={{ fontSize: `${fontSize}px` }}>
-                    {value}%
-                  </span>
-                </div>
-              );
-            })}
+            {[0, 50, 100].map((value, index) => (
+              <div key={index} className={styles.marker}>
+                <div className={styles.tick}></div>
+                <span>{value}%</span>
+              </div>
+            ))}
           </div>
         </div>
 
         <button className={styles.addWaterBtn} onClick={handleAddWaterClick}>
           <svg className={styles.icon} width="20" height="20">
-            <use href="images_auth/vectorbtn.svg#icon-vector-btn"></use>
+            <use href="./images_auth/vectorbtn.svg#icon-vector-btn"></use>
           </svg>
           Add Water
         </button>
-
-        {/* Отображаем список воды на текущий день */}
-        <TodayWaterList
-          onEdit={() => {}}
-          onDelete={() => {}}
-          waterRecords={waterRecords} // Передаем записи воды
-        />
-
         {modalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
       </div>
     </div>
   );
-};
-
-WaterTracker.propTypes = {
-  sliderValue: PropTypes.number.isRequired,
 };
 
 export default WaterTracker;
