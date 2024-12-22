@@ -131,24 +131,12 @@ const DailyNorma = () => {
       <p className={styles.title}>My daily norma</p>
       <div className={styles.normaContainer}>
         <span className={styles.normaValue}>{normaValue} L</span>
-<<<<<<< HEAD
         <button onClick={openModal} className={styles.editButton}>Edit</button>
 
       </div>
       {modalVisible && <DailyNormaModal setModalVisible={setModalVisible} />}
     </div>
-=======
-        <button onClick={openModal} className={styles.editButton}>Edit</button> /* Кнопка для открытия модального окна */
-      /*</div>
-      {modalVisible && <DailyNormaModal setModalVisible={setModalVisible} />} /* Отображение модального окна */
-    /*</div>
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
   );
 };
 
 export default DailyNorma;*/
-
-
-
-
-
