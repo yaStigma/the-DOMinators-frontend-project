@@ -1,5 +1,9 @@
 import styled, { keyframes } from 'styled-components';
-import { theme } from '../MonthStatsTable-D/theme.jsx';
+// <<<<<<< header
+// import { theme } from '../MonthStatsTable-x/theme.jsx';
+// =======
+// import { theme } from '../MonthStatsTable-D/theme.jsx';
+// >>>>>>> main
 const fadeInDown = keyframes`
   from {
     opacity: 0;
