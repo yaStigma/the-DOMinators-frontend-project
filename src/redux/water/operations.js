@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-
+// import { showLoader, hideLoader } from '../loader/slice';
 
 // Устанавливаем базовый URL для axios
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
@@ -10,6 +10,10 @@ axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 const setAuthHeader = (accessToken) => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
+
+const clearAuthHeader = () => {
+    axios.defaults.headers.common.Authorization = '';
+  };
 
 // Получение дневной нормы
 export const fetchDailyNorma = createAsyncThunk(
@@ -27,6 +31,24 @@ export const fetchDailyNorma = createAsyncThunk(
       return response.data.data.daylyNorm / 1000;  // Приводим к литрам
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
+    }
+  }
+);
+
+export const fetchTodayWaterRecords = createAsyncThunk(
+  'water/fetchTodayWaterRecords',
+  async (_, thunkAPI) => {
+    const authData = JSON.parse(localStorage.getItem('persist:auth'));
+    const accessToken = authData.accessToken.replace(/"/g, '');
+
+    try {
+      setAuthHeader(accessToken);
+      const response = await axios.get('/water/today');
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    } finally {
+      clearAuthHeader();
     }
   }
 );
@@ -137,3 +159,24 @@ const handleAxiosError = (error, thunkAPI) => {
     data: null,
   });
 };
+
+export const updateWaterRecord = createAsyncThunk(
+  'water/updateWaterRecord',
+  async ({ userId, date, amount }, thunkAPI) => {
+    const authData = JSON.parse(localStorage.getItem('persist:auth'));
+    const accessToken = authData.accessToken.replace(/"/g, '');
+
+    try {
+      setAuthHeader(accessToken);
+      const response = await axios.patch(`/water/${userId}`, { date, amount });
+      toast.success('Successfully updated the water record!');
+      return response.data;
+    } catch (error) {
+      toast.error(error.response.data.message || 'Failed to update water record');
+      return thunkAPI.rejectWithValue(error.response.data);
+    } finally {
+      clearAuthHeader();
+    }
+  }
+);
+
