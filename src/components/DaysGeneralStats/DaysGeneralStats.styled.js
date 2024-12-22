@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import { theme } from '../MonthStatsTable/theme.jsx';
+import styled, { keyframes } from 'styled-components';
+import { theme } from '../MonthStatsTable-x/theme.jsx';
 const fadeInDown = keyframes`
   from {
     opacity: 0;
@@ -25,7 +25,6 @@ export const DayStatsWrap = styled.div`
   @media screen and (min-width: 1440px) {
   }
 `;
-
 
 export const Date = styled.p`
   color: ${theme.colors.blue};
