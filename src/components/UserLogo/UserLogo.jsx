@@ -8,8 +8,8 @@ import UserLogoModal from 'components/UserLogoModal/UserLogoModal';
 
 const UserLogo = () => {
   const dispatch = useDispatch();
-  const [open,setOpen]=useState(false) 
-  
+  const [open,setOpen]=useState(false)
+
   // Используем useEffect для загрузки данных
   useEffect(() => {
     dispatch(fetchUser());
@@ -32,11 +32,11 @@ const UserLogo = () => {
  if (data.name) {
     avatarText = data.name.charAt(0).toUpperCase(); // Первая буква имени
     displayName = data.name; // Имя пользователя
-    
+
   } else if (data.email) {
     avatarText = data.email.charAt(0).toUpperCase(); // Первая буква email
     displayName = data.email; // Email пользователя
-  } 
+  }
 
    const openDropdown=()=>{setOpen((prev)=>!prev)}
   return (
@@ -51,12 +51,15 @@ const UserLogo = () => {
           )}
         </div>
       </div>
+      <div className={css.headerActions}>
+
       <button type="button" className={css.btn} onClick={openDropdown}>
         <svg className={css.icon}>
           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
         </svg>
-        {open && <UserLogoModal  isOpen={open} onClose={openDropdown}/>}
       </button>
+        {open && <UserLogoModal  isOpen={open} onClose={openDropdown}/>}
+      </div>
     </div>
   );
 };
