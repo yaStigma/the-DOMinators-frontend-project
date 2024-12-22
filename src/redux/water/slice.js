@@ -6,6 +6,11 @@ import {
   createWaterRecord,
 } from './operations';
 
+const initialState = {
+  waterRecords: [],
+  loading: false,
+  error: null,
+};
 
 const waterSlice = createSlice({
   name: 'water',
