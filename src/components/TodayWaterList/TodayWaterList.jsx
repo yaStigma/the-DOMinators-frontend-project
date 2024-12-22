@@ -81,9 +81,6 @@ TodayWaterList.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-<<<<<<< HEAD
-export default TodayWaterList;
-=======
 export default TodayWaterList;*/
 
 
@@ -94,7 +91,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord} from "../../redux/water/operations";  //deleteWaterRecord 
+import { createWaterRecord} from "../../redux/water/operations-old";  //deleteWaterRecord 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -222,4 +219,4 @@ TodayWaterList.propTypes = {
 };
 
 export default TodayWaterList;
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
+

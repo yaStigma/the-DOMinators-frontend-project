@@ -4,6 +4,7 @@ import {
   updateWaterRecord,
   updateDailyNorma,
   createWaterRecord,
+  sendResetPasswordEmail,
 } from './operations';
 
 

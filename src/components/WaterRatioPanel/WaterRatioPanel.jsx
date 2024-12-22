@@ -111,7 +111,7 @@ import DailyNorma from "../DailyNorma/DailyNorma";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux"; 
-import { createWaterRecord } from "../../redux/water/operations";
+import { createWaterRecord } from "../../redux/water/operations-old";
 import { selectToken } from "../../redux/auth/selectors"; 
 
 const ProgressBar = ({ sliderValue }) => {
