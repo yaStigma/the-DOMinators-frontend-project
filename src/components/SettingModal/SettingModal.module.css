@@ -91,6 +91,12 @@
   color: #ffffff;
   font-weight: var(--font-weight-medium);
 }
+:is(.modal__photo) span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primery-color-white);
+}
 .modal__label_photo {
   display: flex;
   gap: 8px;
@@ -187,6 +193,7 @@
   left: 0;
   font-size: 12px;
 }
+
 .modal__form_label:has(span) .modal__form_password,
 .modal__form_label:has(span) .modal__form_input {
   border: 1px solid red;
@@ -256,5 +263,6 @@
 }
 .modal__close:hover .modal__close_icon{
   fill: var(--secondary-color-5);
-  transition: fill 300ms linear;
+  stroke: var(--secondary-color-5);
+  transition: stroke 300ms linear;
 }

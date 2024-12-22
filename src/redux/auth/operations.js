@@ -2,20 +2,23 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { fetchUser } from '../user/operations';
+import { showLoader, hideLoader } from '../loader/slice';
 
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
 
-const setAuthHeader = (accessToken) => {
+const setAuthHeader = accessToken => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = "";
+  axios.defaults.headers.common.Authorization = '';
 };
 
 export const signUp = createAsyncThunk(
   'auth/signup',
   async (credentials, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const res = await axios.post('/signup', credentials);
       toast.success('The new user was created successfully!', {
@@ -23,7 +26,7 @@ export const signUp = createAsyncThunk(
         position: 'top-right',
       });
       setAuthHeader(res.data.accessToken);
-      
+
       return res.data;
     } catch (error) {
       if (error.response) {
@@ -46,6 +49,8 @@ export const signUp = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
@@ -53,6 +58,8 @@ export const signUp = createAsyncThunk(
 export const signIn = createAsyncThunk(
   'auth/signin',
   async (credentials, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const res = await axios.post('/signin', credentials);
 
@@ -60,7 +67,7 @@ export const signIn = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
-      
+
       setAuthHeader(res.data.accessToken);
 
       return res.data;
@@ -85,11 +92,16 @@ export const signIn = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
     }
   }
 );
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  const { dispatch } = thunkAPI;
+  dispatch(showLoader()); // Показати лоадер перед початком запиту
+
   try {
     await axios.post('/logout');
 
@@ -119,12 +131,16 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
       message: error.message,
       data: null,
     });
+  } finally {
+    dispatch(hideLoader()); // Приховати лоадер
   }
 });
 
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       // Получаем токен из состояния
       const state = thunkAPI.getState();
@@ -139,6 +155,8 @@ export const refreshUser = createAsyncThunk(
       return { user: userData, accessToken: token };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер
     }
   }
 );
@@ -146,6 +164,8 @@ export const refreshUser = createAsyncThunk(
 export const sendResetPasswordEmail = createAsyncThunk(
   'auth/sendResetPasswordEmail',
   async (email, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
       const response = await axios.post('/request-reset-pwd', { email });
       toast.success('Reset password email was successfully sent!', {
@@ -179,6 +199,8 @@ export const sendResetPasswordEmail = createAsyncThunk(
         message: error.message,
         data: null,
       });
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер
     }
   }
 );

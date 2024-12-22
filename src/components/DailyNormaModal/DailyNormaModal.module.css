@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -21,7 +21,7 @@ ul {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
+} */
 
 /* body {
   font-family: Arial, sans-serif;
@@ -125,13 +125,13 @@ position:relative;
   background-color: #007bff;
 }
 
-h2,
-h3,
-h4 {
+.h2,
+.h3,
+.h4 {
   margin: 10px 0;
 }
 
-label {
+.labelInput {
   display: block;
   margin: 10px 0;
 }
@@ -157,12 +157,12 @@ label {
   color: #007bff;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-}
+} 
 
 .radioGroup {
   display: flex;
@@ -193,13 +193,15 @@ form {
     flex-direction: column;
 }
 
-input[type="radio"] {
+/* input[type="radio"] */
+.radioLabel{ 
   margin-right: 5px;
   accent-color: #007bff;
 }
 
-input[type="number"],
-textarea {
+/* input[type="number"], */
+.bluInput,
+.textarea  {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -209,7 +211,7 @@ textarea {
   overflow: hidden;
 }
 
-textarea {
+.textarea {
   color: gray;
   font-size: 12px;
   background-color: white;
@@ -218,12 +220,12 @@ textarea {
   box-sizing: border-box;
 }
 
-textarea:read-only {
+.textarea:read-only {
   background-color: white;
   cursor: not-allowed;
-}
+} 
 
-button {
+.saveButton {
   width: 100px;
   padding: 10px;
   background-color: #007bff;
@@ -232,11 +234,11 @@ button {
   border-radius: 4px;
   cursor: pointer;
   align-self: flex-end;
-}
+} 
 
-button:hover {
+.saveButton:hover {
   background-color: #0056b3;
-}
+} 
 
 .bluInput {
   width: 100%;
@@ -282,7 +284,7 @@ button:hover {
     text-align: left;
   }
 
-  button {
+  /* button {
     align-self: center;
   }
 
@@ -309,8 +311,8 @@ button:hover {
 
   textarea {
     font-size: 0.9em;
-  }
-}
+  }*/
+} 
 
 /* Адаптация для всех компьютеров и браузеров */
 @media (min-width: 769px) {
@@ -350,9 +352,9 @@ display: flex;
     display: block;
   }
 
-  button {
+  /* button {
     align-self: flex-end;
-  }
+  } */
 }
 
 .blu {
