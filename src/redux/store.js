@@ -3,7 +3,7 @@ import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
 import waterReducer from './water/slice';
 import { loaderReducer } from './loader/slice';
-import { ManthReduser } from './water/slice';
+import { MonthReduser } from './water/slice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -27,7 +27,7 @@ const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     userInfo: userInfoReducer,
     water: waterReducer,
-    manth: ManthReduser,
+    month: MonthReduser,
     loader: loaderReducer,
   },
   middleware: getDefaultMiddleware =>
