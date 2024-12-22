@@ -47,7 +47,7 @@ const waterSlice = createSlice({
           if (!state.dailyInfo) {
             state.dailyInfo = action.payload; // Обновляем дневную норму из ответа
           } else {
-            state.dailyInfo.dailyGoal = action.payload.dailyGoal;
+            state.dailyInfo.dailyNorm = action.payload.dailyNorm;
             state.dailyInfo.percentageOfGoal = action.payload.percentageOfGoal;
           }
         })
@@ -61,7 +61,7 @@ const waterSlice = createSlice({
           })
           .addCase(createWaterRecord.fulfilled, (state, action) => {
             state.loading = false;
-            state.waterRecords.push(action.payload); // Добавляем новую запись в список
+            state.records.push(action.payload); // Добавляем новую запись в список
           })
           .addCase(createWaterRecord.rejected, (state, action) => {
             state.loading = false;
