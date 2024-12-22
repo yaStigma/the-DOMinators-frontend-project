@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import DailyNorma from "../DailyNorma/DailyNorma";
 
 const ProgressBar = ({ sliderValue }) => {
-const [sliderWidth, setSliderWidth] = useState(256);
+const [sliderWidth, setSliderWidth] = useState(280);
 
    useEffect(() => {
    const updateSliderWidth = () => {
@@ -13,7 +13,7 @@ const [sliderWidth, setSliderWidth] = useState(256);
        } else if (window.innerWidth >= 768) {
          setSliderWidth(325);
        } else {
-         setSliderWidth(256);
+         setSliderWidth(280);
        }
      };
 
@@ -28,7 +28,7 @@ const [sliderWidth, setSliderWidth] = useState(256);
    return (
     <svg
        className={styles.progressBar}
-       width="100%"
+       width={sliderWidth}
        height="20"
        viewBox={`0 0 ${sliderWidth} 20`}
      >
@@ -104,17 +104,16 @@ export default WaterTracker;*/
 
 
 
-
-
 import React, { useState, useEffect } from "react";
 import styles from "./WaterRatioPanel.module.css";
 import PropTypes from "prop-types";
 import DailyNorma from "../DailyNorma/DailyNorma";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux";
 import { createWaterRecord } from "../../redux/water/operations";
-import { selectToken } from "../../redux/auth/selectors"; 
+import { selectToken } from "../../redux/auth/selectors";
+import TodayWaterList from "../TodayWaterList/TodayWaterList"; // Импортируем компонент для отображения списка воды
 
 const ProgressBar = ({ sliderValue }) => {
   const [sliderWidth, setSliderWidth] = useState(256);
@@ -160,22 +159,32 @@ ProgressBar.propTypes = {
 
 const WaterTracker = ({ sliderValue }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [totalWater, setTotalWater] = useState(0); 
-  const [dailyNorma] = useState(2000); //, setDailyNorma
+  const [totalWater, setTotalWater] = useState(0);
+  const [dailyNorma] = useState(2000); // Default daily norm
+  const [waterRecords, setWaterRecords] = useState([]); // Состояние для хранения записей воды
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
 
   useEffect(() => {
     const fetchWaterRecords = async () => {
       try {
+        // Получаем текущую дату и форматируем ее как "YYYY-MM-DDTHH:MM"
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().slice(0, 16); // e.g., "2024-12-15T12:10"
+
         const response = await axios.get("https://the-dominators-back-project.onrender.com/water/today", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+          params: {
+            date: formattedDate, // Передаем отформатированную дату как параметр
+          },
         });
-        const waterRecords = response.data.records || [];
+
+        const waterRecords = response.data.recotds || [];
         const totalWaterIntake = waterRecords.reduce((acc, record) => acc + record.amount, 0);
-        setTotalWater(totalWaterIntake); 
+        setWaterRecords(waterRecords); // Обновляем состояние с записями
+        setTotalWater(totalWaterIntake);
       } catch (err) {
         console.error("Error fetching water records", err);
       }
@@ -195,6 +204,8 @@ const WaterTracker = ({ sliderValue }) => {
       const newRecord = { amount, time };
       await dispatch(createWaterRecord({ accessToken, ...newRecord }));
 
+      // После добавления новой записи, обновляем список воды
+      setWaterRecords(prevRecords => [...prevRecords, { amount, date: time }]);
       setTotalWater(prevTotal => prevTotal + amount);
     } catch (err) {
       console.error("Error adding water record", err);
@@ -235,6 +246,13 @@ const WaterTracker = ({ sliderValue }) => {
           </svg>
           Add Water
         </button>
+
+        {/* Отображаем список воды на текущий день */}
+        <TodayWaterList
+          onEdit={() => {}}
+          onDelete={() => {}}
+          waterRecords={waterRecords} // Передаем записи воды
+        />
 
         {modalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
       </div>
