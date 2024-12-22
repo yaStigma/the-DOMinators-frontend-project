@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createWaterRecord } from '../../redux/water/operations';
+
+import { createWaterRecord } from '../../redux/water/slice';
 import css from './AddWaterModal.module.css';
 
 const AddWaterModal = ({ setModalVisible }) => {
@@ -29,7 +30,7 @@ const AddWaterModal = ({ setModalVisible }) => {
       return;
     }
 
-    console.log('Access Token:', accessToken);
+    // console.log('Access Token:', accessToken);
 
     try {
       await dispatch(createWaterRecord({ accessToken, amount, time }));
