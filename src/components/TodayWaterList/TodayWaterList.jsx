@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./TodayWaterList.module.css";
 
 const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
-  const listRef = useRef(null); 
+  const listRef = useRef(null);
 
   useEffect(() => {
     if (listRef.current) {
@@ -34,10 +34,10 @@ const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
               aria-label="Edit"
               >
               <svg
-        
+
                   width="16"
                   height="16"
-        
+
                   >
                     <use href="./images_auth/pendelete.svg#icon-pencil"></use>
                   </svg>
@@ -49,12 +49,12 @@ const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
                   aria-label="Delete"
                 >
                   <svg
-                
+
                     width="16"
                     height="16"
-            
+
                   >
-                    
+
                     <use href="./images_auth/pendelete.svg#icon-delete"></use>
                   </svg>
                 </button>
