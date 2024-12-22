@@ -13,7 +13,8 @@
 }
 .wrapper {
     display: flex;
-    padding: 10px 0;
+    padding-left: 10px;
+    /* padding: 10px 0; */
     justify-content: center;
     align-items: center;
 }
@@ -39,6 +40,12 @@
   }
   .btn:hover {
     background-color: inherit;
+  }
+  .avatarImg {
+    width: 28px;
+    height: 28px;
+    border: 1px solid black;
+    border-radius:50% ;
   }
   .avatarText {
     /* border: 1px solid black;
@@ -69,6 +76,6 @@ color: var(--primery-color-black);
     font-size: 18px;
   }
   .btn {
-    padding-bottom: 7px;
+    /* padding-bottom: 2px; */
   }
  }
