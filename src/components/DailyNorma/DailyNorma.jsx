@@ -77,6 +77,59 @@ const DailyNorma = () => {
 export default DailyNorma;
 
 
+/*import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDailyNorma, updateDailyNorma } from '../../redux/water/operations';
+import styles from './DailyNorma.module.css';
+import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
+
+const DailyNorma = () => {
+  const dispatch = useDispatch();
+  const dailyNorma = useSelector((state) => state.dailyNorma.dailyNorma);
+  const loading = useSelector((state) => state.dailyNorma.loading);
+  const error = useSelector((state) => state.dailyNorma.error);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchDailyNorma());
+  }, [dispatch]);
+
+  const handleSave = async (newNorma) => {
+    await dispatch(updateDailyNorma({ dailyNorma: newNorma }));
+    setModalVisible(false);
+  };
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  return (
+    <div className={styles.dailyNormaContainer}>
+      <p className={styles.title}>My daily norma</p>
+      <div className={styles.normaContainer}>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <span className={styles.normaValue}>{dailyNorma} L</span>
+        )}
+        <button onClick={openModal} className={styles.editButton}>
+          Edit
+        </button>
+      </div>
+      {error && <p className={styles.error}>Failed to load data</p>}
+
+      {modalVisible && (
+        <DailyNormaModal setModalVisible={setModalVisible} handleSave={handleSave} />
+      )}
+    </div>
+  );
+};
+
+export default DailyNorma;*/
+
+
+
 /*import React, { useState } from 'react';
 import styles from "./DailyNorma.module.css";
 import DailyNormaModal from '../DailyNormaModal/DailyNormaModal'; // Путь к модальному окну
