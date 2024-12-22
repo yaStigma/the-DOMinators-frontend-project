@@ -1,11 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
-<<<<<<< HEAD
 import waterReducer from './water/slice'; 
-=======
-import { loaderReducer } from './loader/slice';
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -17,10 +13,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
 
 const authPersistConfig = {
   key: 'auth',
@@ -32,11 +24,7 @@ const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     userInfo: userInfoReducer,
-<<<<<<< HEAD
     water: waterReducer,
-=======
-    loader: loaderReducer,
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -49,7 +37,6 @@ const store = configureStore({
 
 export default store;
 export const persistor = persistStore(store);
-<<<<<<< HEAD
 
 
 // import { configureStore } from '@reduxjs/toolkit';
@@ -134,5 +121,3 @@ export const persistor = persistStore(store);
 
 // export default store;
 // export const persistor = persistStore(store);
-=======
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
