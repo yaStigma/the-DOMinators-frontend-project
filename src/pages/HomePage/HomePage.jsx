@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import WaterTracker from "../../components/WaterRatioPanel/WaterRatioPanel";
 import TodayWaterList from "../../components/TodayWaterList/TodayWaterList";
+import MonthStatsTable from "../../components/MonthStatsTable/MonthStatsTable";
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
@@ -49,7 +50,13 @@ const HomePage = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
-      </section>
+        </section>
+        
+        <section className={styles.MonthStatsTableSection}>
+        <MonthStatsTable
+        />
+        </section>
+        
       </div>
     </div>
   );
