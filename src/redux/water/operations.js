@@ -101,14 +101,11 @@ export const updateDailyNorma = createAsyncThunk(
   }
 );
 
-<<<<<<< HEAD
 
 
 
 
 
-=======
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
 export const createWaterRecord = createAsyncThunk(
   'water/createRecord',
   async ({ accessToken, amount, time }, thunkAPI) => {
@@ -155,9 +152,7 @@ export const createWaterRecord = createAsyncThunk(
   }
 );
 
-<<<<<<< HEAD
 
-=======
 // import axios from 'axios';
 // import { createAsyncThunk } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
@@ -210,53 +205,6 @@ export const createWaterRecord = createAsyncThunk(
 //     }
 //   }
 // );
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
-
-// export const createWaterRecord = createAsyncThunk(
-//   'water/createRecord',
-
-//   async ({ accessToken, amount, time }, thunkAPI) => {
-//     try {
-//       setAuthHeader(accessToken);
-
-//       const response = await axios.post('/water', {
-//         amount,
-//         date: new Date().toISOString().split('T')[0] + 'T' + time + ':00Z',
-//       });
-
-//       toast.success(response.data.message, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return response.data;
-//     } catch (error) {
-//       if (error.response) {
-//         const { status, message, data } = error.response.data;
-//         toast.error(`Error: ${message}`, {
-//           duration: 4000,
-//           position: 'top-right',
-//         });
-
-//         return thunkAPI.rejectWithValue({ status, message, data });
-//       }
-
-//       toast.error(`Error: ${error.message}`, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return thunkAPI.rejectWithValue({
-//         status: null,
-//         message: error.message,
-//         data: null,
-//       });
-//     }
-//   }
-// );
-<<<<<<< HEAD
-
-
 
 // export const createWaterRecord = createAsyncThunk(
 //   'water/createRecord',
@@ -303,5 +251,48 @@ export const createWaterRecord = createAsyncThunk(
 
 
 
-=======
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
+// export const createWaterRecord = createAsyncThunk(
+//   'water/createRecord',
+
+//   async ({ accessToken, amount, time }, thunkAPI) => {
+//     try {
+//       setAuthHeader(accessToken);
+
+//       const response = await axios.post('/water', {
+//         amount,
+//         date: new Date().toISOString().split('T')[0] + 'T' + time + ':00Z',
+//       });
+
+//       toast.success(response.data.message, {
+//         duration: 4000,
+//         position: 'top-right',
+//       });
+
+//       return response.data;
+//     } catch (error) {
+//       if (error.response) {
+//         const { status, message, data } = error.response.data;
+//         toast.error(`Error: ${message}`, {
+//           duration: 4000,
+//           position: 'top-right',
+//         });
+
+//         return thunkAPI.rejectWithValue({ status, message, data });
+//       }
+
+//       toast.error(`Error: ${error.message}`, {
+//         duration: 4000,
+//         position: 'top-right',
+//       });
+
+//       return thunkAPI.rejectWithValue({
+//         status: null,
+//         message: error.message,
+//         data: null,
+//       });
+//     }
+//   }
+// );
+
+
+

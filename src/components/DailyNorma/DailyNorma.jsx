@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // import React, { useState } from 'react';
 // import styles from "./DailyNorma.module.css";
 // import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
@@ -35,8 +34,7 @@
 
 
 
-import React, { useState } from 'react';
-=======
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -117,7 +115,6 @@ export default DailyNorma;
 
 
 /*import React, { useState } from 'react';
->>>>>>> 8ac580fd29badfb81c050f073f13b29b9ac1e2fc
 import styles from "./DailyNorma.module.css";
 import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
 
