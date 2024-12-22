@@ -159,7 +159,7 @@ ProgressBar.propTypes = {
 const WaterTracker = ({ sliderValue }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalWater, setTotalWater] = useState(0); 
-  const [dailyNorma, setDailyNorma] = useState(2000); 
+  const [dailyNorma] = useState(2000); //, setDailyNorma
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
 
