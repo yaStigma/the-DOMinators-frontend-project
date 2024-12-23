@@ -11,7 +11,30 @@
   align-items: center;
   z-index: 1000;
 }
-
+.iconClose {
+  /* display: inline-block;
+  width: 16px;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor; */
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: var(--primery-color-blue);
+  transition: stroke 300ms linear;
+}
+.iconBtn {
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: 10px;
+  padding: 13px 54px;
+  box-shadow: 0 4px 8px var(--primery-color-blue);
+  cursor: url("/public/welcomePageFoto/mdi_cursor-pointer.png"), auto;
+  transition: box-shadow 300ms linear;
+}
 /* Модалка */
 .modal {
   position: relative;
@@ -36,6 +59,14 @@
   border: none;
   cursor: pointer;
   padding: 5px;
+  
+  
+}
+.closeButton:hover {
+
+  fill: var(--secondary-color-5);
+  stroke: var(--secondary-color-5);
+  box-shadow: none;
 }
 
 .closeIcon {
@@ -43,7 +74,12 @@
   height: 24px;
   color: #333;
 }
+.iconClose:hover {
 
+  fill: var(--secondary-color-5);
+  stroke: var(--secondary-color-5);
+  box-shadow: none;
+}
   /* Обертка формы */
   .formContainer {
     width: 100%;
