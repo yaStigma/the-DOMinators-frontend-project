@@ -93,6 +93,7 @@ import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { createWaterRecord } from "../../redux/water/operations"; 
+import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -165,18 +166,32 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
     }
   };
 
+  // const handleDeleteWater = async (id) => {
+  //   if (accessToken) {
+  //     try {
+  //       await dispatch(onDelete(id, accessToken));
+  //       setWaterRecords((prevRecords) =>
+  //         prevRecords.filter((record) => record._id !== id)
+  //       );
+  //     } catch (err) {
+  //       console.error("Error deleting water record", err);
+  //     }
+  //   }
+  // };
+
   const handleDeleteWater = async (id) => {
-    if (accessToken) {
-      try {
-        await dispatch(onDelete(id, accessToken));
+    if (!accessToken) return;
+    try {
+      const response = await dispatch(deleteWaterRecord(id));
+      if (response.meta.requestStatus === "fulfilled") {
         setWaterRecords((prevRecords) =>
           prevRecords.filter((record) => record._id !== id)
         );
-      } catch (err) {
-        console.error("Error deleting water record", err);
       }
+    } catch (err) {
+      
     }
-  };
+    };
 
   return (
     <section className={styles.todayWaterListSection}>
@@ -186,8 +201,8 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
           <li key={_id} className={styles.listItem}>
             <div className={styles.info}>
               <span className={styles.amount}>
-                <svg width="26" height="26" className={styles.twbtni} >
-                  <use href="./images_auth/today_water.svg#icon-today_water"></use>
+                <svg width="36" height="36" className={styles.amountIcon}>
+                  <use href="./images_auth/today_water.svg#icon-today_water" ></use>
                 </svg>
                 {amount} ml
               </span>

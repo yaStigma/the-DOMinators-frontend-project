@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createWaterRecord } from '../../redux/water/slice-old';
+import { createWaterRecord } from '../../redux/water/operations';
 import css from './AddWaterModal.module.css';
 
 const AddWaterModal = ({ setModalVisible }) => {

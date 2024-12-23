@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
-import waterReducer from './water/slice-old'; 
+import waterReducer from './water/slice';
+import { loaderReducer } from './loader/slice';
+import { MonthReduser } from './water/slice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -25,6 +28,8 @@ const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     userInfo: userInfoReducer,
     water: waterReducer,
+    month: MonthReduser,
+    loader: loaderReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -32,12 +37,12 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    
   devTools: process.env.NODE_ENV === 'development',
 });
 
 export default store;
 export const persistor = persistStore(store);
-
 
 // import { configureStore } from '@reduxjs/toolkit';
 // import { authReducer } from './auth/slice';
@@ -54,7 +59,6 @@ export const persistor = persistStore(store);
 //   PURGE,
 //   REGISTER,
 // } from 'redux-persist';
-
 
 // const authPersistConfig = {
 //   key: 'auth',
@@ -79,9 +83,6 @@ export const persistor = persistStore(store);
 
 // export default store;
 // export const persistor = persistStore(store);
-
-
-
 
 // import { configureStore } from '@reduxjs/toolkit';
 // import { authReducer } from './auth/slice';
