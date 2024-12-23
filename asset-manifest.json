@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/the-DOMinators-frontend-project/static/css/main.a4acecc5.css",
-    "main.js": "/the-DOMinators-frontend-project/static/js/main.508b5d33.js",
-    "static/css/917.218b314a.chunk.css": "/the-DOMinators-frontend-project/static/css/917.218b314a.chunk.css",
+    "main.css": "/the-DOMinators-frontend-project/static/css/main.88988878.css",
+    "main.js": "/the-DOMinators-frontend-project/static/js/main.4ef7437e.js",
+    "static/css/917.86af48cc.chunk.css": "/the-DOMinators-frontend-project/static/css/917.86af48cc.chunk.css",
     "static/js/917.5c24c8a0.chunk.js": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js",
     "static/css/991.6fda9991.chunk.css": "/the-DOMinators-frontend-project/static/css/991.6fda9991.chunk.css",
     "static/js/991.f5666c28.chunk.js": "/the-DOMinators-frontend-project/static/js/991.f5666c28.chunk.js",
     "static/css/772.88b61e09.chunk.css": "/the-DOMinators-frontend-project/static/css/772.88b61e09.chunk.css",
     "static/js/772.38166e3f.chunk.js": "/the-DOMinators-frontend-project/static/js/772.38166e3f.chunk.js",
-    "static/css/954.0f818dc9.chunk.css": "/the-DOMinators-frontend-project/static/css/954.0f818dc9.chunk.css",
-    "static/js/954.4c89df38.chunk.js": "/the-DOMinators-frontend-project/static/js/954.4c89df38.chunk.js",
+    "static/css/755.fb83402e.chunk.css": "/the-DOMinators-frontend-project/static/css/755.fb83402e.chunk.css",
+    "static/js/755.baeac864.chunk.js": "/the-DOMinators-frontend-project/static/js/755.baeac864.chunk.js",
     "static/css/154.f27f22c7.chunk.css": "/the-DOMinators-frontend-project/static/css/154.f27f22c7.chunk.css",
     "static/js/154.0deea6b6.chunk.js": "/the-DOMinators-frontend-project/static/js/154.0deea6b6.chunk.js",
     "static/media/Background_Main_Page_tab_2x.png": "/the-DOMinators-frontend-project/static/media/Background_Main_Page_tab_2x.10dfa127bef7bbf76dad.png",
@@ -31,21 +31,21 @@
     "static/media/Background_element_Home_screen_mob.svg": "/the-DOMinators-frontend-project/static/media/Background_element_Home_screen_mob.cda48ada2e0d7bf38ef9.svg",
     "static/media/Background_SignIn_mobile.svg": "/the-DOMinators-frontend-project/static/media/Background_SignIn_mobile.dc724774fee1771c5263.svg",
     "index.html": "/the-DOMinators-frontend-project/index.html",
-    "main.a4acecc5.css.map": "/the-DOMinators-frontend-project/static/css/main.a4acecc5.css.map",
-    "main.508b5d33.js.map": "/the-DOMinators-frontend-project/static/js/main.508b5d33.js.map",
-    "917.218b314a.chunk.css.map": "/the-DOMinators-frontend-project/static/css/917.218b314a.chunk.css.map",
+    "main.88988878.css.map": "/the-DOMinators-frontend-project/static/css/main.88988878.css.map",
+    "main.4ef7437e.js.map": "/the-DOMinators-frontend-project/static/js/main.4ef7437e.js.map",
+    "917.86af48cc.chunk.css.map": "/the-DOMinators-frontend-project/static/css/917.86af48cc.chunk.css.map",
     "917.5c24c8a0.chunk.js.map": "/the-DOMinators-frontend-project/static/js/917.5c24c8a0.chunk.js.map",
     "991.6fda9991.chunk.css.map": "/the-DOMinators-frontend-project/static/css/991.6fda9991.chunk.css.map",
     "991.f5666c28.chunk.js.map": "/the-DOMinators-frontend-project/static/js/991.f5666c28.chunk.js.map",
     "772.88b61e09.chunk.css.map": "/the-DOMinators-frontend-project/static/css/772.88b61e09.chunk.css.map",
     "772.38166e3f.chunk.js.map": "/the-DOMinators-frontend-project/static/js/772.38166e3f.chunk.js.map",
-    "954.0f818dc9.chunk.css.map": "/the-DOMinators-frontend-project/static/css/954.0f818dc9.chunk.css.map",
-    "954.4c89df38.chunk.js.map": "/the-DOMinators-frontend-project/static/js/954.4c89df38.chunk.js.map",
+    "755.fb83402e.chunk.css.map": "/the-DOMinators-frontend-project/static/css/755.fb83402e.chunk.css.map",
+    "755.baeac864.chunk.js.map": "/the-DOMinators-frontend-project/static/js/755.baeac864.chunk.js.map",
     "154.f27f22c7.chunk.css.map": "/the-DOMinators-frontend-project/static/css/154.f27f22c7.chunk.css.map",
     "154.0deea6b6.chunk.js.map": "/the-DOMinators-frontend-project/static/js/154.0deea6b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a4acecc5.css",
-    "static/js/main.508b5d33.js"
+    "static/css/main.88988878.css",
+    "static/js/main.4ef7437e.js"
   ]
 }
