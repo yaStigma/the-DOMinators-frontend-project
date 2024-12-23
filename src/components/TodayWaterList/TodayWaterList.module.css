@@ -1,5 +1,5 @@
 .todayWaterListSection {
-    margin-top: 20px;
+    /* margin-top: 20px;
     padding: 24px 8px;
     background-color: #f7f9fc;
     border-radius: 10px;
@@ -9,17 +9,17 @@
     margin-left: 20px;
     margin-right: 20px;
     max-height: 400px;
-    overflow-y: auto;
+    overflow-y: auto; */
   }
   
   .title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 24px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 1.25;
-    color: #2f2f2f;
+    color: var(--primery-color-black);
+font-family: Roboto;
+font-size: 26px;
+font-style: normal;
+font-weight: 500;
+line-height: 32px;
+margin-top: 0;
   }
   
   .list {
@@ -35,7 +35,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    padding: 10px;
+    /* padding: 10px; */
     border-bottom: 1px solid #e0e0e0;
   }
   
@@ -62,20 +62,35 @@
     display: flex;
     gap: 10px;
   }
-  .editButton {
-    stroke-width: 1px;
-    stroke: #9ebbff;
-    background-color: none;
+
+  .editButton, .deleteButton  {
+    background: none;
+    border: none;
+    fill: none;
+  }
+
+  .editButton  {
+    stroke: var(--secondary-color-4);
+  }
+
+.deleteButton  {
+  stroke: var(--secondary-color-3);
+
   }
   
   .addButton {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
+    color: var(--Primery-Color-Blue, #407BFF);
+font-family: Roboto;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; 
+background: none;
+border: none;
+  }
+
+  .addButton:hover {
+    color: var(--secondary-color-5);
   }
   
   
