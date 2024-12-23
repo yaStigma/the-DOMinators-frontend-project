@@ -75,8 +75,8 @@ export default function SettingModal({closeBackdrop, closeModal }) {
       return acc;
     }, {});
   };
-  const handleSubmit = (values, actions) => {
-    dispatch(
+  const handleSubmit =async  (values, actions) => {
+    const data =await  dispatch(
       updateUser(
         filteredValues({
           name: values.name,
@@ -87,8 +87,11 @@ export default function SettingModal({closeBackdrop, closeModal }) {
         })
       )
     );
-    actions.resetForm();
-    closeModal();
+
+    if(!data.error){
+      actions.resetForm();
+      closeModal();
+    }
   };
 
   const handleFileChange = e => {

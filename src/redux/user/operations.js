@@ -49,6 +49,7 @@ export const updateUser = createAsyncThunk(
       });
       return data;
     } catch (error) {
+      console.log("error",!error.status.ok)
       const message = error.response?.data?.message || error.message;
       toast.error(`Error: ${message}`, {
         duration: 4000,
