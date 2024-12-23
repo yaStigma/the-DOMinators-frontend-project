@@ -11,14 +11,15 @@ import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
 
 import { refreshUser } from "../../redux/auth/operations";
-import { selectIsRefreshing, selectIsLoggedIn } from "../../redux/auth/selectors";
-
+import {  selectIsLoggedIn } from "../../redux/auth/selectors"; //selectIsRefreshing,
+import { selectLoader } from "../../redux/loader/selectors";
+import { showLoader, hideLoader } from "../../redux/loader/slice";
 
 export default function App() {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
+  // const isRefreshing = useSelector(selectIsRefreshing);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const isLoading = useSelector(selectLoader)
   // Lazy-loaded pages
   const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"));
   const SignupPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
@@ -29,22 +30,27 @@ export default function App() {
   useEffect(() => {
     const token = localStorage.getItem("persist:auth");
     if (token) {
-      dispatch(refreshUser());
-    }
+      dispatch(showLoader()); // Показати лоадер
+      dispatch(refreshUser())
+      .finally(() => {
+        dispatch(hideLoader()); // Приховати лоадер після завершення запиту
+      });
+      }
   }, [dispatch]);
 
-  if (isRefreshing) {
-    return <p>Loading...</p>;
-  }
+  // if (isRefreshing) {
+  //   return <Loader/>;
+  // }
 
 
 return (
   <>
+{isLoading && <Loader />}
     {/* добавила для всплывающих окон (Надя) */}
     <ToastContainer
       toastClassName="toast-custom"
       progressClassName="toast-custom-progress"
-      position="bottom-left"
+      position="top-right"
       autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
@@ -56,7 +62,7 @@ return (
       theme="light"
     />
       {/* Application Routes */}
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader/>}>
         <Routes>
           <Route path="/" element={<SharedLayout />}>
             <Route index element={isLoggedIn ? <HomePage /> : <WelcomePage />} />

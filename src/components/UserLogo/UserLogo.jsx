@@ -29,23 +29,32 @@ const UserLogo = () => {
   let displayName = '';
 
   // Логика для отображения аватара или текста
+  if (data.avatarUrl) {
+ avatarSrc = data.avatarUrl
  if (data.name) {
+  displayName = data.name;
+ } else {
+  displayName = data.email
+ }
+  } else if (data.name) {
     avatarText = data.name.charAt(0).toUpperCase(); // Первая буква имени
     displayName = data.name; // Имя пользователя
 
   } else if (data.email) {
     avatarText = data.email.charAt(0).toUpperCase(); // Первая буква email
     displayName = data.email; // Email пользователя
+
   }
 
   const openDropdown = () => {
     setOpen(prev => !prev);
   };
 
+
   return (
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
-        {displayName && <span>{displayName}</span>}
+        {displayName && <span className={css.avatarText}>{displayName}</span>}
         <div className={css.avatarText}>
           {avatarSrc ? (
             <img src={avatarSrc} alt="avatar" className={css.avatarImg} />

@@ -11,12 +11,12 @@
 
 @media screen and (min-width: 320px) {
   .SignupPageWrapper {
-    width: 320px;
+    max-width: 320px;
   }
 }
 @media screen and (min-width: 768px) {
   .SignupPageWrapper {
-    width: 768px;
+    max-width: 768px;
     background-image: url('/public/images_auth/Bottle_SignIn_tablet.svg');
     background-position: center top;
     height: 548px;
@@ -24,9 +24,9 @@
 }
 @media screen and (min-width: 1440px) {
   .SignupPageWrapper {
-    width: 1440px;
+    max-width: 1440px;
     background-image: url('/public/images_auth/Bottle_SignIn_desktop.svg'), url('/public/images_auth/Background_MainPage.svg');
     background-position: left top, center top;
-    height: 680px;
+    /* height: 680px; */
   }
 }

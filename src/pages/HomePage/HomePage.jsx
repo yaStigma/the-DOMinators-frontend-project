@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import WaterTracker from "../../components/WaterRatioPanel/WaterRatioPanel";
 import TodayWaterList from "../../components/TodayWaterList/TodayWaterList";
+
+// import MonthStatsTable from "components/MonthStatsTable/MonthStatsTable";
+
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
@@ -42,14 +45,16 @@ const HomePage = () => {
           onAddWaterClick={handleAddWater}
         />
       </section>
-
-      <section className={styles.todayWaterListSection}>
+      <div className={styles.statsSectionsWrapper}>
+      {/* <section className={styles.todayWaterListSection}> */}
         <TodayWaterList
           waterRecords={waterRecords}
           onEdit={handleEdit}
           onDelete={handleDelete}
-        />
-      </section>
+          />
+          {/* </section> */}
+
+        </div>
       </div>
     </div>
   );
