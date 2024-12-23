@@ -155,7 +155,6 @@ export default function MonthStatsTable() {
   
   return (
     <>
-      <h2>Calendar</h2>
       <div className={styles.paginationWrap}>
         <h2 className={styles.monthsHead}>Month</h2>
         <div className={styles.monthSelector}>

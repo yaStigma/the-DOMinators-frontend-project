@@ -52,6 +52,10 @@ const HomePage = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
           />
+          </section>
+  
+  
+          <section className={styles.MonthStatsTableSection}>
           <MonthStatsTable /> 
         </section>
 
