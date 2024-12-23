@@ -1,5 +1,5 @@
-.todayWaterListSection {
-    /* margin-top: 20px;
+/* .todayWaterListSection {
+    margin-top: 20px;
     padding: 24px 8px;
     background-color: #f7f9fc;
     border-radius: 10px;
@@ -9,8 +9,8 @@
     margin-left: 20px;
     margin-right: 20px;
     max-height: 400px;
-    overflow-y: auto; */
-  }
+    overflow-y: auto;
+  } */
   
   /* Для всего скроллбара */
 ::-webkit-scrollbar {
