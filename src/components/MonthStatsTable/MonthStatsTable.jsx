@@ -202,11 +202,8 @@ export default function MonthStatsTable() {
           {day.date}
         </p>
         <p className={styles.dayPercentage}>
-        {day.percentageOfGoal ? `${day.percentageOfGoal}` : '-'}
+        {day.percentageOfGoal ? `${day.percentageOfGoal + "%"}` : '-'}
 </p>
-        <p className={styles.recordsCount}>
-          {day.recordsCount || '-'} {/* Кількість записів води */}
-        </p>
       </li>
     );
   })}
