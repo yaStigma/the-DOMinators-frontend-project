@@ -53,7 +53,7 @@ export const DaysGeneralStats = ({
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  });
 
   if (!selectedDay) {
     return null;
@@ -67,6 +67,7 @@ export const DaysGeneralStats = ({
         left: `${dragPosition.left}px`,
         transform: 'translate(-75%, -25%)',
         position: 'absolute',
+         zIndex: 10,
       }}
       onMouseDown={handleMouseDown}
     >
@@ -74,7 +75,7 @@ export const DaysGeneralStats = ({
         <p className={styles.date}>
           {selectedDay.date}, {selectedDay.month}
         </p>
-        <button className={styles.closeButton} onClick={closeStats}>
+        <button className={styles.daysCloseButton} onClick={closeStats}>
           <svg
             width="16px"
             height="16px"
@@ -85,17 +86,19 @@ export const DaysGeneralStats = ({
           </svg>
         </button>
       </div>
-      <div className={styles.statRow}>
+     <div className={styles.statRow}>
         <p className={styles.statLabel}>Daily Norma:</p>
-        <p className={styles.statValue}>{dailyNormaValue / 1000} L</p>
+        <p className={styles.statValue}>{dailyNormaValue ? `${(dailyNormaValue / 1000).toFixed(2)} L` : '0'}
+        </p>
       </div>
       <div className={styles.statRow}>
         <p className={styles.statLabel}>Fulfillment of the daily norm:</p>
-        <p className={styles.statValue}>{selectedDay.totalProcent}%</p>
+        <p className={styles.statValue}>{selectedDay.percentageOfGoal}%</p>
       </div>
       <div className={styles.statRow}>
         <p className={styles.statLabel}>How many servings of water:</p>
-        <p className={styles.statValue}>{selectedDay.numOfWaterRecords}</p>
+        <p className={styles.statValue}>{selectedDay.recordsCount}
+        </p>
       </div>
     </div>
   );
