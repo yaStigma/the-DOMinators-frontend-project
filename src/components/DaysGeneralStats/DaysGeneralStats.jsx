@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectWaterRate } from '../../redux/water/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+// import { selectWaterRate } from '../../redux/water/selectors';
 import SpriteIcons from '../MonthStatsTable/sprite.svg';
 import styles from './DaysGeneralStats.module.css';
+import { fetchUser } from '../../redux/user/operations'; // Загружаем данные пользователя
+import { selectUserInfo } from '../../redux/user/selectors'; // Выбор данных пользователя из Redux
 
 export const DaysGeneralStats = ({
   isStatsOpen,
@@ -10,10 +12,18 @@ export const DaysGeneralStats = ({
   selectedDay,
   statsPosition,
 }) => {
-  const dailyNormaValue = useSelector(selectWaterRate);
   const [dragPosition, setDragPosition] = useState(statsPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const dispatch = useDispatch();
+ useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+ const userInfo = useSelector(selectUserInfo);
+  const data = userInfo?.data || {}; // Если данных нет, используем пустой объект
+
+  // Извлекаем норму воды из данных пользователя
+  const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // В литрах
 
   useEffect(() => {
     if (statsPosition) setDragPosition(statsPosition);
@@ -63,11 +73,11 @@ export const DaysGeneralStats = ({
     <div
       className={`${styles.dayStatsWrap} ${isStatsOpen ? styles.open : ''}`}
       style={{
-        top: `${dragPosition.top}px`,
+        top: `${dragPosition.top - 50}px`, // Зміщення вгору на 50px або більше
         left: `${dragPosition.left}px`,
-        transform: 'translate(-75%, -25%)',
+        transform: 'translate(-50%, -100%)', // Зсув вгору на 100%
         position: 'absolute',
-         zIndex: 10,
+        zIndex: 10,
       }}
       onMouseDown={handleMouseDown}
     >
@@ -86,10 +96,9 @@ export const DaysGeneralStats = ({
           </svg>
         </button>
       </div>
-     <div className={styles.statRow}>
+      <div className={styles.statRow}>
         <p className={styles.statLabel}>Daily Norma:</p>
-        <p className={styles.statValue}>{dailyNormaValue ? `${(dailyNormaValue / 1000).toFixed(2)} L` : '0'}
-        </p>
+        <p className={styles.statValue}>{normaValue} L</p>
       </div>
       <div className={styles.statRow}>
         <p className={styles.statLabel}>Fulfillment of the daily norm:</p>
@@ -97,8 +106,7 @@ export const DaysGeneralStats = ({
       </div>
       <div className={styles.statRow}>
         <p className={styles.statLabel}>How many servings of water:</p>
-        <p className={styles.statValue}>{selectedDay.recordsCount}
-        </p>
+        <p className={styles.statValue}>{selectedDay.recordsCount}</p>
       </div>
     </div>
   );

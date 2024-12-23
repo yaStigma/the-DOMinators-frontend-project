@@ -133,11 +133,14 @@ export default function MonthStatsTable() {
   }, [userToken, selectedMonthIndex, selectedYear, dispatch, initialDaysArray, monthName]);
 
   const handleOpenStats = (day, event) => {
-    const rect = event.currentTarget.getBoundingClientRect(); // Используем currentTarget, чтобы избежать проблем с дочерними элементами
+    const rect = event.currentTarget.getBoundingClientRect(); // Отримуємо розміри елемента
+    const isRightSide = rect.left > window.innerWidth / 2; // Перевіряємо, чи елемент у правій частині
+  
     setStatsPosition({
-      top: rect.top + window.scrollY,
-      left: rect.left + rect.width / 2, // По центру
+      top: rect.top + window.scrollY - 10, // Розташовуємо над елементом із невеликим відступом
+      left: isRightSide ? rect.left - 200 : rect.left, // Ліворуч або праворуч в залежності від положення
     });
+  
     setSelectedDay(day);
     setIsStatsOpen(true);
   };
@@ -148,9 +151,9 @@ export default function MonthStatsTable() {
   };
 
   const borderClass = (percentage) => {
-    if (!percentage || percentage === 0) return 'neutral';
-    if (percentage > 50) return 'high';
-    return 'low';
+    if (percentage === 0) return 'neutral';
+    if (percentage < 100) return 'low'; // Добавляем класс для прогресса < 100%
+    return 'high';
   };
   
   return (
@@ -192,14 +195,14 @@ export default function MonthStatsTable() {
     return (
       <li key={day.date} className={styles.dayItem}>
         <p
-          id="day-number"
-          onClick={(event) => handleOpenStats(day, event)}
-          className={`${styles.dayNumber} ${styles[`dayNumber--${borderClass(day.percentageOfGoal)}`]} ${
-            isSelected && day.percentageOfGoal > 0 ? styles.dayNumberSelected : ''
-          }`}
-        >
-          {day.date}
-        </p>
+  id="day-number"
+  onClick={(event) => handleOpenStats(day, event)}
+  className={`${styles.dayNumber} ${styles[`dayNumber--${borderClass(day.percentageOfGoal)}`]} ${
+    isSelected && day.percentageOfGoal > 0 ? styles.dayNumberSelected : ''
+  }`}
+>
+  {day.date}
+</p>
         <p className={styles.dayPercentage}>
         {day.percentageOfGoal ? `${day.percentageOfGoal + "%"}` : '-'}
 </p>
@@ -212,7 +215,7 @@ export default function MonthStatsTable() {
 {isStatsOpen && (
   <DaysGeneralStats
     closeStats={handleCloseStats}
-    isOpen={isStatsOpen} // Переконайтесь, що передаєте цей параметр
+    isOpen={isStatsOpen} 
     selectedDay={selectedDay}
     statsPosition={statsPosition}
   />
@@ -221,197 +224,3 @@ export default function MonthStatsTable() {
   );
 }
 
-// import { useEffect, useState } from 'react';
-// import { DaysGeneralStats } from '../DaysGeneralStats/DaysGeneralStats';
-// import axios from 'axios';
-// import { useSelector } from 'react-redux';
-// import { selectToken } from '../../redux/auth/selectors';
-// import toast from 'react-hot-toast';
-// import SpriteIcons from './sprite.svg';
-// import styles from './MonthStatsTable.module.css';
-// import Loader from 'components/Loader/Loader';
-
-
-// export default function MonthStatsTable() {
-//     const getMonthName = (monthIndex) => {
-//       const months = [
-//         'January', 'February', 'March', 'April', 'May', 'June',
-//         'July', 'August', 'September', 'October', 'November', 'December',
-//       ];
-//       return months[monthIndex];
-//     };
-  
-//     const [isStatsOpen, setIsStatsOpen] = useState(false);
-//     const [selectedDay, setSelectedDay] = useState(null);
-//     const [daysArray, setDaysArray] = useState([]);
-//     const userToken = useSelector(selectToken);
-//     const [isLoading, setIsLoading] = useState(false);
-//     const [statsPosition, setStatsPosition] = useState({ top: 0, right: 0 });
-//     const [currentDateInfo] = useState({
-//       currentMonthIndex: new Date().getMonth(),
-//       currentYear: new Date().getFullYear(),
-//       currentDate: new Date().getDate(),
-//     });
-  
-//     const { currentMonthIndex, currentYear, currentDate } = currentDateInfo;
-//     const [selectedMonthIndex, setSelectedMonthIndex] = useState(currentMonthIndex);
-//     const [selectedYear, setSelectedYear] = useState(currentYear);
-  
-//     const initialDaysArray = (month, year) =>
-//       Array.from(
-//         { length: new Date(year, month + 1, 0).getDate() },
-//         (_, index) => ({
-//           month: getMonthName(month),
-//           date: index + 1,
-//           totalProcent: 0,
-//           numOfWaterRecords: 0,
-//         })
-//       );
-  
-//     const handleMonthChange = (direction) => {
-//       const totalMonths = 12;
-//       const newMonthIndex =
-//         (selectedMonthIndex + direction + totalMonths) % totalMonths;
-//       setSelectedYear(
-//         newMonthIndex === 11 && direction === -1
-//           ? selectedYear - 1
-//           : newMonthIndex === 0 && direction === 1
-//           ? selectedYear + 1
-//           : selectedYear
-//       );
-//       setSelectedMonthIndex(newMonthIndex);
-//     };
-  
-//     useEffect(() => {
-//       if (!userToken) return;
-//       const controller = new AbortController();
-//       const selectedMonthName = getMonthName(selectedMonthIndex);
-//       const initialArray = initialDaysArray(selectedMonthIndex, selectedYear);
-  
-//       const fetchDaysArray = async () => {
-//         try {
-//           setIsLoading(true);
-//           const response = await axios.get(
-//             `https://water-tracker-3v20.onrender.com/consumed-water/month/${selectedMonthName}`,
-//             {
-//               headers: { Authorization: `Bearer ${userToken}` },
-//               signal: controller.signal,
-//             }
-//           );
-//           setDaysArray(
-//             initialArray.map((day) =>
-//               response.data.find((item) => item.date === day.date) || day
-//             )
-//           );
-//         } catch (error) {
-//           if (error.code !== 'ERR_CANCELED') {
-//             toast.error('Oops! Something went wrong! Please try again!', {
-//               duration: 1000,
-//             });
-//           }
-//           setDaysArray(initialArray);
-//         } finally {
-//           setIsLoading(false);
-//         }
-//       };
-  
-//       fetchDaysArray();
-//       return () => controller.abort();
-//     }, [selectedMonthIndex, selectedYear, userToken]);
-  
-//     const handleOpenStats = (day, event) => {
-//       const rect = event.target.getBoundingClientRect();
-//       setStatsPosition({
-//         top: rect.top + window.scrollY,
-//         left: rect.left + rect.width / 2, // Визначаємо середину елемента
-//       });
-//       setSelectedDay(day);
-//       setIsStatsOpen(true);
-//     };
-    
-//     const handleCloseStats = () => {
-//       setIsStatsOpen(false);
-//       setSelectedDay(null); // Скидаємо вибраний день
-//     };
-  
-//     const borderColor = (percentage) => {
-//       if (percentage === 0) return '1px solid transparent';
-//       if (percentage > 50) return '1px solid green';
-//       return '1px solid red';
-//     };
-  
-//     return (
-//       <>
-//         <h2>Calendar</h2>
-//         <div className={styles.paginationWrap}>
-//           <h2 className={styles.monthsHead}>Month</h2>
-//           <div className={styles.monthSelector}>
-//             <button
-//               className={`${styles.monthButton} ${styles.monthBackButton}`}
-//               onClick={() => handleMonthChange(-1)}
-//             >
-//               <svg width="14px" height="14px">
-//                 <use href={`${SpriteIcons}#icon-chevron-double-up`} />
-//               </svg>
-//             </button>
-//             <p className={styles.monthAndYear}>
-//               {getMonthName(selectedMonthIndex)}, {selectedYear}
-//             </p>
-//             <button
-//               className={`${styles.monthButton} ${styles.monthNextButton}`}
-//               onClick={() => handleMonthChange(1)}
-//             >
-//               <svg width="14px" height="14px">
-//                 <use href={`${SpriteIcons}#icon-chevron-double-up`} />
-//               </svg>
-//             </button>
-//           </div>
-//         </div>
-  
-//         {isLoading ? (
-//           <Loader/>
-//         ) : (
-//           <ul className={styles.daysList}>
-//             {daysArray?.map((day) => {
-//               const isSelected =
-//                 day.date === currentDate &&
-//                 currentMonthIndex === selectedMonthIndex;
-  
-//               return (
-//                 <li key={day.date} className={styles.dayItem}>
-//                   <p
-//                     id="day-number"
-//                     onClick={(event) => handleOpenStats(day, event)}
-//                     className={`${styles.dayNumber} ${
-//                       isSelected && day.totalProcent > 0
-//                         ? styles.dayNumberSelected
-//                         : ''
-//                     }`}
-//                     style={{
-//                       border: isSelected
-//                         ? '1px solid #407BFF'
-//                         : borderColor(day.totalProcent),
-//                     }}
-//                   >
-//                     {day.date}
-//                   </p>
-//                   <p className={styles.dayPercentage}>
-//                     {day.totalProcent === 0 ? '-' : `${day.totalProcent}%`}
-//                   </p>
-//                 </li>
-//               );
-//             })}
-//           </ul>
-//         )}
-  
-//         {isStatsOpen && (
-//           <DaysGeneralStats
-//             closeStats={handleCloseStats}
-//             isOpen={isStatsOpen}
-//             selectedDay={selectedDay}
-//             statsPosition={statsPosition}
-//           />
-//         )}
-//       </>
-//     );
-//   }

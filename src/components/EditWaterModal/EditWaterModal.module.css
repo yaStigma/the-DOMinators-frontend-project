@@ -46,7 +46,6 @@ body {
   text-align: left;
 } */
 
-
 .modal {
   display: flex;
   justify-content: center;
@@ -79,8 +78,6 @@ body {
   /* Ширина с учетом малых экранов */
   text-align: left;
   /* Центрирование текста */
-
-
 }
 
 /* .spanChange {
@@ -123,9 +120,8 @@ body {
   padding: 0;
 }
 
-
-.modalBody input[type="text"],
-.modalBody input[type="number"],
+.modalBody input[type='text'],
+.modalBody input[type='number'],
 .modalBody select {
   width: 100%;
   padding: 8px;
@@ -174,7 +170,7 @@ body {
   justify-content: flex-start;
 }
 
-.inputSaveContainer input[type="text"] {
+.inputSaveContainer input[type='text'] {
   width: calc(100% - 110px);
   padding: 8px;
   margin-right: 10px;

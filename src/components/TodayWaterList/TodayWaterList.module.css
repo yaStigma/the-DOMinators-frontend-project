@@ -1,19 +1,17 @@
 ::-webkit-scrollbar {
-  width: 4px; 
-  height: 168px; 
+  width: 4px;
+  height: 168px;
   border-radius: 6px;
-  
 }
-
 
 ::-webkit-scrollbar-track {
-  background: #D7E3FF; 
+  background: #d7e3ff;
   border-radius: 6px;
 }
 
-
 ::-webkit-scrollbar-thumb {
-  background: #9EBBFF;}
+  background: #9ebbff;
+}
 
 .todayWaterListSection {
   background-color: #fff;
@@ -38,7 +36,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 300px;
+  max-height: 180px;
   overflow-y: auto;
 }
 
@@ -105,9 +103,9 @@
   width: 100%;
   cursor: pointer;
   transition: background-color 0.2s;
-  background: none;  
-  border: none; 
-  outline: none; 
+  background: none;
+  border: none;
+  outline: none;
   box-shadow: none;
   font-weight: 500;
   font-size: 16px;
@@ -119,19 +117,17 @@
   color: #ff9d43;
 }
 
-
 .twbtni {
   fill: #4a90e2;
 }
 
-.editButton{
+.editButton {
   stroke-width: 1px;
   stroke: #9ebbff;
 }
 
 @media screen and (min-width: 768px) {
-  
-  .todayWaterListSection{
+  .todayWaterListSection {
     padding: 32px 24px;
     padding: 32px 24px;
     width: 704px;
@@ -140,16 +136,13 @@
     margin: 0 32px;
     max-width: 660px;
   }
-
 }
 
 @media screen and (min-width: 1440px) {
-
-  .todayWaterListSection{
+  .todayWaterListSection {
     border-radius: 10px;
     padding: 32px 24px;
     width: 592px;
     height: 680px;
   }
-
 }
