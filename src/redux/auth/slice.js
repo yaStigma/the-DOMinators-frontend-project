@@ -16,6 +16,7 @@ const authSlice = createSlice({
     user: {
       name: null,
       email: null,
+      password:null
     },
     accessToken: null,
     isLoggedIn: false,
@@ -35,8 +36,10 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
+        console.log(action)
         state.user = action.payload.data.userId || action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
+        console.log(state.user)
         state.isLoggedIn = true;
         state.error = null;
       })
