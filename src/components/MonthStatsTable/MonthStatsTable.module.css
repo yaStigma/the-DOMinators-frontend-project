@@ -33,7 +33,7 @@
 @media screen and (min-width: 768px) {
   .paginationWrap {
     max-width: none;
-    width: 756px;
+    width: 656px;
   }
 }
 
@@ -106,7 +106,8 @@
   margin: 0 0 4px 0;
 }
 .dayNumber--low {
-  border: 2px solid var(--secondary-color-5);
+  box-sizing: border-box;
+  border: 1px solid var(--secondary-color-5);
 }
 .dayNumber:hover,
 .dayNumber:focus {

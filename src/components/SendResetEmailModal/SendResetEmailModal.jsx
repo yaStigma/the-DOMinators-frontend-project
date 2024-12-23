@@ -2,12 +2,27 @@ import React from 'react';
 import * as Yup from 'yup'; 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { sendResetPasswordEmail } from '../../redux/auth/operations';
 import css from "./SendResetEmailModal.module.css";
-
+import SvgIcons from 'components/SvgIcons/SvgIcons';
 export const SendResetEmailModal = ({ onClose }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        onClose(); // Close modal if Escape is pressed
+      }
+    };
 
+    // Add event listener for Escape key
+    window.addEventListener('keydown', handleEsc);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [onClose]);
   const initialValues = {   
     email: "",
   };
@@ -56,7 +71,7 @@ export const SendResetEmailModal = ({ onClose }) => {
             </Form>
           )}
         </Formik>
-        <button onClick={onClose} className={css.closeButton}>Close</button>
+        <button onClick={onClose} className={css.closeButton}><SvgIcons name="close" className={css.iconClose}/></button>
       </div>
     </div>
   );
