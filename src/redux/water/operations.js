@@ -206,9 +206,12 @@ export const deleteWaterRecord = createAsyncThunk(
 
       // Удаление записи через API
       const response = await axios.delete(`/water/${userId}`);
-      toast.success('Successfully deleted the water record!');
+      toast.success('Successfully deleted the water record!', {
+        position: 'top-right',
+      });
       return response.data; // Вернуть данные ответа
     } catch (error) {
+      toast.error("Failed to delete water record. Try again later.");
       return thunkAPI.rejectWithValue(
         error.response?.data || { message: error.message }
       );

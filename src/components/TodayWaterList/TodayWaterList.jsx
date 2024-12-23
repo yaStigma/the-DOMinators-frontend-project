@@ -179,17 +179,15 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   // };
 
   const handleDeleteWater = async (id) => {
-    if (accessToken) {
-      try {
-        await dispatch(deleteWaterRecord(id));
-        setWaterRecords((prevRecords) =>
-          prevRecords.filter((record) => record._id !== id)
-        );
-      } catch (err) {
-        console.error("Error deleting water record", err);
-      }
-    }
-  };
+    if (!accessToken) return;
+  
+   
+   
+      await dispatch(deleteWaterRecord(id));
+      setWaterRecords((prevRecords) =>
+        prevRecords.filter((record) => record._id !== id)
+      );
+    };
 
   return (
     <section className={styles.todayWaterListSection}>
