@@ -43,8 +43,14 @@ const UserLogo = () => {
   } else if (data.email) {
     avatarText = data.email.charAt(0).toUpperCase(); // Первая буква email
     displayName = data.email; // Email пользователя
-  } 
-   const openDropdown=()=>{setOpen((prev)=>!prev)}
+
+  }
+
+  const openDropdown = () => {
+    setOpen(prev => !prev);
+  };
+
+
   return (
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
@@ -64,7 +70,7 @@ const UserLogo = () => {
           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
         </svg>
       </button>
-        {open && <UserLogoModal  isOpen={open} onClose={openDropdown}/>}
+        {open && <UserLogoModal  onClose={openDropdown} isOpen={open}/>}
       </div>
     </div>
   );

@@ -48,7 +48,7 @@ const ValidateSchema = Yup.object().shape(
   ['outdated', 'new']
 );
 
-export default function SettingModal({ onClose }) {
+export default function SettingModal({closeBackdrop, closeModal }) {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [avatarLetter, setAvatarLetter] = useState('');
   const [showPassword, setShowPassword] = useState({
@@ -82,12 +82,13 @@ export default function SettingModal({ onClose }) {
           name: values.name,
           email: values.email,
           gender: values.gender,
-          password: values.new,
+          password: values.outdated,
+          newPassword:values.new
         })
       )
     );
     actions.resetForm();
-    onClose();
+    closeModal();
   };
 
   const handleFileChange = e => {
@@ -115,10 +116,12 @@ export default function SettingModal({ onClose }) {
   }, [avatarUrl, previewUrl, name, email]);
 
   return (
+    <div className={css.backdrop} onClick={closeBackdrop}>
+      <section className={css.modal}>
     <div className={css.modal__container}>
       <div className={css.modal__header}>
         <h2 className={css.modal__title}>Setting</h2>
-        <button className={css.modal__close} onClick={onClose}>
+        <button className={css.modal__close} onClick={closeModal}>
           <SvgIcons className={css.modal__close_icon} name="close" />
         </button>
       </div>
@@ -134,7 +137,7 @@ export default function SettingModal({ onClose }) {
           <span className={css.modal__user_photo}>{avatarLetter}</span>
         )}
         <label className={css.modal__label_photo}>
-          <SvgIcons name="arrow" />
+          <SvgIcons name="arrow" className={css.modal__icon} />
           Upload a photo
           <input
             className={css.modal__add_photo}
@@ -180,7 +183,6 @@ export default function SettingModal({ onClose }) {
                   type="text"
                   placeholder={name || 'Your name'}
                   name="name"
-                  autoComplete="name"
                 />
                 <ErrorMessage component="span" name="name" />
               </label>
@@ -191,7 +193,6 @@ export default function SettingModal({ onClose }) {
                   type="text"
                   placeholder={email}
                   name="email"
-                  autoComplete="email"
                 />
                 <ErrorMessage component="span" name="email" />
               </label>
@@ -206,7 +207,6 @@ export default function SettingModal({ onClose }) {
                 type={showPassword.outdated ? 'text' : 'password'}
                 placeholder="Password"
                 name="outdated"
-                autoComplete="outdated"
               />
               <button
                 type="button"
@@ -224,7 +224,6 @@ export default function SettingModal({ onClose }) {
                 type={showPassword.new ? 'text' : 'password'}
                 placeholder="Password"
                 name="new"
-                autoComplete="new"
               />
               <button
                 type="button"
@@ -242,7 +241,6 @@ export default function SettingModal({ onClose }) {
                 type={showPassword.repeat ? 'text' : 'password'}
                 placeholder="Password"
                 name="repeat"
-                autoComplete="repeat"
               />
               <button
                 type="button"
@@ -259,6 +257,8 @@ export default function SettingModal({ onClose }) {
           </button>
         </Form>
       </Formik>
+    </div>
+    </section>
     </div>
   );
 }

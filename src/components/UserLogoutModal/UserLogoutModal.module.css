@@ -1,3 +1,28 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+.modal {
+  font-family: var(--font-family);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 21;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100% - 80px);
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: min-content;
+  box-shadow: 0 4px 9px #0000001a;
+
+}
 .modal__container {
   width: 233px;
   padding: 32px 24px;
@@ -32,18 +57,19 @@
   justify-content: center;
   align-items: center;
   background-color: inherit;
-  padding: 4px;
-  max-width: 24px;
-  max-height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   border: none;
+  padding: 0;
   cursor: url("/public/welcomePageFoto/mdi_cursor-pointer.png"), auto;
   outline: none;
 }
 .modal__close_icon {
   display: block;
-  width: 12px;
-  height: 12px;
-  fill: var(--primery-color-blue);
+  width: 100%;
+  height: 100%;
+  stroke: var(--primery-color-blue);
+  transition: stroke 300ms linear;
 }
 
 .modal__logout,
@@ -72,6 +98,7 @@
     width: 544px;
   }
   .modal__actions {
+    justify-content: flex-start;
     flex-direction: row-reverse;
     flex-wrap: wrap;
     gap: 24px;
@@ -79,11 +106,14 @@
   .modal__ques {
     width: 100%;
   }
-  .modal__cancel{
-    margin-left: auto;
+
+}
+@media screen and (min-width: 1440px){
+  .modal__actions {
+    justify-content: flex-end;
+
   }
 }
-
 .modal__logout:hover,
 .modal__cancel:hover {
   box-shadow: 0 4px 14px var(--primery-color-blue);
