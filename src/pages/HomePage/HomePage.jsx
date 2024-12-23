@@ -51,12 +51,8 @@ const HomePage = () => {
           waterRecords={waterRecords}
           onEdit={handleEdit}
           onDelete={handleDelete}
-        />
-        </section>
-        
-
-        <section className={styles.MonthStatsTableSection}>
-        <MonthStatsTable /> 
+          />
+          <MonthStatsTable /> 
         </section>
 
         
