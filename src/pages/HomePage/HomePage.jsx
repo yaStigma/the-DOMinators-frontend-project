@@ -45,7 +45,7 @@ const HomePage = () => {
           onAddWaterClick={handleAddWater}
         />
       </section>
-
+      <div className={styles.statsSectionsWrapper}>
       <section className={styles.todayWaterListSection}>
         <TodayWaterList
           waterRecords={waterRecords}
@@ -59,7 +59,7 @@ const HomePage = () => {
         <MonthStatsTable /> 
         </section>
 
-        
+        </div>
       </div>
     </div>
   );

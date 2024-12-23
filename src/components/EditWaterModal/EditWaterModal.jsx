@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateWaterRecord } from '../../redux/water/operations-old';
+import { updateWaterRecord } from '../../redux/water/operations';
 import SvgIcons from '../SvgIcons/SvgIcons';
 import css from './EditWaterModal.module.css';
 

@@ -70,7 +70,7 @@ export const updateDailyNorma = createAsyncThunk(
 
       setAuthHeader(accessToken);
 
-      const response = await axios.patch('/users/norma', {
+      const response = await axios.patch('/users/water-rate', {
         daylyNorm: dailyNorma * 1000, // Переводим в миллилитры
       });
 
@@ -79,7 +79,8 @@ export const updateDailyNorma = createAsyncThunk(
         position: 'top-right',
       });
 
-      return response.data.data.daylyNorm / 1000;
+      // Возвращаем полный объект из ответа сервера
+      return response.data.data;
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
     }
@@ -195,21 +196,29 @@ export const deleteWaterRecord = createAsyncThunk(
   "water/deleteWaterRecord",
   async (userId, thunkAPI) => {
     try {
+      const authData = JSON.parse(localStorage.getItem("persist:auth"));
+      const accessToken = JSON.parse(authData.accessToken);
+
+      if (!accessToken) throw new Error("Unauthorized");
+
+      // Установка заголовка авторизации
+      setAuthHeader(accessToken);
+
+      // Удаление записи через API
       const response = await axios.delete(`/water/${userId}`);
-      toast.success('Successfully deleted the water record!');
-      return response.data.data; // Возвращаем только "data"
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Failed to delete water record'
-      );
-      return thunkAPI.rejectWithValue({
-        status: error.response?.status || null,
-        message: error.response?.data?.message || error.message,
-        data: null,
+      toast.success('Successfully deleted the water record!', {
+        position: 'top-right',
       });
+      return response.data; // Вернуть данные ответа
+    } catch (error) {
+      toast.error("Failed to delete water record. Try again later.");
+      return thunkAPI.rejectWithValue(
+        error.response?.data || { message: error.message }
+      );
     }
   }
 );
+
 
 export const fetchDaysArray = createAsyncThunk(
   'water/fetchDaysArray',

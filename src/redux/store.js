@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
 import waterReducer from './water/slice';
@@ -36,6 +37,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    
   devTools: process.env.NODE_ENV === 'development',
 });
 
