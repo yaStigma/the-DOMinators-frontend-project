@@ -180,13 +180,16 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
 
   const handleDeleteWater = async (id) => {
     if (!accessToken) return;
-  
-   
-   
-      await dispatch(deleteWaterRecord(id));
-      setWaterRecords((prevRecords) =>
-        prevRecords.filter((record) => record._id !== id)
-      );
+    try {
+      const response = await dispatch(deleteWaterRecord(id));
+      if (response.meta.requestStatus === "fulfilled") {
+        setWaterRecords((prevRecords) =>
+          prevRecords.filter((record) => record._id !== id)
+        );
+      }
+    } catch (err) {
+      
+    }
     };
 
   return (
@@ -197,8 +200,8 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
           <li key={_id} className={styles.listItem}>
             <div className={styles.info}>
               <span className={styles.amount}>
-                <svg width="26" height="26">
-                  <use href="./images_auth/today_water.svg#icon-today_water"></use>
+                <svg width="36" height="36" className={styles.amountIcon}>
+                  <use href="./images_auth/today_water.svg#icon-today_water" ></use>
                 </svg>
                 {amount} ml
               </span>
