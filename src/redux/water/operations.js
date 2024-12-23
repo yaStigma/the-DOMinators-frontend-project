@@ -15,6 +15,42 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
+// Централизованная обработка ошибок axios
+const handleAxiosError = (error, thunkAPI) => {
+  if (error.response) {
+    const { status, message, data } = error.response.data;
+    toast.error(`Error: ${message}`, {
+      duration: 4000,
+      position: 'top-right',
+    });
+    return thunkAPI.rejectWithValue({ status, message, data });
+  }
+
+  toast.error(`Error: ${error.message}`, {
+    duration: 4000,
+    position: 'top-right',
+  });
+  return thunkAPI.rejectWithValue({
+    status: null,
+    message: error.message,
+    data: null,
+  });
+};
+
+// Вспомогательная функция для форматирования даты и времени
+const formatDateTime = time => {
+  const date = new Date();
+  const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
+  return `${formattedDate}T${time}:00Z`;
+};
+// Вспомогательная функция для нормализации формата даты
+const normalizeDate = (dateString) => {
+  if (dateString.includes('Z')) {
+    return dateString; // Если формат уже корректный, возвращаем как есть
+  }
+  return `${dateString}:00Z`; // Добавляем секунды и временную зону
+};
+
 // Получение дневной нормы
 export const fetchDailyNorma = createAsyncThunk(
   'dailyNorma/fetch',
@@ -78,7 +114,7 @@ export const updateDailyNorma = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
-
+      thunkAPI.dispatch(fetchDailyNorma());
       // Возвращаем полный объект из ответа сервера
       return response.data;
     } catch (error) {
@@ -113,7 +149,7 @@ export const createWaterRecord = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
-
+      thunkAPI.dispatch(fetchWaterRecords());
       return response.data;
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
@@ -133,62 +169,53 @@ export const fetchWaterRecords = createAsyncThunk(
 
       setAuthHeader(accessToken);
 
-      const response = await axios.get('/water');
-      return response.data;
+      const response = await axios.get('/water/today');
+      
+      // Нормализация данных
+      const normalizedData = response.data.map(record => ({
+        ...record,
+        date: normalizeDate(record.date), // Нормализуем формат даты
+      }));
+
+      return normalizedData;
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
     }
   }
 );
 
-// Вспомогательная функция для форматирования даты и времени
-const formatDateTime = time => {
-  const date = new Date();
-  const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
-  return `${formattedDate}T${time}:00Z`;
-};
-
-// Централизованная обработка ошибок axios
-const handleAxiosError = (error, thunkAPI) => {
-  if (error.response) {
-    const { status, message, data } = error.response.data;
-    toast.error(`Error: ${message}`, {
-      duration: 4000,
-      position: 'top-right',
-    });
-    return thunkAPI.rejectWithValue({ status, message, data });
-  }
-
-  toast.error(`Error: ${error.message}`, {
-    duration: 4000,
-    position: 'top-right',
-  });
-  return thunkAPI.rejectWithValue({
-    status: null,
-    message: error.message,
-    data: null,
-  });
-};
 
 export const updateWaterRecord = createAsyncThunk(
   'water/updateWaterRecord',
-  async ({ userId, date, amount }, thunkAPI) => {
-    const authData = JSON.parse(localStorage.getItem('persist:auth'));
-    const accessToken = authData.accessToken.replace(/"/g, '');
-
+  async ({ userId, data }, thunkAPI) => {
     try {
+      // Проверяем токен в localStorage
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = authData?.accessToken?.replace(/"/g, '');
+      if (!accessToken) {
+        throw new Error('Access token is missing.');
+      }
+
       setAuthHeader(accessToken);
-      const response = await axios.patch(`/water/${userId}`, { date, amount });
+
+      console.log(`PATCH request to: /water/${userId} with data:`, data); // Лог для отладки
+
+      const response = await axios.patch(`/water/${userId}`, data);
+
       toast.success('Successfully updated the water record!');
+      thunkAPI.dispatch(fetchWaterRecords());
       return response.data;
     } catch (error) {
+      console.error('Error in updateWaterRecord:', error); // Лог для отладки
+
       toast.error(
-        error.response.message || 'Failed to update water record'
+        error.response?.data?.message || 'Failed to update water record'
       );
+
       return thunkAPI.rejectWithValue({
-        status: null,
+        status: error.response?.status || null,
         message: error.message,
-        data: null,
+        data: error.response?.data || null,
       });
     } finally {
       clearAuthHeader();
@@ -213,6 +240,7 @@ export const deleteWaterRecord = createAsyncThunk(
       toast.success('Successfully deleted the water record!', {
         position: 'top-right',
       });
+      thunkAPI.dispatch(fetchTodayWaterRecords());
       return response.data; // Вернуть данные ответа
     } catch (error) {
       toast.error("Failed to delete water record. Try again later.");

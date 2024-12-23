@@ -56,6 +56,7 @@ const waterSlice = createSlice({
           .addCase(createWaterRecord.fulfilled, (state, action) => {
             state.loading = false;
             state.records.push(action.payload); // Добавляем новую запись в список
+          
           })
           .addCase(createWaterRecord.rejected, (state, action) => {
             state.loading = false;
