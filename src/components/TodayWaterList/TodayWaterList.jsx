@@ -86,7 +86,7 @@ export default TodayWaterList;*/
 /**/
 
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -106,43 +106,47 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   const [totalWaterAmount, setTotalWaterAmount] = useState(0);  
   const [goalPercentage, setGoalPercentage] = useState(0);      
   const listRef = useRef(null);
+  //добавила временно для работы кода
+console.log(totalWaterAmount);
+console.log(goalPercentage);
 
-  const fetchWaterRecords = () => {
-    if (accessToken) {
-      const currentDate = new Date();
-      const formattedDate = currentDate.toISOString().slice(0, 16); 
-  
-      axios
-        .get("https://the-dominators-back-project.onrender.com/water/today", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params: {
-            date: formattedDate,
-          },
-        })
-        .then((response) => {
-          console.log("API Response:", response.data); 
-          const { status, percentageOfGoal, records } = response.data;
-  
-          if (status === 200 && Array.isArray(records)) {
-            setWaterRecords(records);
-            const totalAmount = records.reduce((total, record) => total + record.amount, 0);
-            setTotalWaterAmount(totalAmount);
-            setGoalPercentage(percentageOfGoal || 0);
-          } else {
-            console.error("Unexpected response or invalid data:", response.data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching water records:", error);
-        });
-    }
-  };
+const fetchWaterRecords = useCallback(() => {
+  if (accessToken) {
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().slice(0, 16); 
+
+    axios
+      .get("https://the-dominators-back-project.onrender.com/water/today", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          date: formattedDate,
+        },
+      })
+      .then((response) => {
+        console.log("API Response:", response.data); 
+        const { status, percentageOfGoal, records } = response.data;
+
+        if (status === 200 && Array.isArray(records)) {
+          setWaterRecords(records);
+          const totalAmount = records.reduce((total, record) => total + record.amount, 0);
+          setTotalWaterAmount(totalAmount);
+          setGoalPercentage(percentageOfGoal || 0);
+        } else {
+          console.error("Unexpected response or invalid data:", response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching water records:", error);
+      });
+  }
+}, [accessToken]);
+
   
   useEffect(() => {
     fetchWaterRecords();  
-  }, [accessToken]);
+  }, [fetchWaterRecords]);
 
   useEffect(() => {
     if (listRef.current) {

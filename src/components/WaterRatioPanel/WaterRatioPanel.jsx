@@ -116,7 +116,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { createWaterRecord } from "../../redux/water/operations";
 import { selectToken } from "../../redux/auth/selectors";
-import TodayWaterList from "../TodayWaterList/TodayWaterList"; 
+// import TodayWaterList from "../TodayWaterList/TodayWaterList"; 
 
 const ProgressBar = ({ sliderValue }) => {
   const [sliderWidth, setSliderWidth] = useState(256);
@@ -167,7 +167,7 @@ const WaterTracker = () => {
   const [waterRecords, setWaterRecords] = useState([]);
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
-
+console.log(waterRecords);
   // Fetch water records on component mount
   useEffect(() => {
     const fetchWaterRecords = async () => {
@@ -215,14 +215,14 @@ const WaterTracker = () => {
   };
 
   // Delete water record and update state
-  const handleDeleteRecord = (id) => {
-    setWaterRecords((prevRecords) => {
-      const filteredRecords = prevRecords.filter((record) => record._id !== id);
-      const updatedTotal = filteredRecords.reduce((acc, record) => acc + record.amount, 0);
-      setTotalWater(updatedTotal);
-      return filteredRecords;
-    });
-  };
+  // const handleDeleteRecord = (id) => {
+  //   setWaterRecords((prevRecords) => {
+  //     const filteredRecords = prevRecords.filter((record) => record._id !== id);
+  //     const updatedTotal = filteredRecords.reduce((acc, record) => acc + record.amount, 0);
+  //     setTotalWater(updatedTotal);
+  //     return filteredRecords;
+  //   });
+  // };
 
   return (
     <div className={styles.dailyNormaSection}>
