@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWaterRate } from '../../redux/water/selectors';
 import SpriteIcons from '../MonthStatsTable/sprite.svg';
@@ -11,40 +11,64 @@ export const DaysGeneralStats = ({
   statsPosition,
 }) => {
   const dailyNormaValue = useSelector(selectWaterRate);
-  console.log({ selectedDay, statsPosition, isStatsOpen });
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        isStatsOpen &&
-        !event.target.closest(`.${styles.dayStatsWrap}`)
-      ) {
-        closeStats();
-      }
-    };
+  const [dragPosition, setDragPosition] = useState(statsPosition);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isStatsOpen, closeStats]);
+  useEffect(() => {
+    if (statsPosition) setDragPosition(statsPosition);
+  }, [statsPosition]);
+
+  const handleMouseDown = (e) => {
+    const modalElement = e.currentTarget.getBoundingClientRect();
+    setIsDragging(true);
+    setDragOffset({
+      x: e.clientX - modalElement.left,
+      y: e.clientY - modalElement.top,
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      setDragPosition({
+        top: e.clientY - dragOffset.y,
+        left: e.clientX - dragOffset.x,
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    } else {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
 
   if (!selectedDay) {
     return null;
   }
 
-  const { top, left } = statsPosition;
-
-  const statsStyle = {
-    top: `${top}px`,
-    left: window.innerWidth >= 768 ? `${left}px` : '50%',
-    transform:
-      window.innerWidth >= 768
-        ? 'translate(-50%, -100%)'
-        : 'translate(-50%, -50%)',
-  };
-
   return (
     <div
       className={`${styles.dayStatsWrap} ${isStatsOpen ? styles.open : ''}`}
-      style={statsStyle}
+      style={{
+        top: `${dragPosition.top}px`,
+        left: `${dragPosition.left}px`,
+        transform: 'translate(-75%, -25%)',
+        position: 'absolute',
+      }}
+      onMouseDown={handleMouseDown}
     >
       <div className={styles.header}>
         <p className={styles.date}>
@@ -76,7 +100,6 @@ export const DaysGeneralStats = ({
     </div>
   );
 };
-
 
 
 // import {
