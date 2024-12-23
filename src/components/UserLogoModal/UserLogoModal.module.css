@@ -5,7 +5,7 @@
   border-radius: 10px;
   position: absolute;
   right: 0;
-  top: 25px;
+  top: 27px;
   z-index: 20;
 
 }
@@ -29,10 +29,22 @@
   font-family: var(--font-family);
   color: var(--primery-color-blue);
   margin: 0;
+  white-space: nowrap;
+  transition: color 300ms linear;
 }
-
+.user__icon{
+  transition: stroke 300ms linear;
+}
 @media screen and (min-width: 1440px) {
+  .user__info {
+    top: 31px;
+  }
 }
-.user__info {
-  top: 31px;
+.user__btn:hover .user__desc{
+  color: var(--secondary-color-5);
+  transition: color 300ms linear;
+}
+.user__btn:hover .user__icon{
+  stroke: var(--secondary-color-5);
+  transition: stroke 300ms linear;
 }
