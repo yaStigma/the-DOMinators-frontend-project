@@ -1,81 +1,138 @@
 .todayWaterListSection {
-    margin-top: 20px;
-    padding: 24px 8px;
-    background-color: #f7f9fc;
+  background-color: #fff;
+  max-width: 400px;
+  margin: 0 20px;
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
+  background: #ecf2ff;
+  border-radius: 10px;
+  padding: 24px 8px;
+  width: 280px;
+  height: 836px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.2s;
+}
+
+.listItem:hover {
+  background-color: #f9f9f9;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.amount {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a90e2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editButton,
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.editButton:hover {
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+.deleteButton:hover {
+  background-color: rgba(255, 76, 76, 0.1);
+}
+
+.addButton {
+  margin-top: 16px;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background: none;  
+  border: none; 
+  outline: none; 
+  box-shadow: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #407bff;
+}
+
+.addButton:hover {
+  color: #ff9d43;
+}
+
+
+.twbtni {
+  fill: #4a90e2;
+}
+
+.editButton{
+  stroke-width: 1px;
+  stroke: #9ebbff;
+}
+
+@media screen and (min-width: 768px) {
+  
+  .todayWaterListSection{
+    padding: 32px 24px;
+    padding: 32px 24px;
+    width: 704px;
+    height: 688px;
+    height: 688px;
+    margin: 0 32px;
+    max-width: 660px;
+  }
+
+}
+
+@media screen and (min-width: 1440px) {
+
+  .todayWaterListSection{
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    margin-left: 20px;
-    margin-right: 20px;
-    max-height: 400px;
-    overflow-y: auto;
+    padding: 32px 24px;
+    width: 592px;
+    height: 680px;
   }
-  
-  .title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 24px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 1.25;
-    color: #2f2f2f;
-  }
-  
-  .list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 212px; 
-    overflow-y: auto;
-  }
-  
-  .listItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .amount {
-    font-size: 16px;
-    font-weight: bold;
-  
-  }
-  
-  .time {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 2;
-    color: #2f2f2f;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 10px;
-  }
-  .editButton {
-    stroke-width: 1px;
-    stroke: #9ebbff;
-    background-color: none;
-  }
-  
-  .addButton {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  
+
+}

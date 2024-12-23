@@ -156,7 +156,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
 
     if (accessToken) {
       try {
-        await dispatch(createWaterRecord({ amount, time, accessToken }));
+        await dispatch(createWaterRecord({ amount, time}));
         fetchWaterRecords();
       } catch (err) {
         console.error("Error adding water record", err);
@@ -185,7 +185,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
           <li key={_id} className={styles.listItem}>
             <div className={styles.info}>
               <span className={styles.amount}>
-                <svg width="26" height="26">
+                <svg width="26" height="26" className={styles.twbtni} >
                   <use href="./images_auth/today_water.svg#icon-today_water"></use>
                 </svg>
                 {amount} ml
@@ -201,7 +201,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
                 aria-label="Edit"
               >
                 <svg width="16" height="16">
-                  <use href="./images_auth/pendelete.svg#icon-pencil"></use>
+                  <use href="./images_auth/td_editdelet.svg#icon-edit"></use>
                 </svg>
               </button>
               <button
@@ -210,7 +210,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
                 aria-label="Delete"
               >
                 <svg width="16" height="16">
-                  <use href="./images_auth/pendelete.svg#icon-delete"></use>
+                  <use href="./images_auth/td_editdelet.svg#icon-delete"></use>
                 </svg>
               </button>
             </div>
