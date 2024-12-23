@@ -53,11 +53,6 @@ const HomePage = () => {
           onDelete={handleDelete}
           />
           </section>
-  
-  
-          <section className={styles.MonthStatsTableSection}>
-          <MonthStatsTable /> 
-        </section>
 
         </div>
       </div>

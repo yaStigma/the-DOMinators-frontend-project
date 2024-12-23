@@ -95,6 +95,7 @@ import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { createWaterRecord } from "../../redux/water/operations"; 
 import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
+import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -237,7 +238,11 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
         + Add water
       </button>
       {isModalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
+      <section className={styles.MonthStatsTableSection}>
+        <MonthStatsTable />
+      </section>
     </section>
+    
   );
 };
 
