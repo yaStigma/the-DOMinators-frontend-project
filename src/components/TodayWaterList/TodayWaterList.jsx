@@ -93,6 +93,7 @@ import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { createWaterRecord } from "../../redux/water/operations"; 
+import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -123,24 +124,18 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
           console.log("API Response:", response.data); 
           const { status, percentageOfGoal, records } = response.data;
   
-          if (status === 200) {
-            if (Array.isArray(records)) {
-              setWaterRecords(records);
-              const totalAmount = records.reduce((total, record) => total + record.amount, 0);
-              setTotalWaterAmount(totalAmount);
-              setGoalPercentage(percentageOfGoal || 0);
-            } else {
-              console.error("Received 'records' is not an array", records);
-            }
+          if (status === 200 && Array.isArray(records)) {
+            setWaterRecords(records);
+            const totalAmount = records.reduce((total, record) => total + record.amount, 0);
+            setTotalWaterAmount(totalAmount);
+            setGoalPercentage(percentageOfGoal || 0);
           } else {
-            console.error("Unexpected response status:", status);
+            console.error("Unexpected response or invalid data:", response.data);
           }
         })
         .catch((error) => {
           console.error("Error fetching water records:", error);
         });
-    } else {
-      console.error("No access token available.");
     }
   };
   
@@ -163,73 +158,80 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
 
     if (accessToken) {
       try {
-        
         await dispatch(createWaterRecord({ amount, time, accessToken }));
-
         fetchWaterRecords();
       } catch (err) {
         console.error("Error adding water record", err);
       }
-    } else {
-      console.error("No access token available.");
     }
   };
 
+  // const handleDeleteWater = async (id) => {
+  //   if (accessToken) {
+  //     try {
+  //       await dispatch(onDelete(id, accessToken));
+  //       setWaterRecords((prevRecords) =>
+  //         prevRecords.filter((record) => record._id !== id)
+  //       );
+  //     } catch (err) {
+  //       console.error("Error deleting water record", err);
+  //     }
+  //   }
+  // };
+
   const handleDeleteWater = async (id) => {
-    if (accessToken) {
-      try {
-        await dispatch((id, accessToken));
+    if (!accessToken) return;
+    try {
+      const response = await dispatch(deleteWaterRecord(id));
+      if (response.meta.requestStatus === "fulfilled") {
         setWaterRecords((prevRecords) =>
           prevRecords.filter((record) => record._id !== id)
         );
-      } catch (err) {
-        console.error("Error deleting water record", err);
       }
-    } else {
-      console.error("No access token available.");
+    } catch (err) {
+      
     }
-  };
+    };
 
   return (
     <section className={styles.todayWaterListSection}>
       <h2 className={styles.title}>Today</h2>
       <ul className={styles.list} ref={listRef}>
-        {Array.isArray(waterRecords) &&
-          waterRecords.map(({ _id, amount, date }) => (
-            <li key={_id} className={styles.listItem}>
-              <div className={styles.info}>
-                <span className={styles.amount}>
-                  <svg width="26" height="26">
-                    <use href="./images_auth/today_water.svg#icon-today_water"></use>
-                  </svg>
-                  {amount} ml
-                </span>
-                <span className={styles.time}>
-                  {new Date(date).toLocaleTimeString()}
-                </span>
-              </div>
-              <div className={styles.actions}>
-                <button
-                  className={styles.editButton}
-                  onClick={() => onEdit(_id)}
-                  aria-label="Edit"
-                >
-                  <svg width="16" height="16">
-                    <use href="./images_auth/pendelete.svg#icon-pencil"></use>
-                  </svg>
-                </button>
-                <button
-                  className={styles.deleteButton}
-                  // onClick={() => handleDeleteWater(_id)}
-                  aria-label="Delete"
-                >
-                  <svg width="16" height="16">
-                    <use href="./images_auth/pendelete.svg#icon-delete"></use>
-                  </svg>
-                </button>
-              </div>
-            </li>
-          ))}
+        {waterRecords.map(({ _id, amount, date }) => (
+          <li key={_id} className={styles.listItem}>
+            <div className={styles.info}>
+              <span className={styles.amount}>
+                <svg width="36" height="36" className={styles.amountIcon}>
+                  <use href="./images_auth/today_water.svg#icon-today_water" ></use>
+                </svg>
+                {amount} ml
+              </span>
+              <span className={styles.time}>
+                {new Date(date).toLocaleTimeString()}
+              </span>
+            </div>
+            <div className={styles.actions}>
+              <button
+                className={styles.editButton}
+                onClick={() => onEdit(_id)}
+                aria-label="Edit"
+              >
+                <svg width="16" height="16">
+                  <use href="./images_auth/pendelete.svg#icon-pencil"></use>
+                </svg>
+              </button>
+              <button
+                className={styles.deleteButton}
+                onClick={() => handleDeleteWater(_id)}
+                aria-label="Delete"
+              >
+                <svg width="16" height="16">
+                  <use href="./images_auth/pendelete.svg#icon-delete"></use>
+                </svg>
+              </button>
+            </div>
+          </li>
+        ))}
       </ul>
       <button className={styles.addButton} onClick={handleAddWaterClick}>
         + Add water

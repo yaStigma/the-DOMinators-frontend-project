@@ -45,21 +45,21 @@ const HomePage = () => {
           onAddWaterClick={handleAddWater}
         />
       </section>
-
+      <div className={styles.statsSectionsWrapper}>
       <section className={styles.todayWaterListSection}>
         <TodayWaterList
           waterRecords={waterRecords}
           onEdit={handleEdit}
           onDelete={handleDelete}
-        />
+          />
+          </section>
+  
+  
+          <section className={styles.MonthStatsTableSection}>
+          <MonthStatsTable /> 
         </section>
-        
 
-        <section className={styles.MonthStatsTableSection}>
-        <MonthStatsTable /> 
-        </section>
-
-        
+        </div>
       </div>
     </div>
   );

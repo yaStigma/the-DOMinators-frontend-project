@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateDailyNorma } from '../../redux/water/operations-old';
+import { updateDailyNorma } from '../../redux/water/operations';
 import css from './DailyNormaModal.module.css';
 
 const DailyNormaModal = ({ setModalVisible }) => {
@@ -56,24 +56,22 @@ const DailyNormaModal = ({ setModalVisible }) => {
 
   const handleSave = async (event) => {
     event.preventDefault();
-    const dailyNorma = waterIntake * 1000;
+    const dailyNorma = waterIntake;
 
-    if (dailyNorma > 5000) {
-      alert('Максимальная суточная норма потребления воды - 5000 мл');
-      return;
+    if (dailyNorma > 5) {
+        alert('Максимальная суточная норма потребления воды - 5 L');
+        return;
     }
 
-    const authData = JSON.parse(localStorage.getItem('persist:auth'));
-    const accessToken = authData.accessToken.replace(/"/g, '');
-
-    const result = await dispatch(updateDailyNorma({ accessToken, dailyNorma }));
-
-    if (!result.error) {
-      setModalVisible(false);
-    } else {
-      alert(`Ошибка: ${result.error.message}`);
+    try {
+        const result = await dispatch(updateDailyNorma({ dailyNorma })).unwrap();
+        if (!result.error) {
+            setModalVisible(false); // Закрываем модальное окно
+        }
+    } catch (error) {
+        alert(`Ошибка: ${error.message}`);
     }
-  };
+};
 
   return (
     <div className={css.App}>
