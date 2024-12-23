@@ -1,91 +1,3 @@
-/*import { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import styles from "./TodayWaterList.module.css";
-
-const TodayWaterList = ({ waterRecords, onEdit, onDelete }) => {
-  const listRef = useRef(null);
-
-  useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
-    }
-  }, [waterRecords]);
-
-  return (
-    <section className={styles.todayWaterListSection}>
-      <h2 className={styles.title}>Today</h2>
-      <ul className={styles.list} ref={listRef}>
-        {waterRecords.map(({ id, amount, time }) => (
-          <li key={id} className={styles.listItem}>
-            <div className={styles.info}>
-              <span className={styles.amount}> <svg
-    width="26"
-    height="26"
-  >
-    <use href="./images_auth/today_water.svg#icon-today_water"></use>
-  </svg>
-  {amount} ml</span>
-              <span className={styles.time}>{time}</span>
-            </div>
-            <div className={styles.actions}>
-            <button
-              className={styles.editButton}
-              onClick={() => onEdit(id)}
-              aria-label="Edit"
-              >
-              <svg
-
-                  width="16"
-                  height="16"
-
-                  >
-                    <use href="./images_auth/pendelete.svg#icon-pencil"></use>
-                  </svg>
-                  </button>
-
-                  <button
-                  className={styles.deleteButton}
-                  onClick={() => onDelete(id)}
-                  aria-label="Delete"
-                >
-                  <svg
-
-                    width="16"
-                    height="16"
-
-                  >
-
-                    <use href="./images_auth/pendelete.svg#icon-delete"></use>
-                  </svg>
-                </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <button className={styles.addButton} onClick={() => onEdit(null)}>
-        + Add water
-      </button>
-    </section>
-  );
-};
-
-TodayWaterList.propTypes = {
-  waterRecords: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-      time: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
-
-export default TodayWaterList;
-export default TodayWaterList;*/
-/**/
-
-
 import { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
@@ -95,13 +7,15 @@ import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { createWaterRecord } from "../../redux/water/operations"; 
 import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
+import EditWaterModal from "../EditWaterModal/EditWaterModal";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 
-const TodayWaterList = ({ onEdit, onDelete }) => {
+const TodayWaterList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isEditModalVisible, setEditModalVisible] = useState(false);
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
-
+  const [currentRecord, setCurrentRecord] = useState(null);
   const [waterRecords, setWaterRecords] = useState([]);
   const [totalWaterAmount, setTotalWaterAmount] = useState(0);  
   const [goalPercentage, setGoalPercentage] = useState(0);      
@@ -171,18 +85,13 @@ const fetchWaterRecords = useCallback(() => {
     }
   };
 
-  // const handleDeleteWater = async (id) => {
-  //   if (accessToken) {
-  //     try {
-  //       await dispatch(onDelete(id, accessToken));
-  //       setWaterRecords((prevRecords) =>
-  //         prevRecords.filter((record) => record._id !== id)
-  //       );
-  //     } catch (err) {
-  //       console.error("Error deleting water record", err);
-  //     }
-  //   }
-  // };
+  const onEdit = (recordId) => {
+    const record = waterRecords.find((record) => record._id === recordId);
+    setCurrentRecord(record); // Сохраняем текущую запись
+    setEditModalVisible(true); // Открываем модальное окно редактирования
+  };
+
+
 
   const handleDeleteWater = async (id) => {
     if (!accessToken) return;
@@ -241,7 +150,16 @@ const fetchWaterRecords = useCallback(() => {
       <button className={styles.addButton} onClick={handleAddWaterClick}>
         + Add water
       </button>
+      
       {isModalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
+      {/* Модальное окно для редактирования */}
+      {isEditModalVisible && currentRecord && (
+        <EditWaterModal
+          setModalVisible={setEditModalVisible}
+          waterRecord={currentRecord}
+          onSave={fetchWaterRecords} // Обновляем записи после редактирования
+        />
+      )}
       <section className={styles.MonthStatsTableSection}>
         <MonthStatsTable />
       </section>

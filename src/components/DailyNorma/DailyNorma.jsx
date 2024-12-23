@@ -1,142 +1,56 @@
-// import React, { useState } from 'react';
-// import styles from "./DailyNorma.module.css";
-// import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
-// import EditWaterModal from '../EditWaterModal/EditWaterModal'; // Импортируем EditWaterModal
-
-// const DailyNorma = () => {
-//   const [normaModalVisible, setNormaModalVisible] = useState(false);
-//   const [editWaterModalVisible, setEditWaterModalVisible] = useState(false); // Состояние для видимости EditWaterModal
-//   const [normaValue] = useState(2.0);
-
-//   const openNormaModal = () => {
-//     setNormaModalVisible(true);
-//   };
-
-//   const openEditWaterModal = () => {
-//     setEditWaterModalVisible(true);
-//   };
-
-//   return (
-//     <div className={styles.dailyNormaContainer}>
-//       <p className={styles.title}>My daily norma</p>
-//       <div className={styles.normaContainer}>
-//         <span className={styles.normaValue}>{normaValue} L</span>
-//         <button onClick={openNormaModal} className={styles.editButton}>Edit</button>
-//         <button onClick={openEditWaterModal} className={styles.editButton}>Edit Water</button>
-//       </div>
-//       {normaModalVisible && <DailyNormaModal setModalVisible={setNormaModalVisible} />}
-//       {editWaterModalVisible && <EditWaterModal setModalVisible={setEditWaterModalVisible} waterRecord={null} />}
-//     </div>
-//   );
-// };
-
-// export default DailyNorma;
 
 
-
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { updateDailyNorma } from '../../redux/water/operations';
-import styles from './DailyNorma.module.css';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import css from './DailyNorma.module.css';
+import { fetchUser } from '../../redux/user/operations'; // Загружаем данные пользователя
+import { updateDailyNorma } from '../../redux/water/operations'; // Обновляем норму воды
 import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
+import { selectUserInfo } from '../../redux/user/selectors'; // Выбор данных пользователя из Redux
 
 const DailyNorma = () => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-  const [normaValue, setNormaValue] = useState(2.0); 
 
+  // Загружаем данные пользователя при монтировании компонента
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const authData = JSON.parse(localStorage.getItem('persist:auth'));
-        const accessToken = JSON.parse(authData.accessToken);
+    dispatch(fetchUser());
+  }, [dispatch]);
 
-        if (!accessToken) {
-          console.error('Unauthorized: No access token found');
-          return;
-        }
+  const userInfo = useSelector(selectUserInfo);
+  const data = userInfo?.data || {}; // Если данных нет, используем пустой объект
 
-        const response = await axios.get('https://the-dominators-back-project.onrender.com/users', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+  // Извлекаем норму воды из данных пользователя
+  const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // В литрах
 
-        const userData = response.data.data;
-        setNormaValue(userData.daylyNorm / 1000); 
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
+  // Сохранение новой нормы воды
   const handleSave = async (newNorma) => {
-    const authData = JSON.parse(localStorage.getItem('persist:auth'));
-    const accessToken = authData ? JSON.parse(authData.accessToken) : null;
-
-    if (!accessToken) {
-      console.error('Unauthorized: No access token found');
-      return;
-    }
-
     try {
-      const response = await dispatch(updateDailyNorma({ accessToken, dailyNorma: newNorma })).unwrap();
+      const response = await dispatch(updateDailyNorma({ dailyNorma: newNorma * 1000 })).unwrap(); // Преобразуем литры в мл
       if (response) {
-        setNormaValue(newNorma); 
-        setModalVisible(false); 
+        setModalVisible(false); // Закрываем модальное окно после успешного сохранения
       }
     } catch (error) {
       console.error('Failed to update daily norma:', error);
     }
   };
 
+  // Открытие модального окна
   const openModal = () => {
     setModalVisible(true);
   };
 
   return (
-    <div className={styles.dailyNormaContainer}>
-      <p className={styles.title}>My daily norma</p>
-      <div className={styles.normaContainer}>
-        <span className={styles.normaValue}>{normaValue} L</span>
-        <button onClick={openModal} className={styles.editButton}>Edit</button>
-      </div>
-
-      {modalVisible && <DailyNormaModal setModalVisible={setModalVisible} handleSave={handleSave} />} 
-    </div>
-  );
-};
+        <div className={css.dailyNormaContainer}>
+          <p className={css.title}>My daily norma</p>
+          <div className={css.normaContainer}>
+            <span className={css.normaValue}>{normaValue} L</span>
+            <button onClick={openModal} className={css.editButton}>Edit</button>
+          </div>
+    
+          {modalVisible && <DailyNormaModal setModalVisible={setModalVisible} handleSave={handleSave} />} 
+        </div>
+      );
+    };
 
 export default DailyNorma;
-
-
-/*import React, { useState } from 'react';
-import styles from "./DailyNorma.module.css";
-import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
-
-const DailyNorma = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [normaValue] = useState(2.0);
-
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
-  return (
-    <div className={styles.dailyNormaContainer}>
-      <p className={styles.title}>My daily norma</p>
-      <div className={styles.normaContainer}>
-        <span className={styles.normaValue}>{normaValue} L</span>
-        <button onClick={openModal} className={styles.editButton}>Edit</button>
-
-      </div>
-      {modalVisible && <DailyNormaModal setModalVisible={setModalVisible} />}
-    </div>
-  );
-};
-
-export default DailyNorma;*/

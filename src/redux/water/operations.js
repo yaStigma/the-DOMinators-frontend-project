@@ -28,7 +28,7 @@ export const fetchDailyNorma = createAsyncThunk(
       setAuthHeader(accessToken); // Установка токена
 
       const response = await axios.get('/users');
-      return response.data.data.daylyNorm / 1000; // Приводим к литрам
+      return response.data.daylyNorm / 1000; // Приводим к литрам
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
     }
@@ -80,7 +80,7 @@ export const updateDailyNorma = createAsyncThunk(
       });
 
       // Возвращаем полный объект из ответа сервера
-      return response.data.data;
+      return response.data;
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
     }
@@ -122,10 +122,6 @@ export const createWaterRecord = createAsyncThunk(
 );
 
 
-// import axios from 'axios';
-// import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { toast } from 'react-toastify';
-// Получение всех записей о воде
 export const fetchWaterRecords = createAsyncThunk(
   'water/fetchRecords',
   async (_, thunkAPI) => {
@@ -167,128 +163,6 @@ const handleAxiosError = (error, thunkAPI) => {
     duration: 4000,
     position: 'top-right',
   });
-
-//       toast.success(response.data.message, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return response.data;
-//     } catch (error) {
-//       if (error.response) {
-//         const { status, message, data } = error.response.data;
-//         toast.error(`Error: ${message}`, {
-//           duration: 4000,
-//           position: 'top-right',
-//         });
-
-//         return thunkAPI.rejectWithValue({ status, message, data });
-//       }
-
-//       toast.error(`Error: ${error.message}`, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return thunkAPI.rejectWithValue({
-//         status: null,
-//         message: error.message,
-//         data: null,
-//       });
-//     }
-//   }
-// );
-
-// export const createWaterRecord = createAsyncThunk(
-//   'water/createRecord',
-
-//   async ({ accessToken, amount, time }, thunkAPI) => {
-//     try {
-//       setAuthHeader(accessToken);
-
-//       const response = await axios.post('/water', {
-//         amount,
-//         date: new Date().toISOString().split('T')[0] + 'T' + time + ':00Z',
-//       });
-
-//       toast.success(response.data.message, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return response.data;
-//     } catch (error) {
-//       if (error.response) {
-//         const { status, message, data } = error.response.data;
-//         toast.error(`Error: ${message}`, {
-//           duration: 4000,
-//           position: 'top-right',
-//         });
-
-//         return thunkAPI.rejectWithValue({ status, message, data });
-//       }
-
-//       toast.error(`Error: ${error.message}`, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return thunkAPI.rejectWithValue({
-//         status: null,
-//         message: error.message,
-//         data: null,
-//       });
-//     }
-//   }
-// );
-
-
-
-// export const createWaterRecord = createAsyncThunk(
-//   'water/createRecord',
-
-//   async ({ accessToken, amount, time }, thunkAPI) => {
-//     try {
-//       setAuthHeader(accessToken);
-
-//       const response = await axios.post('/water', {
-//         amount,
-//         date: new Date().toISOString().split('T')[0] + 'T' + time + ':00Z',
-//       });
-
-//       toast.success(response.data.message, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return response.data;
-//     } catch (error) {
-//       if (error.response) {
-//         const { status, message, data } = error.response.data;
-//         toast.error(`Error: ${message}`, {
-//           duration: 4000,
-//           position: 'top-right',
-//         });
-
-//         return thunkAPI.rejectWithValue({ status, message, data });
-//       }
-
-//       toast.error(`Error: ${error.message}`, {
-//         duration: 4000,
-//         position: 'top-right',
-//       });
-
-//       return thunkAPI.rejectWithValue({
-//         status: null,
-//         message: error.message,
-//         data: null,
-//       });
-//     }
-//   }
-// );
-
-
-
   return thunkAPI.rejectWithValue({
     status: null,
     message: error.message,
