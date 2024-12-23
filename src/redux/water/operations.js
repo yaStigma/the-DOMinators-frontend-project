@@ -196,21 +196,26 @@ export const deleteWaterRecord = createAsyncThunk(
   "water/deleteWaterRecord",
   async (userId, thunkAPI) => {
     try {
+      const authData = JSON.parse(localStorage.getItem("persist:auth"));
+      const accessToken = JSON.parse(authData.accessToken);
+
+      if (!accessToken) throw new Error("Unauthorized");
+
+      // Установка заголовка авторизации
+      setAuthHeader(accessToken);
+
+      // Удаление записи через API
       const response = await axios.delete(`/water/${userId}`);
       toast.success('Successfully deleted the water record!');
-      return response.data.data; // Возвращаем только "data"
+      return response.data; // Вернуть данные ответа
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Failed to delete water record'
+      return thunkAPI.rejectWithValue(
+        error.response?.data || { message: error.message }
       );
-      return thunkAPI.rejectWithValue({
-        status: error.response?.status || null,
-        message: error.response?.data?.message || error.message,
-        data: null,
-      });
     }
   }
 );
+
 
 export const fetchDaysArray = createAsyncThunk(
   'water/fetchDaysArray',

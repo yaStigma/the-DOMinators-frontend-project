@@ -109,10 +109,9 @@ const waterSlice = createSlice({
             // Ищем запись по userId и date, если id отсутствует
             const index = state.records.findIndex(
               (record) =>
-                record.userId === action.payload.data.userId &&
-                record.date === action.payload.data.date
+                record.userId === action.payload.userId &&
+                record.date === action.payload.date
             );
-          
             if (index !== -1) {
               state.records.splice(index, 1); // Удаляем запись из массива
             }

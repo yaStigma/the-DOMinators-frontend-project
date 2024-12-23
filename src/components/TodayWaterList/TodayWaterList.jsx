@@ -92,6 +92,7 @@ import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { createWaterRecord } from "../../redux/water/operations"; 
+import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
@@ -164,10 +165,23 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
     }
   };
 
+  // const handleDeleteWater = async (id) => {
+  //   if (accessToken) {
+  //     try {
+  //       await dispatch(onDelete(id, accessToken));
+  //       setWaterRecords((prevRecords) =>
+  //         prevRecords.filter((record) => record._id !== id)
+  //       );
+  //     } catch (err) {
+  //       console.error("Error deleting water record", err);
+  //     }
+  //   }
+  // };
+
   const handleDeleteWater = async (id) => {
     if (accessToken) {
       try {
-        await dispatch(onDelete(id, accessToken));
+        await dispatch(deleteWaterRecord(id));
         setWaterRecords((prevRecords) =>
           prevRecords.filter((record) => record._id !== id)
         );
