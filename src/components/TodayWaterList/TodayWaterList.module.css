@@ -12,6 +12,26 @@
     overflow-y: auto; */
   }
   
+  /* Для всего скроллбара */
+::-webkit-scrollbar {
+  width: 4px;
+height: 203px;
+flex-shrink: 0;
+}
+
+/* Для трека (фона скроллбара) */
+::-webkit-scrollbar-track {
+  background: #D7E3FF; 
+  border-radius: 10px; 
+}
+
+/* Для самого ползунка */
+::-webkit-scrollbar-thumb {
+  background: #9EBBFF; 
+  border-radius: 10px; 
+}
+
+
   .title {
     color: var(--primery-color-black);
 font-family: Roboto;
