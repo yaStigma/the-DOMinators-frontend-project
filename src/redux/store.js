@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
-import waterReducer from './water/slice'; 
+import waterReducer from './water/slice-old'; 
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,

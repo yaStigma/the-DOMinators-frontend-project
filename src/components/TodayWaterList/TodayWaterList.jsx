@@ -81,6 +81,7 @@ TodayWaterList.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
+export default TodayWaterList;
 export default TodayWaterList;*/
 /**/
 
