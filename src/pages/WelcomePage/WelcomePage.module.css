@@ -1,10 +1,11 @@
 .welcomePage {
-  max-width: 100%;
+  /*max-width: 100%;*/
   background-color: #fff;
   background-image: url('/public/welcomePageFoto/Background_Main_Page_mob_1x.png');
   background-repeat: no-repeat;
   background-position: bottom;
-  margin: 0 auto;
+  background-size: cover;
+ /* margin: 0 auto;*/
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -30,10 +31,9 @@
 
 @media screen and (min-width: 375px) {
   .welcomePage {
-    max-width: 375px;
+    /*max-width: 375px;*/
     background-size: cover;
     background-position: center;
-    background-size: cover;
   }
 
   .welcomePageWrapper {
@@ -43,7 +43,7 @@
 
 @media screen and (min-width: 768px) {
   .welcomePage {
-    max-width: 768px;
+    /*max-width: 768px;*/
     padding: 20px 0 50px;
     margin-top: 20px;
     background-image:
@@ -72,7 +72,7 @@
 
 @media screen and (min-width: 1440px) {
   .welcomePage {
-    max-width: 1440px;
+    /*max-width: 1440px;*/
     height: 700px;
     /*padding: 109px 0;*/
     padding: 0;
