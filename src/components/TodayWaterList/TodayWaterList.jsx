@@ -81,6 +81,7 @@ TodayWaterList.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
+export default TodayWaterList;
 export default TodayWaterList;*/
 /**/
 
@@ -94,6 +95,7 @@ import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { createWaterRecord } from "../../redux/water/operations"; 
 import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
+import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 
 const TodayWaterList = ({ onEdit, onDelete }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -157,7 +159,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
 
     if (accessToken) {
       try {
-        await dispatch(createWaterRecord({ amount, time, accessToken }));
+        await dispatch(createWaterRecord({ amount, time}));
         fetchWaterRecords();
       } catch (err) {
         console.error("Error adding water record", err);
@@ -216,7 +218,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
                 aria-label="Edit"
               >
                 <svg width="16" height="16">
-                  <use href="./images_auth/pendelete.svg#icon-pencil"></use>
+                  <use href="./images_auth/td_editdelet.svg#icon-edit"></use>
                 </svg>
               </button>
               <button
@@ -225,7 +227,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
                 aria-label="Delete"
               >
                 <svg width="16" height="16">
-                  <use href="./images_auth/pendelete.svg#icon-delete"></use>
+                  <use href="./images_auth/td_editdelet.svg#icon-delete"></use>
                 </svg>
               </button>
             </div>
@@ -236,7 +238,11 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
         + Add water
       </button>
       {isModalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
+      <section className={styles.MonthStatsTableSection}>
+        <MonthStatsTable />
+      </section>
     </section>
+    
   );
 };
 
