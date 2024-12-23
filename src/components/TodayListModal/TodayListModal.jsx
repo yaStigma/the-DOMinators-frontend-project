@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { createWaterRecord } from '../../redux/water/operations';
-import css from './AddWaterModal.module.css';
+import css from './TodayListModal.module.css';
 
-const AddWaterModal = ({ setModalVisible }) => {
+const TodayListModal = ({ setModalVisible }) => {
   const [amount, setAmount] = useState(0);
   const [time, setTime] = useState('');
   const dispatch = useDispatch();
@@ -64,7 +63,7 @@ const AddWaterModal = ({ setModalVisible }) => {
     <div className={css.modal}>
       <div className={css.modalContent}>
         <div className={css.modalHeader}>
-          <h2>Add water</h2>
+          <h2 className={css.TodayListTitle}>Add water</h2>
           <span className={css.close} onClick={handleClose}>&times;</span>
         </div>
         <div className={css.modalBody}>
@@ -89,5 +88,5 @@ const AddWaterModal = ({ setModalVisible }) => {
   );
 };
 
-export default AddWaterModal;
+export default TodayListModal;
 

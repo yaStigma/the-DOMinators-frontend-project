@@ -91,9 +91,9 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./TodayWaterList.module.css";
-import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord } from "../../redux/water/operations"; 
-import {deleteWaterRecord} from "../../redux/water/operations"; 
+import TodayListModal from "../TodayListModal/TodayListModal";
+import { createWaterRecord } from "../../redux/water/operations";
+import {deleteWaterRecord} from "../../redux/water/operations";
 import { selectToken } from "../../redux/auth/selectors";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 
@@ -103,15 +103,15 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
   const accessToken = useSelector(selectToken);
 
   const [waterRecords, setWaterRecords] = useState([]);
-  const [totalWaterAmount, setTotalWaterAmount] = useState(0);  
-  const [goalPercentage, setGoalPercentage] = useState(0);      
+  const [totalWaterAmount, setTotalWaterAmount] = useState(0);
+  const [goalPercentage, setGoalPercentage] = useState(0);
   const listRef = useRef(null);
 
   const fetchWaterRecords = () => {
     if (accessToken) {
       const currentDate = new Date();
-      const formattedDate = currentDate.toISOString().slice(0, 16); 
-  
+      const formattedDate = currentDate.toISOString().slice(0, 16);
+
       axios
         .get("https://the-dominators-back-project.onrender.com/water/today", {
           headers: {
@@ -122,9 +122,9 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
           },
         })
         .then((response) => {
-          console.log("API Response:", response.data); 
+          console.log("API Response:", response.data);
           const { status, percentageOfGoal, records } = response.data;
-  
+
           if (status === 200 && Array.isArray(records)) {
             setWaterRecords(records);
             const totalAmount = records.reduce((total, record) => total + record.amount, 0);
@@ -139,9 +139,9 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
         });
     }
   };
-  
+
   useEffect(() => {
-    fetchWaterRecords();  
+    fetchWaterRecords();
   }, [accessToken]);
 
   useEffect(() => {
@@ -190,7 +190,7 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
         );
       }
     } catch (err) {
-      
+
     }
     };
 
@@ -237,12 +237,12 @@ const TodayWaterList = ({ onEdit, onDelete }) => {
       <button className={styles.addButton} onClick={handleAddWaterClick}>
         + Add water
       </button>
-      {isModalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
+      {isModalVisible && <TodayListModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
       <section className={styles.MonthStatsTableSection}>
         <MonthStatsTable />
       </section>
     </section>
-    
+
   );
 };
 

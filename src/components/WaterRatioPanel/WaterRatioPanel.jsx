@@ -111,12 +111,12 @@ import React, { useState, useEffect } from "react";
 import styles from "./WaterRatioPanel.module.css";
 import PropTypes from "prop-types";
 import DailyNorma from "../DailyNorma/DailyNorma";
-import AddWaterModal from "../AddWaterModal/AddWaterModal";
+import TodayListModal from "../TodayListModal/TodayListModal";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { createWaterRecord } from "../../redux/water/operations";
 import { selectToken } from "../../redux/auth/selectors";
-import TodayWaterList from "../TodayWaterList/TodayWaterList"; 
+import TodayWaterList from "../TodayWaterList/TodayWaterList";
 
 const ProgressBar = ({ sliderValue }) => {
   const [sliderWidth, setSliderWidth] = useState(256);
@@ -167,6 +167,20 @@ const WaterTracker = () => {
   const [waterRecords, setWaterRecords] = useState([]);
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
+
+  //Блокує скрол сторінки, коли відкрита моділка
+  useEffect(() => {
+    if (modalVisible) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [modalVisible]);
+
 
   // Fetch water records on component mount
   useEffect(() => {
@@ -249,7 +263,7 @@ const WaterTracker = () => {
           </svg>
           Add Water
         </button>
-        {modalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
+        {modalVisible && <TodayListModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
       </div>
     </div>
   );

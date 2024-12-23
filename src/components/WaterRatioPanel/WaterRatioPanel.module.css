@@ -131,6 +131,9 @@
     stroke-width: 2px;
     stroke: #ffffff;
   }
+    .no-scroll {
+      overflow: hidden;
+    }
 
   @media screen and (min-width: 768px) {
     .dailyNormaSection {
