@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SpriteIcons from '../MonthStatsTable/sprite.svg';
 import styles from './DaysGeneralStats.module.css';
@@ -63,33 +63,37 @@ export const DaysGeneralStats = ({
     zIndex: 10,
   };
 
-  // Close modal when pressing Esc key
-  const handleEsc = (event) => {
-    if (event.key === 'Escape') {
-      closeStats();
-    }
-  };
+  const handleEsc = useCallback(
+    (event) => {
+      if (event.key === 'Escape') {
+        closeStats();
+      }
+    },
+    [closeStats]
+  );
 
   useEffect(() => {
     document.addEventListener('keydown', handleEsc);
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
-  }, []);
+  }, [handleEsc]);
 
-  // Close modal when clicking outside
-  const handleClickOutside = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      closeStats();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeStats();
+      }
+    },
+    [closeStats]
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   if (!selectedDay) {
     return null;
