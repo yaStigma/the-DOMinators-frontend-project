@@ -1,66 +1,29 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { createWaterRecord } from "../../redux/water/operations"; 
 import {deleteWaterRecord} from "../../redux/water/operations"; 
 import { selectToken } from "../../redux/auth/selectors";
 import EditWaterModal from "../EditWaterModal/EditWaterModal";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
-
+import { selectTodayRecords } from "../../redux/water/selectors";
+import { fetchTodayWaterRecords, updateWaterRecord } from "../../redux/water/operations";
 const TodayWaterList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const dispatch = useDispatch();
   const accessToken = useSelector(selectToken);
   const [currentRecord, setCurrentRecord] = useState(null);
-  const [waterRecords, setWaterRecords] = useState([]);
-  const [totalWaterAmount, setTotalWaterAmount] = useState(0);  
-  const [goalPercentage, setGoalPercentage] = useState(0);      
   const listRef = useRef(null);
-  //добавила временно для работы кода
-console.log(totalWaterAmount);
-console.log(goalPercentage);
+  const waterRecords = useSelector(selectTodayRecords);
 
-const fetchWaterRecords = useCallback(() => {
+
+useEffect(() => {
   if (accessToken) {
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString().slice(0, 16); 
-
-    axios
-      .get("https://the-dominators-back-project.onrender.com/water/today", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          date: formattedDate,
-        },
-      })
-      .then((response) => {
-        console.log("API Response:", response.data); 
-        const { status, percentageOfGoal, records } = response.data;
-
-        if (status === 200 && Array.isArray(records)) {
-          setWaterRecords(records);
-          const totalAmount = records.reduce((total, record) => total + record.amount, 0);
-          setTotalWaterAmount(totalAmount);
-          setGoalPercentage(percentageOfGoal || 0);
-        } else {
-          console.error("Unexpected response or invalid data:", response.data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching water records:", error);
-      });
+ 
+    dispatch(fetchTodayWaterRecords());
   }
-}, [accessToken]);
-
-  
-  useEffect(() => {
-    fetchWaterRecords();  
-  }, [fetchWaterRecords]);
+}, [dispatch, accessToken]);
 
   useEffect(() => {
     if (listRef.current) {
@@ -72,40 +35,47 @@ const fetchWaterRecords = useCallback(() => {
     setModalVisible(true);
   };
 
-  const handleModalClose = async (amount, time) => {
+  const handleModalClose = async () => {
+    
     setModalVisible(false);
-
+  
     if (accessToken) {
       try {
-        await dispatch(createWaterRecord({ amount, time}));
-        fetchWaterRecords();
+          await dispatch(fetchTodayWaterRecords());
       } catch (err) {
         console.error("Error adding water record", err);
       }
     }
   };
 
-  const onEdit = (recordId) => {
-    const record = waterRecords.find((record) => record._id === recordId);
+
+  const onEdit = (recordId) => {  // Переименуем параметр в правильный recordId
+    const record = waterRecords.find((record) => record._id === recordId);  // Используем recordId
     setCurrentRecord(record); // Сохраняем текущую запись
     setEditModalVisible(true); // Открываем модальное окно редактирования
   };
-
+  const handleEditSave = async (updatedRecord) => {
+    try {
+      await dispatch(updateWaterRecord(updatedRecord));
+      await dispatch(fetchTodayWaterRecords()); // Обновление данных
+    } catch (err) {
+      console.error("Error updating water record", err);
+    }
+  };
 
 
   const handleDeleteWater = async (id) => {
     if (!accessToken) return;
+  
     try {
       const response = await dispatch(deleteWaterRecord(id));
       if (response.meta.requestStatus === "fulfilled") {
-        setWaterRecords((prevRecords) =>
-          prevRecords.filter((record) => record._id !== id)
-        );
+        await dispatch(fetchTodayWaterRecords()); // Обновление данных
       }
     } catch (err) {
-      
+      console.error("Error deleting water record", err);
     }
-    };
+  };
 
   return (
     <section className={styles.todayWaterListSection}>
@@ -121,7 +91,8 @@ const fetchWaterRecords = useCallback(() => {
                 {amount} ml
               </span>
               <span className={styles.time}>
-                {new Date(date).toLocaleTimeString()}
+                {new Date(date).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
+              }
               </span>
             </div>
             <div className={styles.actions}>
@@ -151,13 +122,18 @@ const fetchWaterRecords = useCallback(() => {
         + Add water
       </button>
       
-      {isModalVisible && <AddWaterModal setModalVisible={setModalVisible} onClose={handleModalClose} />}
+      {isModalVisible && (
+      <AddWaterModal
+        setModalVisible={setModalVisible}
+        onClose={handleModalClose}  // Передаем функцию
+      />
+    )}
       {/* Модальное окно для редактирования */}
       {isEditModalVisible && currentRecord && (
         <EditWaterModal
           setModalVisible={setEditModalVisible}
           waterRecord={currentRecord}
-          onSave={fetchWaterRecords} // Обновляем записи после редактирования
+          onSave={handleEditSave} // Обновляем записи после редактирования
         />
       )}
       <section className={styles.MonthStatsTableSection}>
@@ -167,10 +143,4 @@ const fetchWaterRecords = useCallback(() => {
     
   );
 };
-
-TodayWaterList.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
-
 export default TodayWaterList;

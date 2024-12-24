@@ -49,7 +49,7 @@ export const updateUser = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      console.log("error",!error.status.ok)
+      console.log('error', !error.status.ok);
       const message = error.response?.data?.message || error.message;
       toast.error(`Error: ${message}`, {
         duration: 4000,
@@ -76,6 +76,41 @@ export const updateAvatar = createAsyncThunk(
         duration: 4000,
         position: 'top-right',
       });
+      return data;
+    } catch (error) {
+      const message = error.response?.data?.message || error.message;
+      toast.error(`Error: ${message}`, {
+        duration: 4000,
+        position: 'top-right',
+      });
+
+      return thunkAPI.rejectWithValue(message);
+    } finally {
+      dispatch(hideLoader()); // Приховати лоадер після завершення запиту
+    }
+  }
+);
+// добавляем запрос на обновление дневной нормы воды
+export const updateDailyNorma = createAsyncThunk(
+  'dailyNorma/update',
+  async ({ dailyNorma }, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показати лоадер перед початком запиту
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.accessToken;
+      setAuthHeader(token);
+
+      const { data } = await axios.patch('/users/water-rate', {
+        daylyNorm: dailyNorma * 1000, // Переводим в миллилитры
+      });
+
+      toast.success('Daily norma updated successfully!', {
+        duration: 4000,
+        position: 'top-right',
+      });
+
+      // Возвращаем полный объект из ответа сервера
       return data;
     } catch (error) {
       const message = error.response?.data?.message || error.message;

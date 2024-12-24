@@ -4,7 +4,6 @@ import { authReducer } from './auth/slice';
 import { userInfoReducer } from './user/slice';
 import waterReducer from './water/slice';
 import { loaderReducer } from './loader/slice';
-import { MonthReduser } from './water/slice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -28,7 +27,6 @@ const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     userInfo: userInfoReducer,
     water: waterReducer,
-    month: MonthReduser,
     loader: loaderReducer,
   },
   middleware: getDefaultMiddleware =>
@@ -37,7 +35,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-    
+
   devTools: process.env.NODE_ENV === 'development',
 });
 

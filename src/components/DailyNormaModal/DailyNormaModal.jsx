@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateDailyNorma } from '../../redux/water/operations';
+import { updateDailyNorma } from '../../redux/user/operations';
 import css from './DailyNormaModal.module.css';
 
 const DailyNormaModal = ({ setModalVisible }) => {
