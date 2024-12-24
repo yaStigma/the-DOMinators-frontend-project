@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './DailyNorma.module.css';
 import { fetchUser } from '../../redux/user/operations'; // Загружаем данные пользователя
-import { updateDailyNorma } from '../../redux/water/operations'; // Обновляем норму воды
+import { updateDailyNorma } from '../../redux/user/operations'; // Обновляем норму воды
 import DailyNormaModal from '../DailyNormaModal/DailyNormaModal';
 import { selectUserInfo } from '../../redux/user/selectors'; // Выбор данных пользователя из Redux
 

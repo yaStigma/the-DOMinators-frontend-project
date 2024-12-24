@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createWaterRecord } from '../../redux/water/operations';
+import { createWaterRecord, fetchDaysArray } from '../../redux/water/operations';
 import css from './AddWaterModal.module.css';
 
-const AddWaterModal = ({ setModalVisible }) => {
+const AddWaterModal = ({ setModalVisible, onClose }) => {
   const [amount, setAmount] = useState(0);
   const [time, setTime] = useState('');
   const dispatch = useDispatch();
@@ -22,21 +22,13 @@ const AddWaterModal = ({ setModalVisible }) => {
   };
 
   const handleSave = async () => {
-    const authData = JSON.parse(localStorage.getItem('persist:auth'));
-    const accessToken = JSON.parse(authData.accessToken);
-
-    if (!accessToken) {
-      alert('Unauthorized: No access token found');
-      return;
-    }
-
-    // console.log('Access Token:', accessToken);
-
     try {
-      await dispatch(createWaterRecord({ accessToken, amount, time }));
+      await dispatch(createWaterRecord({ amount, time }));
       setModalVisible(false);
+      onClose(amount, time);  // Вызываем обновление списка после сохранения
+      await dispatch(fetchDaysArray());
     } catch (error) {
-      alert(error.message);
+      alert('Error saving record: ' + error.message);
     }
   };
 

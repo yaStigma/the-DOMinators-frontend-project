@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUser, updateAvatar, updateUser } from './operations';
+import {
+  fetchUser,
+  updateAvatar,
+  updateUser,
+  updateDailyNorma,
+} from './operations';
 
 const userInfoSlice = createSlice({
   name: 'userInfo',
@@ -50,6 +55,18 @@ const userInfoSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(updateAvatar.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateDailyNorma.pending, state => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(updateDailyNorma.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateDailyNorma.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
