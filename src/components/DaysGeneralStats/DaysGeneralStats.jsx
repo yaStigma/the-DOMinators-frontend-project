@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { selectWaterRate } from '../../redux/water/selectors';
 import SpriteIcons from '../MonthStatsTable/sprite.svg';
 import styles from './DaysGeneralStats.module.css';
-import { fetchUser } from '../../redux/user/operations'; // Загружаем данные пользователя
-import { selectUserInfo } from '../../redux/user/selectors'; // Выбор данных пользователя из Redux
+import { fetchUser } from '../../redux/user/operations'; // Fetch user data
+import { selectUserInfo } from '../../redux/user/selectors'; // Select user data from Redux
 
 export const DaysGeneralStats = ({
   isStatsOpen,
@@ -16,20 +15,22 @@ export const DaysGeneralStats = ({
   const [dragging, setDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const dispatch = useDispatch();
- useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
- const userInfo = useSelector(selectUserInfo);
-  const data = userInfo?.data || {}; // Если данных нет, используем пустой объект
-
-  // Извлекаем норму воды из данных пользователя
-  const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // В литрах
+  const modalRef = useRef(null); // Ref for modal container
 
   useEffect(() => {
-    // Update the modal position when statsPosition changes
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  const userInfo = useSelector(selectUserInfo);
+  const data = userInfo?.data || {}; // Fallback to empty object if no user data
+
+  const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // Convert daily norm to liters
+
+  useEffect(() => {
     setModalPosition(statsPosition);
   }, [statsPosition]);
 
+  // Dragging logic
   const handleDragStart = (event) => {
     setDragging(true);
     setDragStart({ x: event.clientX, y: event.clientY });
@@ -62,6 +63,34 @@ export const DaysGeneralStats = ({
     zIndex: 10,
   };
 
+  // Close modal when pressing Esc key
+  const handleEsc = (event) => {
+    if (event.key === 'Escape') {
+      closeStats();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, []);
+
+  // Close modal when clicking outside
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      closeStats();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   if (!selectedDay) {
     return null;
   }
@@ -74,18 +103,14 @@ export const DaysGeneralStats = ({
       onMouseMove={handleDrag}
       onMouseUp={handleDragEnd}
       onMouseLeave={handleDragEnd} // Ensure dragging stops if mouse leaves the modal
+      ref={modalRef} // Attach the modalRef here
     >
       <div className={styles.header}>
         <p className={styles.date}>
           {selectedDay.date}, {selectedDay.month}
         </p>
         <button className={styles.daysCloseButton} onClick={closeStats}>
-          <svg
-            width="16px"
-            height="16px"
-            stroke="currentColor"
-            fill="currentColor"
-          >
+          <svg width="16px" height="16px" stroke="currentColor" fill="currentColor">
             <use xlinkHref={`${SpriteIcons}#icon-close`} />
           </svg>
         </button>
@@ -105,6 +130,7 @@ export const DaysGeneralStats = ({
     </div>
   );
 };
+
 
 
 // import {
