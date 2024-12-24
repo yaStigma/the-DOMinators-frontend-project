@@ -12,9 +12,9 @@ export const DaysGeneralStats = ({
   selectedDay,
   statsPosition,
 }) => {
-  const [dragPosition, setDragPosition] = useState(statsPosition);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [modalPosition, setModalPosition] = useState(statsPosition);
+  const [dragging, setDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const dispatch = useDispatch();
  useEffect(() => {
     dispatch(fetchUser());
@@ -26,44 +26,41 @@ export const DaysGeneralStats = ({
   const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // В литрах
 
   useEffect(() => {
-    if (statsPosition) setDragPosition(statsPosition);
+    // Update the modal position when statsPosition changes
+    setModalPosition(statsPosition);
   }, [statsPosition]);
 
-  const handleMouseDown = (e) => {
-    const modalElement = e.currentTarget.getBoundingClientRect();
-    setIsDragging(true);
-    setDragOffset({
-      x: e.clientX - modalElement.left,
-      y: e.clientY - modalElement.top,
-    });
+  const handleDragStart = (event) => {
+    setDragging(true);
+    setDragStart({ x: event.clientX, y: event.clientY });
   };
 
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      setDragPosition({
-        top: e.clientY - dragOffset.y,
-        left: e.clientX - dragOffset.x,
-      });
-    }
+  const handleDrag = (event) => {
+    if (!dragging) return;
+
+    const deltaX = event.clientX - dragStart.x;
+    const deltaY = event.clientY - dragStart.y;
+
+    setModalPosition((prevPosition) => ({
+      top: prevPosition.top + deltaY,
+      left: prevPosition.left + deltaX,
+    }));
+
+    setDragStart({ x: event.clientX, y: event.clientY });
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handleDragEnd = () => {
+    setDragging(false);
   };
 
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    } else {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    }
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  });
+  const { top, left } = modalPosition;
+
+  const statsStyle = {
+    top: `${top - 45}px`,
+    left: `${left + 10}px`,
+    transform: 'translate(-50%, -100%)',
+    zIndex: 10,
+  };
 
   if (!selectedDay) {
     return null;
@@ -72,14 +69,11 @@ export const DaysGeneralStats = ({
   return (
     <div
       className={`${styles.dayStatsWrap} ${isStatsOpen ? styles.open : ''}`}
-      style={{
-        top: `${dragPosition.top - 50}px`, // Зміщення вгору на 50px або більше
-        left: `${dragPosition.left}px`,
-        transform: 'translate(-50%, -100%)', // Зсув вгору на 100%
-        position: 'absolute',
-        zIndex: 10,
-      }}
-      onMouseDown={handleMouseDown}
+      style={statsStyle}
+      onMouseDown={handleDragStart}
+      onMouseMove={handleDrag}
+      onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragEnd} // Ensure dragging stops if mouse leaves the modal
     >
       <div className={styles.header}>
         <p className={styles.date}>
