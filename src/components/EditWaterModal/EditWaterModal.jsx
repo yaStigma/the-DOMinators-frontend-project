@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateWaterRecord } from '../../redux/water/operations';
 import SvgIcons from '../SvgIcons/SvgIcons';
 import css from './EditWaterModal.module.css';
@@ -8,6 +8,7 @@ const EditWaterModal = ({ setModalVisible, waterRecord}) => {
   const [amount, setAmount] = useState(waterRecord ? waterRecord.amount : 0);
   const [time, setTime] = useState('');
   const dispatch = useDispatch();
+ 
 
   useEffect(() => {
     populateTimeDropdown();
@@ -35,6 +36,8 @@ const EditWaterModal = ({ setModalVisible, waterRecord}) => {
       }
     }
   };
+
+  
 
   const populateTimeDropdown = () => {
     const timeDropdown = document.getElementById('time');

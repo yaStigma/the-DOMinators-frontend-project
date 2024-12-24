@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { selectWaterRate } from '../../redux/water/selectors';
 import SpriteIcons from '../MonthStatsTable/sprite.svg';
 import styles from './DaysGeneralStats.module.css';
-import { fetchUser } from '../../redux/user/operations'; // Загружаем данные пользователя
-import { selectUserInfo } from '../../redux/user/selectors'; // Выбор данных пользователя из Redux
+import { fetchUser } from '../../redux/user/operations'; // Fetch user data
+import { selectUserInfo } from '../../redux/user/selectors'; // Select user data from Redux
 
 export const DaysGeneralStats = ({
   isStatsOpen,
@@ -12,58 +11,85 @@ export const DaysGeneralStats = ({
   selectedDay,
   statsPosition,
 }) => {
-  const [dragPosition, setDragPosition] = useState(statsPosition);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [modalPosition, setModalPosition] = useState(statsPosition);
+  const [dragging, setDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const dispatch = useDispatch();
- useEffect(() => {
+  const modalRef = useRef(null); // Ref for modal container
+
+  useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
- const userInfo = useSelector(selectUserInfo);
-  const data = userInfo?.data || {}; // Если данных нет, используем пустой объект
 
-  // Извлекаем норму воды из данных пользователя
-  const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // В литрах
+  const userInfo = useSelector(selectUserInfo);
+  const data = userInfo?.data || {}; // Fallback to empty object if no user data
+
+  const normaValue = data.daylyNorm ? data.daylyNorm / 1000 : 2.0; // Convert daily norm to liters
 
   useEffect(() => {
-    if (statsPosition) setDragPosition(statsPosition);
+    setModalPosition(statsPosition);
   }, [statsPosition]);
 
-  const handleMouseDown = (e) => {
-    const modalElement = e.currentTarget.getBoundingClientRect();
-    setIsDragging(true);
-    setDragOffset({
-      x: e.clientX - modalElement.left,
-      y: e.clientY - modalElement.top,
-    });
+  // Dragging logic
+  const handleDragStart = (event) => {
+    setDragging(true);
+    setDragStart({ x: event.clientX, y: event.clientY });
   };
 
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      setDragPosition({
-        top: e.clientY - dragOffset.y,
-        left: e.clientX - dragOffset.x,
-      });
+  const handleDrag = (event) => {
+    if (!dragging) return;
+
+    const deltaX = event.clientX - dragStart.x;
+    const deltaY = event.clientY - dragStart.y;
+
+    setModalPosition((prevPosition) => ({
+      top: prevPosition.top + deltaY,
+      left: prevPosition.left + deltaX,
+    }));
+
+    setDragStart({ x: event.clientX, y: event.clientY });
+  };
+
+  const handleDragEnd = () => {
+    setDragging(false);
+  };
+
+  const { top, left } = modalPosition;
+
+  const statsStyle = {
+    top: `${top - 45}px`,
+    left: `${left + 10}px`,
+    transform: 'translate(-50%, -100%)',
+    zIndex: 10,
+  };
+
+  // Close modal when pressing Esc key
+  const handleEsc = (event) => {
+    if (event.key === 'Escape') {
+      closeStats();
     }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
   };
 
   useEffect(() => {
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    } else {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    }
+    document.addEventListener('keydown', handleEsc);
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('keydown', handleEsc);
     };
-  });
+  }, []);
+
+  // Close modal when clicking outside
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      closeStats();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   if (!selectedDay) {
     return null;
@@ -72,26 +98,19 @@ export const DaysGeneralStats = ({
   return (
     <div
       className={`${styles.dayStatsWrap} ${isStatsOpen ? styles.open : ''}`}
-      style={{
-        top: `${dragPosition.top - 50}px`, // Зміщення вгору на 50px або більше
-        left: `${dragPosition.left}px`,
-        transform: 'translate(-50%, -100%)', // Зсув вгору на 100%
-        position: 'absolute',
-        zIndex: 10,
-      }}
-      onMouseDown={handleMouseDown}
+      style={statsStyle}
+      onMouseDown={handleDragStart}
+      onMouseMove={handleDrag}
+      onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragEnd} // Ensure dragging stops if mouse leaves the modal
+      ref={modalRef} // Attach the modalRef here
     >
       <div className={styles.header}>
         <p className={styles.date}>
           {selectedDay.date}, {selectedDay.month}
         </p>
         <button className={styles.daysCloseButton} onClick={closeStats}>
-          <svg
-            width="16px"
-            height="16px"
-            stroke="currentColor"
-            fill="currentColor"
-          >
+          <svg width="16px" height="16px" stroke="currentColor" fill="currentColor">
             <use xlinkHref={`${SpriteIcons}#icon-close`} />
           </svg>
         </button>
@@ -111,6 +130,7 @@ export const DaysGeneralStats = ({
     </div>
   );
 };
+
 
 
 // import {
