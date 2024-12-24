@@ -162,16 +162,12 @@ export const fetchDaysArray = createAsyncThunk(
       November: 11,
       December: 12,
     };
-    console.log(monthName);
-    console.log(year);
     setAuthHeader(accessToken);
 
     try {
       const { data } = await axios.get('/water/month', {
         params: { month: months[monthName], year },
       });
-      console.log(monthName);
-      console.log(year);
       console.log(data);
       return data; // Повертаємо отримані дані
     } catch (error) {

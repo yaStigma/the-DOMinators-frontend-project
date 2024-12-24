@@ -8,7 +8,7 @@ const AddWaterModal = ({ setModalVisible, onClose }) => {
   const [amount, setAmount] = useState(0);
   const [time, setTime] = useState('');
   const dispatch = useDispatch();
-
+ 
   useEffect(() => {
     populateTimeDropdown();
   }, []);
