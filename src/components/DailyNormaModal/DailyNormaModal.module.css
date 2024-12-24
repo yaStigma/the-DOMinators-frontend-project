@@ -1,40 +1,3 @@
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-} */
-
-/* body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
-} */
-
-
 .modal {
   display: flex;
   justify-content: center;
@@ -44,7 +7,7 @@ table {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+ width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   /* Полупрозрачный фон */
@@ -55,21 +18,22 @@ table {
 .modalContent {
   background-color: #fff;
   /* Белый фон для содержимого */
-  padding: 20px;
+  padding: 24px 12px;
   /* Внутренний отступ */
   border-radius: 10px;
   /* Скругленные углы */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* Тень для глубины */
-  max-width: 500px;
   /* Максимальная ширина */
-  width: 90%;
+  /* max-width: 256px; */
   /* Ширина с учетом малых экранов */
   text-align: center;
   /* Центрирование текста */
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-
+  
 
 /* .modal {
   width: 100%;
@@ -103,10 +67,10 @@ display: flex;
 }
 .closeButton {
 position:relative;
-  top: -15px;
+  top: 15px;
   right: 0px;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   background: white;
   border: none;
   font-size: 20px;
@@ -119,7 +83,20 @@ position:relative;
   transition: color 0.3s;
 
 }
+.iconClose {
 
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: var(--primery-color-blue);
+  transition: stroke 300ms linear;
+}
+.iconClose:hover {
+
+  fill: var(--secondary-color-5);
+  stroke: var(--secondary-color-5);
+  box-shadow: none;
+}
 .closeButton:hover {
   color: white;
   background-color: #007bff;
@@ -226,14 +203,20 @@ position:relative;
 } 
 
 .saveButton {
-  width: 100px;
+  width: 256px;
   padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   align-self: flex-end;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 10px;
+padding: 8px 30px;
+width: 256px;
+height: 36px;
 } 
 
 .saveButton:hover {
@@ -247,17 +230,23 @@ position:relative;
 }
 
 /* Адаптация для телефонов и планшетов */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .modal {
-    width: 100%;
-    max-width: 100%;
+    
+   width: 100%;
     height: 100vh;
+
+    /* padding-left: auto;
+    padding-right: auto; */
   }
 
   .modal-content {
+      max-width: 256px;
     padding: 0 15px;
     overflow-y: auto;
     height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .formulas {
@@ -315,21 +304,29 @@ position:relative;
 } 
 
 /* Адаптация для всех компьютеров и браузеров */
-@media (min-width: 769px) {
+@media screen and (min-width: 768px) {
+  /* Your styles here */
+
   .modal {
     width: 100%;
     max-width: 100%;
+    top: 0;
+    left: 10;
   }
-
-  .modal-content {
-    padding: 20px;
+ .modalContent {
+    padding: 24px ;
+    max-width: 656px;
   }
 
   .formulas {
     flex-direction: row;
     gap: 20px;
   }
-
+  .saveButton {
+    width:160px;
+    margin-left: auto;
+    margin-right: 0;
+  }
   .radioGroup {
 display: flex;
     flex-direction: row;
@@ -366,4 +363,9 @@ display: flex;
   width: 100%;
   color: #007bff;
   box-sizing: border-box;
+}
+@media screen and (min-width: 1216px) {
+  .modalContent {
+    max-width: 544px;
+  }
 }

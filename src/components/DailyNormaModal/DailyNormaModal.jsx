@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateDailyNorma } from '../../redux/water/operations';
 import css from './DailyNormaModal.module.css';
-
+import SvgIcons from 'components/SvgIcons/SvgIcons';
 const DailyNormaModal = ({ setModalVisible }) => {
   const [gender, setGender] = useState('woman');
   const [weight, setWeight] = useState(0);
@@ -37,7 +37,21 @@ const DailyNormaModal = ({ setModalVisible }) => {
 
     setRequiredWater(V === 0 ? '0 L' : V.toFixed(2) + ' L');
   }, [gender, weight, activityTime]);
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        setModalVisible(false) // Close modal if Escape is pressed
+      }
+    };
 
+    // Add event listener for Escape key
+    window.addEventListener('keydown', handleEsc);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [setModalVisible]);
   useEffect(() => {
     calculateWaterIntake();
   }, [calculateWaterIntake]);
@@ -74,12 +88,12 @@ const DailyNormaModal = ({ setModalVisible }) => {
 };
 
   return (
-    <div className={css.App}>
+    // <div className={css.App}>
       <div className={css.modal}>
         <div className={css.modalContent}>
           <div className={css.navnButton}>
             <h2 className={css.h2}>My daily norma</h2>
-            <button className={css.closeButton} onClick={() => setModalVisible(false)}>&times;</button>
+            <button className={css.closeButton} onClick={() => setModalVisible(false)}><SvgIcons name="close" className={css.iconClose}/></button>
           </div>
           <div className={css.formulas}>
             <p>
@@ -156,7 +170,7 @@ const DailyNormaModal = ({ setModalVisible }) => {
           </form>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
