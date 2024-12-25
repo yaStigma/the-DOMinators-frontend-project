@@ -2,15 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import {deleteWaterRecord, fetchDaysArray} from "../../redux/water/operations"; 
+import {fetchDaysArray} from "../../redux/water/operations"; 
 // import { selectToken } from "../../redux/auth/selectors";
 import EditWaterModal from "../EditWaterModal/EditWaterModal";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 import { selectTodayRecords } from "../../redux/water/selectors";
 import { fetchTodayWaterRecords, updateWaterRecord } from "../../redux/water/operations";
+import { DeleteWaterModal } from "../DeleteWaterModal/DeleteWaterModal";
+
 const TodayWaterList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const dispatch = useDispatch();
   // const accessToken = useSelector(selectToken);
   const accessToken = localStorage.getItem("persist:auth");
@@ -69,17 +72,17 @@ useEffect(() => {
   };
 
 
-  const handleDeleteWater = async (id) => {
-    if (!accessToken) return;
-  
+  const onDelete = (recordId) => {
+    const record = waterRecords.find((record) => record._id === recordId);  
+    setCurrentRecord(record);
+    setDeleteModalVisible(true);
+  };
+ 
+  const handleDeleteSave = async (updatedRecord) => {
     try {
-      const response = await dispatch(deleteWaterRecord(id));
-      if (response.meta.requestStatus === "fulfilled") {
-        // Обновление данных
-        await dispatch(fetchTodayWaterRecords()); 
-        await dispatch(fetchDaysArray())
-         window.location.reload();
-      }
+      // Обновление данных
+      await dispatch(fetchTodayWaterRecords());
+      await dispatch(fetchDaysArray()) 
     } catch (err) {
       console.error("Error deleting water record", err);
     }
@@ -115,7 +118,7 @@ useEffect(() => {
               </button>
               <button
                 className={styles.deleteButton}
-                onClick={() => handleDeleteWater(_id)}
+                onClick={() => onDelete(_id)}
                 aria-label="Delete"
               >
                 <svg width="16" height="16">
@@ -142,6 +145,15 @@ useEffect(() => {
           setModalVisible={setEditModalVisible}
           waterRecord={currentRecord}
           onSave={handleEditSave} // Обновляем записи после редактирования
+        />
+      )}
+      {/* Модальное окно для удаления */}
+      {isDeleteModalVisible && currentRecord && (
+        <DeleteWaterModal
+          record={currentRecord} // Передаем ID записи
+          closeModal={() => setDeleteModalVisible(false)}
+          closeBackdrop={() => setDeleteModalVisible(false)}
+          onSave={handleDeleteSave} // Обновляем список после удаления
         />
       )}
       <section className={styles.MonthStatsTableSection}>
