@@ -5,7 +5,7 @@ import DailyNorma from "../DailyNorma/DailyNorma";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTodayWaterRecords } from "../../redux/water/operations";
-import { selectToken } from "../../redux/auth/selectors";
+// import { selectToken } from "../../redux/auth/selectors";
 import { selectTodayRecords } from "../../redux/water/selectors";
 import { fetchUser } from "../../redux/user/operations";
 import { selectUserInfo } from "../../redux/user/selectors";
@@ -56,7 +56,8 @@ const WaterTracker = () => {
   const [modalVisible, setModalVisible] = useState(false);
   
   const dispatch = useDispatch();
-  const accessToken = useSelector(selectToken);
+  // const accessToken = useSelector(selectToken);
+  const accessToken = localStorage.getItem("persist:auth");
   const waterRecords = useSelector(selectTodayRecords);
 
 //витягуємо дані про денну норму 

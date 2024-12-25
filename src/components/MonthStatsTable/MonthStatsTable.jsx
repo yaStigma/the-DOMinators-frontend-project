@@ -1,8 +1,8 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { DaysGeneralStats } from '../DaysGeneralStats/DaysGeneralStats';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { fetchDaysArray } from '../../redux/water/operations';
-import { selectToken } from '../../redux/auth/selectors';
+// import { selectToken } from '../../redux/auth/selectors';
 // import toast from 'react-hot-toast';
 import SpriteIcons from './sprite.svg';
 import styles from './MonthStatsTable.module.css';
@@ -38,7 +38,9 @@ export default function MonthStatsTable() {
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [daysArray, setDaysArray] = useState([]);
-  const userToken = useSelector(selectToken);
+  // const userToken = useSelector(selectToken);
+  const userToken = localStorage.getItem("persist:auth");
+
   const [isLoading, setIsLoading] = useState(false);
   const [statsPosition, setStatsPosition] = useState({ top: 0, right: 0 });
   const [currentDateInfo] = useState({

@@ -13,15 +13,16 @@ export const fetchUser = createAsyncThunk(
     const { dispatch } = thunkAPI;
     dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
 
-      if (!token) {
+      if (!accessToken) {
         return thunkAPI.rejectWithValue('No token found');
       }
       const { data } = await axios.get('/users', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
       return data; // Возвращаем данные пользователя
@@ -39,9 +40,9 @@ export const updateUser = createAsyncThunk(
     const { dispatch } = thunkAPI;
     dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
       const { data } = await axios.patch('/users', body);
       toast.success('The user was updated successfully!', {
         duration: 4000,
@@ -68,9 +69,9 @@ export const updateAvatar = createAsyncThunk(
     const { dispatch } = thunkAPI;
     dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
       const { data } = await axios.patch('/users/avatarUrl', body);
       toast.success('The user  avatar was updated successfully!', {
         duration: 4000,
@@ -97,9 +98,9 @@ export const updateDailyNorma = createAsyncThunk(
     const { dispatch } = thunkAPI;
     dispatch(showLoader()); // Показати лоадер перед початком запиту
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
 
       const { data } = await axios.patch('/users/water-rate', {
         daylyNorm: dailyNorma * 1000, // Переводим в миллилитры

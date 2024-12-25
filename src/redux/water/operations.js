@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-// import { showLoader, hideLoader } from '../loader/slice';
+import { showLoader, hideLoader } from '../loader/slice';
 
 // Устанавливаем базовый URL для axios
 axios.defaults.baseURL = 'https://the-dominators-back-project.onrender.com';
@@ -48,10 +48,12 @@ const formatDateTime = time => {
 export const createWaterRecord = createAsyncThunk(
   'water/createRecord',
   async ({ amount, time }, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показуємо лоадер перед запитом
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
 
       const { data } = await axios.post('/water', {
         amount,
@@ -66,6 +68,8 @@ export const createWaterRecord = createAsyncThunk(
       return data;
     } catch (error) {
       return handleAxiosError(error, thunkAPI);
+    } finally {
+      dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
     }
   }
 );
@@ -73,10 +77,12 @@ export const createWaterRecord = createAsyncThunk(
 export const updateWaterRecord = createAsyncThunk(
   'water/updateWaterRecord',
   async ({ _id, date, amount }, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показуємо лоадер перед запитом
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
 
       const { data } = await axios.patch(`/water/${_id}`, { date, amount });
       toast.success('Successfully updated the water record!');
@@ -89,6 +95,7 @@ export const updateWaterRecord = createAsyncThunk(
         data: null,
       });
     } finally {
+      dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
       clearAuthHeader();
     }
   }
@@ -97,10 +104,12 @@ export const updateWaterRecord = createAsyncThunk(
 export const deleteWaterRecord = createAsyncThunk(
   'water/deleteWaterRecord',
   async (_id, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показуємо лоадер перед запитом
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
 
       const { data } = await axios.delete(`/water/${_id}`);
       toast.success('Successfully deleted the water record!', {
@@ -112,6 +121,8 @@ export const deleteWaterRecord = createAsyncThunk(
       return thunkAPI.rejectWithValue(
         error.response?.data || { message: error.message }
       );
+    } finally {
+      dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
     }
   }
 );
@@ -119,20 +130,22 @@ export const deleteWaterRecord = createAsyncThunk(
 export const fetchTodayWaterRecords = createAsyncThunk(
   'water/fetchTodayWaterRecords',
   async (_, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показуємо лоадер перед запитом
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.accessToken;
-      setAuthHeader(token);
+      const authData = JSON.parse(localStorage.getItem('persist:auth'));
+      const accessToken = JSON.parse(authData.accessToken);
+      setAuthHeader(accessToken);
       const currentDate = new Date();
       const formattedDate = currentDate.toISOString().slice(0, 16);
       const { data } = await axios.get('/water/today', {
         params: { date: formattedDate },
       });
-      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     } finally {
+      dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
       clearAuthHeader();
     }
   }
@@ -141,10 +154,12 @@ export const fetchTodayWaterRecords = createAsyncThunk(
 //получение месячного списка по воде
 export const fetchDaysArray = createAsyncThunk(
   'water/fetchDaysArray',
-  async ({ monthName, year, accessToken }, thunkAPI) => {
-    // const { dispatch } = thunkAPI;
-    // dispatch(showLoader()); // Показуємо лоадер перед запитом
-
+  async ({ monthName, year }, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(showLoader()); // Показуємо лоадер перед запитом
+    const authData = JSON.parse(localStorage.getItem('persist:auth'));
+    const accessToken = JSON.parse(authData.accessToken);
+    setAuthHeader(accessToken);
     if (!accessToken) {
       return thunkAPI.rejectWithValue('No token found');
     }
@@ -174,7 +189,7 @@ export const fetchDaysArray = createAsyncThunk(
       const message = error.response?.data?.message || error.message;
       return thunkAPI.rejectWithValue(message); // Повертаємо повідомлення про помилку
     } finally {
-      // dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
+      dispatch(hideLoader()); // Приховуємо лоадер після завершення запиту
     }
   }
 );

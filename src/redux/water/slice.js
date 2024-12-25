@@ -84,7 +84,7 @@ const waterSlice = createSlice({
       })
       .addCase(fetchDaysArray.fulfilled, (state, action) => {
         state.loading = false;
-        state.daysArray = action.payload;
+        state.daysArray = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchDaysArray.rejected, (state, action) => {
         state.loading = false;

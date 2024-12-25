@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createWaterRecord, fetchDaysArray } from '../../redux/water/operations';
+import { createWaterRecord} from '../../redux/water/operations';
 import css from './AddWaterModal.module.css';
 
 const AddWaterModal = ({ setModalVisible, onClose }) => {
@@ -24,9 +24,10 @@ const AddWaterModal = ({ setModalVisible, onClose }) => {
   const handleSave = async () => {
     try {
       await dispatch(createWaterRecord({ amount, time }));
+
       setModalVisible(false);
       onClose(amount, time);  // Вызываем обновление списка после сохранения
-      await dispatch(fetchDaysArray());
+
     } catch (error) {
       alert('Error saving record: ' + error.message);
     }

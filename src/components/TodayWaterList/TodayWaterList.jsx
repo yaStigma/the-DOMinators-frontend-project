@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import {deleteWaterRecord} from "../../redux/water/operations"; 
-import { selectToken } from "../../redux/auth/selectors";
+import {deleteWaterRecord, fetchDaysArray} from "../../redux/water/operations"; 
+// import { selectToken } from "../../redux/auth/selectors";
 import EditWaterModal from "../EditWaterModal/EditWaterModal";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 import { selectTodayRecords } from "../../redux/water/selectors";
@@ -12,7 +12,8 @@ const TodayWaterList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const dispatch = useDispatch();
-  const accessToken = useSelector(selectToken);
+  // const accessToken = useSelector(selectToken);
+  const accessToken = localStorage.getItem("persist:auth");
   const [currentRecord, setCurrentRecord] = useState(null);
   const listRef = useRef(null);
   const waterRecords = useSelector(selectTodayRecords);
@@ -22,6 +23,7 @@ useEffect(() => {
   if (accessToken) {
  
     dispatch(fetchTodayWaterRecords());
+ dispatch(fetchDaysArray())
   }
 }, [dispatch, accessToken]);
 
@@ -42,6 +44,7 @@ useEffect(() => {
     if (accessToken) {
       try {
           await dispatch(fetchTodayWaterRecords());
+          await dispatch(fetchDaysArray())
       } catch (err) {
         console.error("Error adding water record", err);
       }
@@ -49,15 +52,17 @@ useEffect(() => {
   };
 
 
-  const onEdit = (recordId) => {  // Переименуем параметр в правильный recordId
-    const record = waterRecords.find((record) => record._id === recordId);  // Используем recordId
+  const onEdit = (recordId) => {  
+    const record = waterRecords.find((record) => record._id === recordId);  
     setCurrentRecord(record); // Сохраняем текущую запись
     setEditModalVisible(true); // Открываем модальное окно редактирования
   };
   const handleEditSave = async (updatedRecord) => {
     try {
       await dispatch(updateWaterRecord(updatedRecord));
-      await dispatch(fetchTodayWaterRecords()); // Обновление данных
+      // Обновление данных
+      await dispatch(fetchTodayWaterRecords());
+      await dispatch(fetchDaysArray()) 
     } catch (err) {
       console.error("Error updating water record", err);
     }
@@ -70,7 +75,9 @@ useEffect(() => {
     try {
       const response = await dispatch(deleteWaterRecord(id));
       if (response.meta.requestStatus === "fulfilled") {
-        await dispatch(fetchTodayWaterRecords()); // Обновление данных
+        // Обновление данных
+        await dispatch(fetchTodayWaterRecords()); 
+        await dispatch(fetchDaysArray())
       }
     } catch (err) {
       console.error("Error deleting water record", err);
