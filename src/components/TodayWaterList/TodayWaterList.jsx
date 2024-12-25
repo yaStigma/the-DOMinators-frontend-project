@@ -13,6 +13,7 @@ import { DeleteWaterModal } from "../DeleteWaterModal/DeleteWaterModal";
 const TodayWaterList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const dispatch = useDispatch();
   // const accessToken = useSelector(selectToken);
   const accessToken = localStorage.getItem("persist:auth");
@@ -71,12 +72,22 @@ useEffect(() => {
   };
 
 
-  const handleDelete = () => {
+  const onDelete = (recordId) => {
     const record = waterRecords.find((record) => record._id === recordId);  
-    setCurrentRecord(record); // Сохраняем текущую запись
-    setEditModalVisible(true);
+    setCurrentRecord(record);
+    setDeleteModalVisible(true);
   };
  
+  const handleDeleteSave = async (updatedRecord) => {
+    try {
+      // Обновление данных
+      await dispatch(fetchTodayWaterRecords());
+      await dispatch(fetchDaysArray()) 
+    } catch (err) {
+      console.error("Error deleting water record", err);
+    }
+  };
+
   return (
     <section className={styles.todayWaterListSection}>
       <h2 className={styles.title}>Today</h2>
@@ -107,7 +118,7 @@ useEffect(() => {
               </button>
               <button
                 className={styles.deleteButton}
-                onClick={() => handleDelete(_id)}
+                onClick={() => onDelete(_id)}
                 aria-label="Delete"
               >
                 <svg width="16" height="16">
@@ -134,6 +145,15 @@ useEffect(() => {
           setModalVisible={setEditModalVisible}
           waterRecord={currentRecord}
           onSave={handleEditSave} // Обновляем записи после редактирования
+        />
+      )}
+      {/* Модальное окно для удаления */}
+      {isDeleteModalVisible && currentRecord && (
+        <DeleteWaterModal
+          record={currentRecord} // Передаем ID записи
+          closeModal={() => setDeleteModalVisible(false)}
+          closeBackdrop={() => setDeleteModalVisible(false)}
+          onSave={handleDeleteSave} // Обновляем список после удаления
         />
       )}
       <section className={styles.MonthStatsTableSection}>

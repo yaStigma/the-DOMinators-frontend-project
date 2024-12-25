@@ -1,47 +1,65 @@
-import { Modal, Button } from "react-bootstrap";
-import {deleteWaterRecord, fetchDaysArray} from "../../redux/water/operations";
-import { fetchTodayWaterRecords} from "../../redux/water/operations";
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import SvgIcons from 'components/SvgIcons/SvgIcons';
+import css from './DeleteWaterModal.module.css';
+import { useDispatch } from 'react-redux';
+import { deleteWaterRecord } from '../../redux/water/operations.js';
 
-export const DeleteContactModal = ({ show, onHide, }) => {
-   
-    const dispatch = useDispatch();
-    const accessToken = localStorage.getItem("persist:auth");
-    
-    const handleDeleteWater = async (id) => {
-    if (!accessToken) return;
-  
+export const DeleteWaterModal = ({ record, closeModal, closeBackdrop, onSave }) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = async () => {
+    if (!record || !record._id) {
+      console.error('No record provided for deletion');
+      return;
+    }
     try {
-      const response = await dispatch(deleteWaterRecord(id));
-      if (response.meta.requestStatus === "fulfilled") {
-        // Обновление данных
-        await dispatch(fetchTodayWaterRecords()); 
-        await dispatch(fetchDaysArray())
-         window.location.reload();
+      const result = await dispatch(deleteWaterRecord(record._id)); // Удаляем запись
+      if (result.meta.requestStatus === 'fulfilled') {
+        if (onSave) {
+          await onSave(); // Вызываем обновление списка, если передано
+        }
+        closeModal();
+      } else {
+        console.error('Failed to delete water record');
       }
     } catch (err) {
-      console.error("Error deleting water record", err);
+      console.error('Error during deletion:', err);
     }
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Confirm Deletion</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        Are you sure you want to delete this contact? This action cannot be
-        undone.
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Cancel
-        </Button>
-        <Button variant="danger" onClick={handleDeleteWater}>
-          Delete
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <div className={css.backdrop} onClick={(e) => e.target === e.currentTarget && closeBackdrop()}>
+      <section className={css.modal}>
+        <div className={css.modal__container}>
+          <div className={css.modal__header}>
+            <h2 className={css.modal__title}>Delete water record</h2>
+            <button className={css.modal__close} onClick={closeModal}>
+              <SvgIcons name="close" className={css.modal__close_icon} />
+            </button>
+          </div>
+          <div className={css.modal__actions}>
+            <h3 className={css.modal__ques}>
+              Do you really want to delete the water record of 
+              <strong> {record.amount} ml</strong> 
+              recorded at 
+              <strong> {new Date(record.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</strong>?
+            </h3>
+            <button
+              type="button"
+              className={css.modal__logout}
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className={css.modal__cancel}
+              onClick={closeModal}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
