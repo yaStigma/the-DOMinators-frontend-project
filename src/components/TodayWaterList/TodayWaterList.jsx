@@ -8,6 +8,8 @@ import EditWaterModal from "../EditWaterModal/EditWaterModal";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
 import { selectTodayRecords } from "../../redux/water/selectors";
 import { fetchTodayWaterRecords, updateWaterRecord } from "../../redux/water/operations";
+import { DeleteWaterModal } from "../DeleteWaterModal/DeleteWaterModal";
+
 const TodayWaterList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
@@ -69,22 +71,12 @@ useEffect(() => {
   };
 
 
-  const handleDeleteWater = async (id) => {
-    if (!accessToken) return;
-  
-    try {
-      const response = await dispatch(deleteWaterRecord(id));
-      if (response.meta.requestStatus === "fulfilled") {
-        // Обновление данных
-        await dispatch(fetchTodayWaterRecords()); 
-        await dispatch(fetchDaysArray())
-         window.location.reload();
-      }
-    } catch (err) {
-      console.error("Error deleting water record", err);
-    }
+  const handleDelete = () => {
+    const record = waterRecords.find((record) => record._id === recordId);  
+    setCurrentRecord(record); // Сохраняем текущую запись
+    setEditModalVisible(true);
   };
-
+ 
   return (
     <section className={styles.todayWaterListSection}>
       <h2 className={styles.title}>Today</h2>
@@ -115,7 +107,7 @@ useEffect(() => {
               </button>
               <button
                 className={styles.deleteButton}
-                onClick={() => handleDeleteWater(_id)}
+                onClick={() => handleDelete(_id)}
                 aria-label="Delete"
               >
                 <svg width="16" height="16">
