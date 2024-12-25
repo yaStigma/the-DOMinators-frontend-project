@@ -93,7 +93,7 @@ useEffect(() => {
           <li key={_id} className={styles.listItem}>
             <div className={styles.info}>
               <span className={styles.amount}>
-                <svg width="36" height="36" className={styles.amountIcon}>
+                <svg className={styles.amountIcon}>
                   <use href="./images_auth/today_water.svg#icon-today_water" ></use>
                 </svg>
                 {amount} ml
