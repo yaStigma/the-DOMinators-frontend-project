@@ -27,7 +27,7 @@ const AddWaterModal = ({ setModalVisible, onClose }) => {
 
       setModalVisible(false);
       onClose(amount, time);  // Вызываем обновление списка после сохранения
-
+ window.location.reload();
     } catch (error) {
       alert('Error saving record: ' + error.message);
     }

@@ -78,6 +78,7 @@ useEffect(() => {
         // Обновление данных
         await dispatch(fetchTodayWaterRecords()); 
         await dispatch(fetchDaysArray())
+         window.location.reload();
       }
     } catch (err) {
       console.error("Error deleting water record", err);
