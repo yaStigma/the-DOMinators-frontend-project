@@ -4,9 +4,9 @@
 min-width: 100%;
   background-image: url('/public/images_auth/Bottle_SignIn_mobile.svg'), url('/public/images_auth/Background_SignIn_mobile.svg');      
   background-color: var(--primery-color-white);
-  background-size: 100% 100%; /* Stretch image to fill the entire element's width and height */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent image repetition */
+  background-size: contain, 100%;
+  background-position: center bottom, center top;
+  background-repeat: no-repeat;
   margin: 0 auto;
 }
 
@@ -18,11 +18,12 @@ min-width: 100%;
 @media screen and (min-width: 768px) {
   .SigninPageWrapper {
     min-width: 768px;
+    max-width: 1440px;
     background-image: url('/public/images_auth/Bottle_SignIn_tablet.svg');
-    background-size: cover; /* Stretch image to cover the div */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent image repetition */
-    height: 700px; /* Example height */
+    background-size: 100%;
+    background-position: center bottom; 
+    background-repeat: no-repeat; 
+    height: 700px;
   
   }
 }
@@ -30,6 +31,7 @@ min-width: 100%;
   .SigninPageWrapper {
     max-width: 1440px;
     background-image: url('/public/images_auth/Bottle_SignIn_desktop.svg'), url('/public/images_auth/Background_MainPage.svg');
+    background-size: contain;
     background-position: left top, center top;
     /* height: 680px; */
   }
