@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TodayWaterList.module.css";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import {deleteWaterRecord, fetchDaysArray} from "../../redux/water/operations"; 
+import {fetchDaysArray} from "../../redux/water/operations"; 
 // import { selectToken } from "../../redux/auth/selectors";
 import EditWaterModal from "../EditWaterModal/EditWaterModal";
 import MonthStatsTable from "../MonthStatsTable/MonthStatsTable";
