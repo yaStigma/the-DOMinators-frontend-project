@@ -52,6 +52,7 @@ const UserLogo = () => {
 
 
   return (
+    <button type="button" className={css.btn} onClick={openDropdown}>
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
         {displayName && <span className={css.avatarText}>{displayName}</span>}
@@ -65,14 +66,17 @@ const UserLogo = () => {
       </div>
       <div className={css.headerActions}>
 
-      <button type="button" className={css.btn} onClick={openDropdown}>
+     
+        <div>
         <svg className={css.icon}>
           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
         </svg>
-      </button>
+        </div>
+    
         {open && <UserLogoModal  onClose={openDropdown} isOpen={open}/>}
       </div>
     </div>
+    </button>
   );
 };
 
