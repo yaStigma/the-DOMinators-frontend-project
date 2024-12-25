@@ -30,12 +30,12 @@
   .btn {
     border: none;
     background-color: inherit;
-    width: 16px;
-    padding: 0;
+    /* width: 16px; */
+    /* padding: 0;
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 
   }
   .btn:hover {
