@@ -12,7 +12,8 @@ const EditWaterModal = ({ setModalVisible, waterRecord }) => {
   const modalRef = useRef(null);
   const dispatch = useDispatch();
   const waterRecords = useSelector(selectTodayRecords);
-
+console.log(time); // для рендера - проверить неоходимоть переменной и убрать
+// разбила на 2 еффекта что бы избежать бесконечно загрузки 
   useEffect(() => {
     const fetchRecords = async () => {
       await dispatch(fetchTodayWaterRecords());
@@ -20,7 +21,10 @@ const EditWaterModal = ({ setModalVisible, waterRecord }) => {
 
     fetchRecords();
     populateTimeDropdown();
+  }, [dispatch]); // Убираем waterRecords из зависимостей
 
+  useEffect(() => {
+    // Обрабатываем данные только при наличии waterRecord
     if (waterRecord) {
       const localDate = new Date(waterRecord.date);
       const hours = localDate.getHours();
@@ -28,7 +32,9 @@ const EditWaterModal = ({ setModalVisible, waterRecord }) => {
       const ampm = hours >= 12 ? 'PM' : 'AM';
       const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
       setTime(`${formattedHours}:${minutes} ${ampm}`);
-    }
+  
+
+  }, [waterRecords, waterRecord]);
 
     // Закрытие по нажатию клавиши Esc
     const handleKeyDown = (event) => {

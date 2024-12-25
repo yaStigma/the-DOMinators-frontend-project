@@ -1,31 +1,37 @@
 .SignupPageWrapper {
   position: block;
   height: 100vh;
-  width: 100%;
+min-width: 100%;
   background-image: url('/public/images_auth/Bottle_SignIn_mobile.svg'), url('/public/images_auth/Background_SignIn_mobile.svg');      
   background-color: var(--primery-color-white);
+  background-size: contain, 100%;
+  background-position: center bottom, center top;
   background-repeat: no-repeat;
-  background-size: contain; 
-  background-position: center bottom;
-  margin: 0 auto;}
+  margin: 0 auto;
+}
 
 @media screen and (min-width: 320px) {
   .SignupPageWrapper {
-    max-width: 320px;
+    max-width: 768px;
   }
 }
 @media screen and (min-width: 768px) {
   .SignupPageWrapper {
-    max-width: 768px;
+    min-width: 768px;
+    max-width: 1440px;
     background-image: url('/public/images_auth/Bottle_SignIn_tablet.svg');
-    background-position: center top;
-    height: 548px;
+    background-size: 100%;
+    background-position: center bottom; 
+    background-repeat: no-repeat; 
+    height: 700px;
+  
   }
 }
 @media screen and (min-width: 1440px) {
   .SignupPageWrapper {
     max-width: 1440px;
     background-image: url('/public/images_auth/Bottle_SignIn_desktop.svg'), url('/public/images_auth/Background_MainPage.svg');
+    background-size: contain;
     background-position: left top, center top;
     /* height: 680px; */
   }
