@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateDailyNorma } from '../../redux/user/operations';
+import { toast } from 'react-toastify';
 import css from './DailyNormaModal.module.css';
 import SvgIcons from 'components/SvgIcons/SvgIcons';
 
@@ -77,12 +78,14 @@ const DailyNormaModal = ({ setModalVisible }) => {
     const dailyNorma = waterIntake;
 
     if (dailyNorma > 5) {
-      alert('Максимальная суточная норма потребления воды - 5 L');
+      // alert('Максимальная суточная норма потребления воды - 5 L');
+      toast.success('The maximum daily water intake is 5 L');
       return;
     }
 
     if (dailyNorma === 0) {
-      alert('Пожалуйста, введите значение больше нуля');
+      // alert('Пожалуйста, введите значение больше нуля');
+      toast.success('Please enter a value greater than zero');
       return;
     }
 
