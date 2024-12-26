@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { createWaterRecord } from '../../redux/water/operations';
 import css from './AddWaterModal.module.css';
-
+import SvgIcons from 'components/SvgIcons/SvgIcons';
 const AddWaterModal = ({ setModalVisible, onClose }) => {
   const [amount, setAmount] = useState(0);
   const [time, setTime] = useState('');
@@ -100,8 +100,8 @@ const AddWaterModal = ({ setModalVisible, onClose }) => {
     <div className={css.modal} ref={modalRef} onClick={handleBackdropClick}>
       <div className={css.modalContent}>
         <div className={css.modalHeader}>
-          <h2>Add water</h2>
-          <span className={css.close} onClick={handleClose}>&times;</span>
+          <h2 className={css.headerText}>Add water</h2>
+          <span className={css.close} onClick={handleClose}><SvgIcons name="close" className={css.iconClose} /></span>
         </div>
         <div className={css.modalBody}>
           <h4 className={css.labelDistance} htmlFor="amount">Choose a value:</h4>
@@ -111,7 +111,7 @@ const AddWaterModal = ({ setModalVisible, onClose }) => {
             <span id="amount">{amount} ml</span>
             <button className={css.buttonSelector} onClick={() => handleChangeAmount(50)}>+</button>
           </div>
-          <label className={css.labelDistance} htmlFor="time">Recording time:</label>
+          <label className={css.labelDistanceText} htmlFor="time">Recording time:</label>
           <select className={css.inputText} id="time" onChange={(e) => setTime(e.target.value)}></select>
           <h4 className={css.labelDistance} htmlFor="value">Enter the value of the water used:</h4>
           <input
