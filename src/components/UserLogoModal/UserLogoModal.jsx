@@ -11,12 +11,13 @@ export default function UserLogoModal({ isOpen, onClose }) {
   const openModal = modalName => {
     setActivateModal(modalName);
   };
-  const closeActivateModal = () => {
-    setActivateModal(null);
-    onClose();
-  };
+
 
   useEffect(() => {
+    const closeActivateModal = () => {
+      setActivateModal(null);
+      onClose();
+    };
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         if (activateModal) {
@@ -49,7 +50,7 @@ export default function UserLogoModal({ isOpen, onClose }) {
       window.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = '';
     };
-  }, [onClose, isOpen, activateModal,closeActivateModal]);
+  }, [onClose, isOpen, activateModal]);
 
   const closeModal = () => {
     setActivateModal(null);
