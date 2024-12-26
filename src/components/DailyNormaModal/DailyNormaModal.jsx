@@ -79,13 +79,13 @@ const DailyNormaModal = ({ setModalVisible }) => {
 
     if (dailyNorma > 5) {
       // alert('Максимальная суточная норма потребления воды - 5 L');
-      toast.success('The maximum daily water intake is 5 L');
+      toast.error('The maximum daily water intake is 5 L');
       return;
     }
 
     if (dailyNorma === 0) {
       // alert('Пожалуйста, введите значение больше нуля');
-      toast.success('Please enter a value greater than zero');
+      toast.error('Please enter a value greater than zero');
       return;
     }
 
