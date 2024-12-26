@@ -33,23 +33,26 @@ console.log(time); // для рендера - проверить неоходи�
       const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
       setTime(`${formattedHours}:${minutes} ${ampm}`);
   
-
+    }
   }, [waterRecords, waterRecord]);
 
     // Закрытие по нажатию клавиши Esc
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        handleClose();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [dispatch, waterRecord]);
+    useEffect(() => {
+      const handleKeyDown = (event) => {
+        if (event.key === 'Escape') {
+          setModalVisible(false)
+        }
+      };
+    
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [setModalVisible]);
 
   const handleClose = () => {
     setModalVisible(false);
+
   };
 
   const handleBackdropClick = (event) => {
@@ -67,6 +70,7 @@ console.log(time); // для рендера - проверить неоходи�
       alert('Please enter a valid amount');
       return;
     }
+  
     if (waterRecord && waterRecord._id) {
       try {
         const timeElement = document.getElementById('time');
@@ -74,20 +78,28 @@ console.log(time); // для рендера - проверить неоходи�
         const [hours, minutes] = newTime.split(':');
         const ampm = newTime.includes('PM') ? 'PM' : 'AM';
         let formattedHours = parseInt(hours, 10);
+  
         if (ampm === 'PM' && formattedHours !== 12) {
           formattedHours += 12;
         } else if (ampm === 'AM' && formattedHours === 12) {
           formattedHours = 0;
         }
+  
         const date = new Date();
         date.setHours(formattedHours, parseInt(minutes, 10), 0, 0);
-
+  
         // Добавляем 2 часа
         date.setHours(date.getHours() + 2);
-
+  
         const formattedDate = date.toISOString();
         const recordId = waterRecord._id.$oid || waterRecord._id;
+  
         await dispatch(updateWaterRecord({ recordId, date: formattedDate, amount }));
+  
+        // Загружаем обновленные данные
+        await dispatch(fetchTodayWaterRecords());
+        window.location.reload();
+        // Закрываем модальное окно
         setModalVisible(false);
       } catch (error) {
         console.error(error);
