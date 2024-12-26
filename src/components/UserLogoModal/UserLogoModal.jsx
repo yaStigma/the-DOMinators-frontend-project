@@ -7,23 +7,32 @@ import UserLogoutModal from 'components/UserLogoutModal/UserLogoutModal';
 export default function UserLogoModal({ isOpen, onClose }) {
   const [activateModal, setActivateModal] = useState(null);
   const dropDownRef = useRef();
+
   const openModal = modalName => {
     setActivateModal(modalName);
   };
+  const closeActivateModal = () => {
+    setActivateModal(null);
+    onClose();
+  };
 
   useEffect(() => {
-    const handleKeyDown = e => {
+    const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        setActivateModal(null);
-        onClose();
+        if (activateModal) {
+          closeActivateModal();
+        } else {
+          onClose();
+        }
       }
     };
-    const handleClickOutside = e => {
+    const handleClickOutside = (e) => {
       if (
         isOpen &&
         dropDownRef.current &&
         !dropDownRef.current.contains(e.target) &&
-        !e.target.closest(`.${css.btn}`)
+        !e.target.closest(`.${css.user__btn}`) &&
+        !activateModal
       ) {
         onClose();
       }
@@ -40,7 +49,7 @@ export default function UserLogoModal({ isOpen, onClose }) {
       window.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = '';
     };
-  }, [onClose, activateModal, dropDownRef, isOpen]);
+  }, [onClose, isOpen, activateModal,closeActivateModal]);
 
   const closeModal = () => {
     setActivateModal(null);
@@ -72,6 +81,7 @@ export default function UserLogoModal({ isOpen, onClose }) {
         <SettingModal
           closeModal={closeModal}
           closeBackdrop={handleCloseBackdrop}
+          onClick={(e) => e.stopPropagation()}
         />
       )}
       {activateModal === 'logout' && (
