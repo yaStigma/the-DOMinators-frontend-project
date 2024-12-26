@@ -8,7 +8,7 @@ import UserLogoModal from 'components/UserLogoModal/UserLogoModal';
 
 const UserLogo = () => {
   const dispatch = useDispatch();
-  const [open,setOpen]=useState(false)
+  const [open, setOpen] = useState(false);
 
   // Используем useEffect для загрузки данных
   useEffect(() => {
@@ -19,10 +19,10 @@ const UserLogo = () => {
 
   // Проверяем состояние userInfo
   if (!userInfo) {
-    return <div>Загрузка...</div>;  // Можно показать индикатор загрузки, если данные ещё не загружены
+    return <div>Загрузка...</div>; // Можно показать индикатор загрузки, если данные ещё не загружены
   }
 
-  const data = userInfo.data || {};  // Если данных нет, используем пустой объект
+  const data = userInfo.data || {}; // Если данных нет, используем пустой объект
 
   let avatarSrc = '';
   let avatarText = '';
@@ -30,65 +30,63 @@ const UserLogo = () => {
 
   // Логика для отображения аватара или текста
   if (data.avatarUrl) {
- avatarSrc = data.avatarUrl
- if (data.name) {
-  displayName = data.name;
- } else {
-  displayName = data.email
- }
+    avatarSrc = data.avatarUrl;
+    if (data.name) {
+      displayName = data.name;
+    } else {
+      displayName = data.email;
+    }
   } else if (data.name) {
     avatarText = data.name.charAt(0).toUpperCase(); // Первая буква имени
     displayName = data.name; // Имя пользователя
-
   } else if (data.email) {
     avatarText = data.email.charAt(0).toUpperCase(); // Первая буква email
     displayName = data.email; // Email пользователя
-
   }
 
-  const openDropdown = () => {
+  const openDropdown = e => {
+    e?.stopPropagation();
     setOpen(prev => !prev);
   };
 
-
   return (
-<div className={css.main}>
-    
-      <button type="button" className={css.btn} onClick={openDropdown}>
-      <div className={css.wrapper}>
-      <div className={css.infoWrapper}>
-      
-        {displayName && <span className={css.avatarText}>{displayName}</span>}
-        <div className={css.avatarText}>
-          {avatarSrc ? (
-            <img src={avatarSrc} alt="avatar" className={css.avatarImg} />
-          ) : (
-            <span className={css.spanName}>{avatarText}</span>
-          )}
+    <div className={css.main}>
+      <button
+        type="button"
+        className={css.btn}
+        onClick={openDropdown}
+        onMouseDown={e => e.stopPropagation()}
+      >
+        <div className={css.wrapper}>
+          <div className={css.infoWrapper}>
+            {displayName && (
+              <span className={css.avatarText}>{displayName}</span>
+            )}
+            <div className={css.avatarText}>
+              {avatarSrc ? (
+                <img src={avatarSrc} alt="avatar" className={css.avatarImg} />
+              ) : (
+                <span className={css.spanName}>{avatarText}</span>
+              )}
+            </div>
+          </div>
+
+          <div className={css.headerActions}>
+            <div>
+              <svg className={css.icon}>
+                <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
+              </svg>
+            </div>
+          </div>
         </div>
+      </button>
 
-      </div>
-
-      <div className={css.headerActions}>
-
-     
-        <div>
-        <svg className={css.icon}>
-          <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
-        </svg>
-       
+      {open && (
+        <div className={css.modal}>
+          <UserLogoModal onClose={openDropdown} isOpen={open} />
         </div>
-
-      
-      </div>
-            
-            
+      )}
     </div>
-    </button>
-    
-{open && <div className={css.modal}><UserLogoModal  onClose={openDropdown} isOpen={open} /></div>}
-
-</div>
   );
 };
 
