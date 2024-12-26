@@ -1,78 +1,77 @@
-.headerActions{
+/* .headerActions{
   position: relative;
-}
-  .spanName {
-    border: 1px solid black;
-    border-radius:50% ;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    width: 28px;
-    height: 28px;
+} */
+.spanName {
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
 }
 .wrapper {
-    display: flex;
-    padding-left: 10px;
-    /* padding: 10px 0; */
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  padding-left: 10px;
+  /* padding: 10px 0; */
+  justify-content: center;
+  align-items: center;
 }
 .icon {
-    display: inline-block;
-    width: 16px;
-    height: 1em;
-    stroke-width: 0;
-    stroke: currentColor;
-    fill: var(--primery-color-blue);
-
-  }
-  .btn {
-    border: none;
-    background-color: inherit;
-    /* width: 16px; */
-    /* padding: 0;
+  display: inline-block;
+  width: 16px;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: var(--primery-color-blue);
+}
+.btn {
+  border: none;
+  background-color: inherit;
+  position: relative;
+  /* width: 16px; */
+  /* padding: 0;
 
     display: flex;
     justify-content: center;
     align-items: center; */
-
-  }
-  .btn:hover {
-    background-color: inherit;
-  }
-  .avatarImg {
-    width: 28px;
-    height: 28px;
-    border: 1px solid black;
-    border-radius:50% ;
-  }
-  .avatarText {
-    /* border: 1px solid black;
+}
+.btn:hover {
+  background-color: inherit;
+}
+.avatarImg {
+  width: 28px;
+  height: 28px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.avatarText {
+  /* border: 1px solid black;
     border-radius: 100%; */
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    height: 28px;
-    font-size: 16px;
-    margin-right: 8px;
-  }
-  .infoWrapper {
-    display: flex;
-    gap:8px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 28px;
+  font-size: 16px;
+  margin-right: 8px;
+}
+.infoWrapper {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 
-    font-family: var(--font-family);
-font-weight: 400;
-font-size: 16px;
-line-height: 133%;
-text-align: right;
-color: var(--primery-color-black);
-  }
- @media screen and (min-width: 768px) {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 133%;
+  text-align: right;
+  color: var(--primery-color-black);
+}
+@media screen and (min-width: 768px) {
   .infoWrapper {
     font-size: 18px;
   }
- }
+}

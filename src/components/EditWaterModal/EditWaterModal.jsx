@@ -98,7 +98,7 @@ console.log(time); // для рендера - проверить неоходи�
   
         // Загружаем обновленные данные
         await dispatch(fetchTodayWaterRecords());
-        window.location.reload();
+        // window.location.reload();
         // Закрываем модальное окно
         setModalVisible(false);
       } catch (error) {
