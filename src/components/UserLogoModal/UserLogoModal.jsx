@@ -4,12 +4,13 @@ import SvgIcons from 'components/SvgIcons/SvgIcons';
 import SettingModal from 'components/SettingModal/SettingModal';
 import UserLogoutModal from 'components/UserLogoutModal/UserLogoutModal';
 
-export default function UserLogoModal({ isOpen,onClose }) {
+export default function UserLogoModal({ isOpen, onClose }) {
   const [activateModal, setActivateModal] = useState(null);
   const dropDownRef = useRef();
   const openModal = modalName => {
     setActivateModal(modalName);
   };
+
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.key === 'Escape') {
@@ -18,15 +19,14 @@ export default function UserLogoModal({ isOpen,onClose }) {
       }
     };
     const handleClickOutside = e => {
-      if(isOpen){
-        return
+      if (
+        isOpen &&
+        dropDownRef.current &&
+        !dropDownRef.current.contains(e.target) &&
+        !e.target.closest(`.${css.btn}`)
+      ) {
+        onClose();
       }
-        if (
-          dropDownRef.current &&
-          !dropDownRef.current.contains(e.target) &&
-          activateModal === null ) {
-          onClose();
-        }
     };
     if (activateModal) {
       document.body.style.overflow = 'hidden';
@@ -40,7 +40,7 @@ export default function UserLogoModal({ isOpen,onClose }) {
       window.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = '';
     };
-  }, [onClose, activateModal, dropDownRef,isOpen]);
+  }, [onClose, activateModal, dropDownRef, isOpen]);
 
   const closeModal = () => {
     setActivateModal(null);

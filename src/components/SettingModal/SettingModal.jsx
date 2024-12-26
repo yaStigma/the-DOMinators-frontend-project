@@ -155,7 +155,7 @@ export default function SettingModal({closeBackdrop, closeModal }) {
         validationSchema={ValidateSchema}
         onSubmit={handleSubmit}
       >
-        <Form className={css.modal__form}>
+        <Form className={css.modal__form} autoComplete='off'>
           <div className={css.modal__body}>
             <div className={css.modal__gender}>
               <h3 className={css.modal__form_desc}>Your gender identity</h3>
