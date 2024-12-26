@@ -52,7 +52,7 @@ const UserLogo = () => {
 
 
   return (
-    <button type="button" className={css.btn} onClick={openDropdown}>
+    <button type="button" className={css.btgin} onClick={openDropdown}>
     <div className={css.wrapper}>
       <div className={css.infoWrapper}>
         {displayName && <span className={css.avatarText}>{displayName}</span>}
