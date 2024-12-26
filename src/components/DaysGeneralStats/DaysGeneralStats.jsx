@@ -57,9 +57,9 @@ export const DaysGeneralStats = ({
   const { top, left } = modalPosition;
 
   const statsStyle = {
-    top: `${top - 45}px`,
-    left: `${left + 10}px`,
-    transform: 'translate(-50%, -100%)',
+    top: `${top - 103}px`,
+    left: `${left + 3}px`,
+    transform: 'translate(-300%, -100%)',
     zIndex: 10,
   };
 

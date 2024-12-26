@@ -52,9 +52,12 @@ const UserLogo = () => {
 
 
   return (
-    <button type="button" className={css.btgin} onClick={openDropdown}>
-    <div className={css.wrapper}>
+<>
+    
+      <button type="button" className={css.btn} onClick={openDropdown}>
+      <div className={css.wrapper}>
       <div className={css.infoWrapper}>
+      
         {displayName && <span className={css.avatarText}>{displayName}</span>}
         <div className={css.avatarText}>
           {avatarSrc ? (
@@ -63,7 +66,9 @@ const UserLogo = () => {
             <span className={css.spanName}>{avatarText}</span>
           )}
         </div>
+
       </div>
+
       <div className={css.headerActions}>
 
      
@@ -71,12 +76,17 @@ const UserLogo = () => {
         <svg className={css.icon}>
           <use href="/the-DOMinators-frontend-project/welcomeIcons.svg#tick" />
         </svg>
+       
         </div>
-    
-        {open && <UserLogoModal  onClose={openDropdown} isOpen={open}/>}
+
+      
       </div>
+            
+            
     </div>
     </button>
+{open && <UserLogoModal  onClose={openDropdown} isOpen={open}/>}
+</>
   );
 };
 

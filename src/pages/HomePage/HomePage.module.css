@@ -74,7 +74,7 @@
   height: auto;
   width: 100%;
   background-image: url('/public/images_homePage/Background_element_Home_screen_mob.svg');
-  background-color: var(--primery-color-white);
+  /* background-color: var(--primery-color-white); */
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center top;
@@ -128,13 +128,19 @@
     width: 1440px;
     background-image: url('/public/images_auth/Background_MainPage.svg');
     background-position: center top;
-    height: 680px;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
   }
+
   .homeSectionsWrapper {
     display: flex;
     justify-content: space-between;
     width: 1216px;
     margin: 0 auto;
+
   }
 
   .statsSectionsWrapper {
