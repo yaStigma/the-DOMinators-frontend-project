@@ -155,8 +155,10 @@ console.log(time); // для рендера - проверить неоходи�
     <div className={css.modal} ref={modalRef} onClick={handleBackdropClick}>
       <div className={css.modalContent}>
         <div className={css.modalHeader}>
-          <h2>Edit the entered amount of water</h2>
-          <span className={css.close} onClick={handleClose}>&times;</span>
+          <h2 className={css.modalTitle}>Edit the entered amount of water</h2>
+          <button className={css.closeButton} onClick={handleClose}>
+          <SvgIcons name="close" className={css.iconClose} />
+          </button>
         </div>
         <div className={css.modalBody}>
           <div className={css.waterEntry}>
@@ -168,7 +170,7 @@ console.log(time); // для рендера - проверить неоходи�
           <label className={css.labelDistanceText} htmlFor="amount">Amount of water:</label>
           <div className={css.amountSelector}>
             <button className={css.buttonChange} onClick={() => handleChangeAmount(-50)}>-</button>
-            <span id="amount">{amount} ml</span>
+            <span className={css.amountSelectorSpan} id="amount">{amount} ml</span>
             <button className={css.buttonChange} onClick={() => handleChangeAmount(50)}>+</button>
           </div>
           <label className={css.labelDistance} htmlFor="time">Recording time:</label>

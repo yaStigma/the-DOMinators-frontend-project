@@ -1,3 +1,21 @@
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
+
+input[type="password"]::-ms-reveal {
+  display: none !important;
+}
+
+input[type="password"]::-webkit-password-field {
+  -webkit-appearance: none !important;
+}
+
+input[type="password"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 /* Common Styles */
 /* * {
   margin: 0;
@@ -72,9 +90,9 @@ body {
   /* Скругленные углы */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* Тень для глубины */
-  max-width: 500px;
+  max-width: 280px;
   /* Максимальная ширина */
-  width: 90%;
+  width: 100%;
   /* Ширина с учетом малых экранов */
   text-align: left;
   /* Центрирование текста */
@@ -87,14 +105,21 @@ body {
 .modalHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.modalTitle {
+font-size: 26px;
+font-weight: 500;
+line-height: 32px;
+text-align: left;
 }
 
 .modalHeader h2 {
   margin: 0;
 }
 
-.close {
+/* .close {
   color: #aaa;
   font-size: 28px;
   font-weight: bold;
@@ -105,15 +130,48 @@ body {
 .close:focus {
   color: black;
   text-decoration: none;
-}
+} */
 
+.closeButton {
+  position:relative;
+    top: 15px;
+    right: 0px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: none;
+    font-size: 20px;
+    color: #007bff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: color 0.3s;
+  
+  }
+
+  .iconClose:hover {
+    fill: var(--secondary-color-5);
+    stroke: var(--secondary-color-5);
+    box-shadow: none;
+  }
+  
+.iconClose {
+
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: var(--primery-color-blue);
+  transition: stroke 300ms linear;
+}
 .modalBody {
   margin-top: 10px;
 }
 
 .modalBody label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 16px;
 }
 
 .buttonChange {
@@ -124,79 +182,112 @@ body {
 .modalBody input[type='number'],
 .modalBody select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: #0056b3;
-  font-size: 16px;
+    height: 44px;
+    border: 1px solid var(--secondary-color---5);
+    border-radius: 6px;
+    padding: 12px 10px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--primery-color-blue);
+    box-sizing: border-box;
+    margin-bottom: 24px;
+}
+
+.modalBody input[type='text']:focus,
+.modalBody input[type='number']:focus,
+.modalBody select:focus {
+    color: var(--primery-color-blue);
+    outline: none;
+}
+
+.modalBody input[type='text'] {
+  color: var(--primery-color-blue);
 }
 
 .amountSelector {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
+  gap: 7px;
+}
+
+.amountSelectorSpan, .amountSelector span {
+  border-radius: 40px;
+  background: #D7E3FF;
+  padding: 8px 24px;
+  color: #407BFF;
+  text-align: center;
+  line-height: 24px;
+font-size: 18px;
+font-weight: 700;
 }
 
 .amountSelector button {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   border: solid 1px;
   background-color: #ffffff;
   border-radius: 50%;
   font-size: 18px;
   cursor: pointer;
-  color: #0056b3;
+  color: #9EBBFF;
 }
 
 .amountSelector button:hover {
-  background-color: #0056b3;
-  color: white;
+    color: var(--secondary-color-5);
 }
 
-.amountSelector span {
+/* .amountSelector span {
   margin: 0 10px;
   font-size: 18px;
   background-color: #abd4ff;
   padding: 5px 10px;
   border-radius: 15px;
   color: #0056b3;
-}
+} */
 
-.inputSave-container {
+/* .inputSave-container {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-}
+} */
 
 .inputSaveContainer input[type='text'] {
+  /* display: block; */
   width: calc(100% - 110px);
   padding: 8px;
   margin-right: 10px;
   border: none;
   background-color: transparent;
   text-align: right;
-  color: #0056b3;
+  color: var(--primery-color-blue);
   font-size: 16px;
+  font-weight: 700px;
+  margin-bottom: 0;
 }
 
 .inputText {
-  color: #0056b3;
+  color: var(--primery-color-blue);
   font-size: 16px;
+  
 }
 
 .labelDistance {
-  padding-bottom: 10px;
+  margin: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
 }
 
 .labelDistanceText {
-  padding-bottom: 10px;
-  font-size: 15px;
+  font-size: 16px;
+  margin-bottom: 16px;
 }
 
 .saveButton {
-  width: 100px;
+  width: 100%;
   padding: 10px;
   background-color: #007bff;
   color: white;
@@ -206,46 +297,54 @@ body {
 }
 
 .saveButton:hover {
-  background-color: #0056b3;
+  background-color: var(--primery-color-blue);
 }
 
 .waterEntry {
-  background-color: #cae3fe;
-  border-radius: 15px;
-  padding: 5px;
+  background-color: #ECF2FF;
+  border-radius: 10px;
+  padding: 8px 24px 8px 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 15px;
-  width: 40%;
+  justify-content: flex-start;
+  margin: 24px 0 24px 0;
+  gap: 12px;
+  width: auto;
 }
 
 .waterEntry img {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
 }
 
-.waterAmount,
-.waterTime {
+.waterAmount {
   font-size: 18px;
-  color: #0056b3;
+  color: var(--primery-color-blue);
+  
+}
+
+.waterTime {
+  font-size: 12px;
+  color: var(--primery-color-black);
+  margin-top: 3px;
 }
 
 /* Media Queries for responsiveness */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+ 
+  
   .modalContent {
-    width: 95%;
+    max-width: 704px;
     padding: 15px;
   }
 
   .waterEntry {
-    width: 33%;
+    width: 254px;
   }
 
   .waterEntry img {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
   }
 
   .waterAmount,
@@ -253,25 +352,45 @@ body {
     font-size: 16px;
   }
 
-  .amountSelector button {
+  /* .amountSelector button {
     width: 25px;
     height: 25px;
     font-size: 16px;
-  }
+  } */
 
   .amountSelector span {
     font-size: 16px;
     padding: 4px 8px;
   }
+  /* .inputSave-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }  */
+
+  .inputSaveContainer input[type='text'], .inputField {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    color: var(--primery-color-blue);
+    font-size: 16px;
+    font-weight: 700px;
+    margin-bottom: 0;
+
+  }
 
   .saveButton {
-    width: 80px;
+    width: 160px;
     padding: 8px;
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .modalContent {
     width: 100%;
     padding: 10px;
@@ -307,4 +426,4 @@ body {
     padding: 6px;
     font-size: 12px;
   }
-}
+} */
