@@ -52,7 +52,7 @@ const UserLogo = () => {
 
 
   return (
-<>
+<div className={css.main}>
     
       <button type="button" className={css.btn} onClick={openDropdown}>
       <div className={css.wrapper}>
@@ -85,8 +85,10 @@ const UserLogo = () => {
             
     </div>
     </button>
-{open && <UserLogoModal  onClose={openDropdown} isOpen={open}/>}
-</>
+    
+{open && <div className={css.modal}><UserLogoModal  onClose={openDropdown} isOpen={open} /></div>}
+
+</div>
   );
 };
 

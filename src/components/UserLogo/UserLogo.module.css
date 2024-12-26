@@ -1,6 +1,16 @@
 /* .headerActions{
   position: relative;
 } */
+ .main {
+  position: relative;
+ }
+ .modal {
+  /* position: absolute; */
+  display: flex;
+   justify-content: flex-start;
+   position: relative;
+   top:-25px;
+ }
 .spanName {
   border: 1px solid black;
   border-radius: 50%;
@@ -36,6 +46,7 @@
     display: flex;
     justify-content: center;
     align-items: center; */
+    /* margin-bottom: 60px; */
 }
 .btn:hover {
   background-color: inherit;
