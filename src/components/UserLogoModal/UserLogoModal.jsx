@@ -11,10 +11,12 @@ export default function UserLogoModal({ isOpen, onClose }) {
   const openModal = modalName => {
     setActivateModal(modalName);
   };
+
   const closeActivateModal = useCallback(() => {
     setActivateModal(null);
     onClose();
   }, [onClose]);
+
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -49,7 +51,7 @@ export default function UserLogoModal({ isOpen, onClose }) {
       window.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = '';
     };
-  }, [onClose, isOpen, activateModal,closeActivateModal]);
+  }, [onClose, isOpen, activateModal]);
 
   const closeModal = () => {
     setActivateModal(null);

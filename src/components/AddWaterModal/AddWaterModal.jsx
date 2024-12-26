@@ -9,7 +9,21 @@ const AddWaterModal = ({ setModalVisible, onClose }) => {
   const [isValid, setIsValid] = useState(true);
   const modalRef = useRef(null);
   const dispatch = useDispatch();
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        setModalVisible(false); // Close modal if Escape is pressed
+      }
+    };
 
+    // Add event listener for Escape key
+    window.addEventListener('keydown', handleEsc);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [setModalVisible]);
   const handleClose = useCallback(() => {
     setModalVisible(false);
   }, [setModalVisible]);
