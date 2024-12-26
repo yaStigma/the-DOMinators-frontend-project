@@ -12,7 +12,7 @@ const EditWaterModal = ({ setModalVisible, waterRecord }) => {
   const modalRef = useRef(null);
   const dispatch = useDispatch();
   const waterRecords = useSelector(selectTodayRecords);
-console.log(time); // для рендера - проверить неоходимоть переменной и убрать
+
 // разбила на 2 еффекта что бы избежать бесконечно загрузки 
   useEffect(() => {
     const fetchRecords = async () => {
