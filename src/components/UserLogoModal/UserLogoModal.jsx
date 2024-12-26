@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import css from './UserLogoModal.module.css';
 import SvgIcons from 'components/SvgIcons/SvgIcons';
 import SettingModal from 'components/SettingModal/SettingModal';
@@ -11,10 +11,10 @@ export default function UserLogoModal({ isOpen, onClose }) {
   const openModal = modalName => {
     setActivateModal(modalName);
   };
-  const closeActivateModal = () => {
+  const closeActivateModal = useCallback(() => {
     setActivateModal(null);
     onClose();
-  };
+  }, [onClose]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
