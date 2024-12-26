@@ -80,7 +80,7 @@
   border: none;
   border-radius: 10px;
   padding: 13px 54px;
-  box-shadow: 0 4px 8px var(--primery-color-blue);
+  box-shadow: 0 4px 8px #407bff57;
   cursor: url("/public/welcomePageFoto/mdi_cursor-pointer.png"), auto;
   transition: box-shadow 300ms linear;
 }

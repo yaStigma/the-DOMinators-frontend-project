@@ -45,12 +45,6 @@ const formatDateTime = time => {
 
 // ЗАПРОСЫ ПО ВОДЕ
 
-
-
-
-
-
-
 // PATCH запрос для обновления записи о воде
 export const updateWaterRecord = createAsyncThunk(
   'water/updateWaterRecord',
@@ -60,21 +54,22 @@ export const updateWaterRecord = createAsyncThunk(
 
     try {
       setAuthHeader(accessToken);
-      const response = await axios.patch(`/water/${recordId}`, { date, amount });
+      const response = await axios.patch(`/water/${recordId}`, {
+        date,
+        amount,
+      });
       toast.success('Successfully updated the water record!');
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message || 'Failed to update water record');
+      toast.error(
+        error.response.data.message || 'Failed to update water record'
+      );
       return thunkAPI.rejectWithValue(error.response.data);
     } finally {
       clearAuthHeader();
     }
   }
 );
-
-
-
-
 
 export const updateDailyNorma = createAsyncThunk(
   'dailyNorma/update',
@@ -104,11 +99,6 @@ export const updateDailyNorma = createAsyncThunk(
   }
 );
 
-
-
-
-
-
 export const fetchDailyNorma = createAsyncThunk(
   'dailyNorma/fetch',
   async (_, thunkAPI) => {
@@ -127,19 +117,6 @@ export const fetchDailyNorma = createAsyncThunk(
     }
   }
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Создание записи о воде
 export const createWaterRecord = createAsyncThunk(
@@ -280,7 +257,7 @@ export const fetchDaysArray = createAsyncThunk(
       const { data } = await axios.get('/water/month', {
         params: { month: months[monthName], year },
       });
-      console.log(data);
+      // console.log(data);
       return data; // Повертаємо отримані дані
     } catch (error) {
       const message = error.response?.data?.message || error.message;

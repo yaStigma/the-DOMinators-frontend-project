@@ -67,7 +67,7 @@ const WaterTracker = () => {
 const userInfo = useSelector(selectUserInfo);
 const data = userInfo?.data || {}; // Если данных нет, используем пустой объект
   const dailyNorma = data.daylyNorm;
-console.log(dailyNorma);
+
 
 //оновлюємо дані при монтуванні
   useEffect(() => {
